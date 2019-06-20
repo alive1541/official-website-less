@@ -23,7 +23,7 @@ export default class Home extends React.Component {
       <div>
         <Head title="KnowledgeBase" />
         <Nav isMobile={isMobile} pathName="index" />
-        <div className="wraper">
+        <div className="index-wraper">
           <h1>什么是体育套利</h1>
           <p className="content">
             <strong>体育套利</strong>

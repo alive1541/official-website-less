@@ -1,3 +1,5 @@
+@import "../../assets/antd-custom.less";
+
 body {
   position: relative;
   padding-bottom: 64px;
@@ -8,11 +10,28 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  margin-top: 60px;
-  height: 64px;
-  padding: 8px 30px;
-  // background-color: #f6f6f6;
-  background-color: #d11f23;
+  background-color: @primary-color;
   color: #ffffff;
   overflow: hidden;
+  text-align: center;
+}
+.footer-content {
+  font-size: 11px;
+  display: flex;
+  height: 64px;
+  justify-content: space-between;
+  max-width: @content-width;
+  line-height: 64px;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .footer-content {
+    display: flex;
+    height: 124px;
+    line-height: 34px;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
 }

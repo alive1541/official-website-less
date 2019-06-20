@@ -1,3 +1,5 @@
+@import "../../assets/antd-custom.less";
+
 *,
 body {
   box-sizing: border-box;
@@ -45,13 +47,13 @@ body {
     margin: 0 10px;
     line-height: 49px;
     font-size: 20px;
-    color: #e80707;
+    color: @primary-color;
   }
   .menu {
     position: absolute;
     top: 89px;
     left: 0;
-    border-top: 3px solid #e80707;
+    border-top: 3px solid @primary-color;
   }
   .menu-item {
     background-color: #f6f6f6;
@@ -115,7 +117,7 @@ body {
   }
   .nav-wraper {
     display: flex;
-    max-width: 1000px;
+    max-width: @content-width;
     margin: 0 auto;
     justify-content: space-between;
     zoom: 1;
@@ -136,7 +138,7 @@ body {
     border-bottom: 3px solid transparent;
     letter-spacing: 1px;
     box-sizing: content-box;
-    dispaly: inline-block;
+    display: inline-block;
     height: 100%;
     line-height: 93px;
     cursor: pointer;
@@ -149,16 +151,16 @@ body {
     width: 130px;
   }
   .menu-item:hover a {
-    color: #e80707;
+    color: @primary-color;
   }
   .menu-item:hover {
-    border-bottom: 3px solid #e80707;
+    border-bottom: 3px solid @primary-color;
   }
   .active {
-    border-bottom: 3px solid #e80707;
+    border-bottom: 3px solid @primary-color;
   }
   .active a {
-    color: #e80707;
+    color: @primary-color;
   }
   .block {
     display: inline-block;
