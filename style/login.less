@@ -1,0 +1,32 @@
+@import "../assets/antd-custom.less";
+
+.login-wraper {
+  padding-top: 130px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding-bottom: @content-bottom-padding;
+}
+
+.login-form-button {
+  width: 300px;
+  margin-right: 30px;
+}
+
+.mycode {
+  float: right;
+  width: 80px;
+  height: 40px;
+  vertical-align: middle;
+  border: solid #999999 1px;
+  border-radius: 10px;
+  box-shadow: #000000 inset 0px 0px 2px;
+}
+
+@media only screen and (max-width: 700px) {
+  .login-wraper {
+    max-width: 85%;
+  }
+  .login-form-button {
+    width: 100%;
+  }
+}

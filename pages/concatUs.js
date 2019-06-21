@@ -8,7 +8,7 @@ const { TextArea } = Input;
 
 import "../style/concatUs.less";
 
-export default class Home extends React.Component {
+export default class ConcatUs extends React.Component {
   static async getInitialProps({ req }) {
     const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
     const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);

@@ -46,6 +46,9 @@ export default class extends React.Component {
   };
   isSelfRouter = className => {
     const pathname = this.props.pathName;
+    if (pathname === undefined) {
+      return false;
+    }
     // const pathname = window.location.pathname.slice(1);
     return new RegExp(pathname).test(className);
   };

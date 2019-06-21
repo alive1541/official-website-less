@@ -1,5 +1,18 @@
 @import "../assets/antd-custom.less";
 
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 490px;
+  padding: 10px 20px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
 .index-wraper {
   text-align: center;
   padding-bottom: @content-bottom-padding;
@@ -21,8 +34,26 @@ h1 {
   letter-spacing: 1.5px;
 }
 
+.index-carousel {
+  display: flex;
+  justify-content: space-between;
+}
+.index-carousel-content {
+  color: #fafafa;
+  line-height: 35px;
+  font-size: 17px;
+  text-align: left;
+  padding-right: 30px;
+}
+.index-carousel-img-wraper img {
+  width: 500px;
+}
+.index-content-btn {
+  width: 15%;
+}
+
 // mobile
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 700px) {
   h1 {
     max-width: 80%;
     font-size: 22px;
@@ -32,5 +63,28 @@ h1 {
   .content {
     max-width: 90%;
     // margin: 0 auto 15px auto;
+  }
+  .index-carousel-wraper {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .index-carousel {
+    flex-direction: column;
+  }
+  .index-carousel-content {
+    width: 100%;
+    color: #747474;
+    line-height: 28px;
+    font-size: 16px;
+    text-align: left;
+    padding-right: 0;
+    margin-bottom: 15px;
+  }
+  .index-carousel-img-wraper img {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .index-content-btn {
+    width: 75%;
   }
 }
