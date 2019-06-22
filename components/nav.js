@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Icon, Button } from "antd";
+import { Icon, Button, Popconfirm } from "antd";
+import { ifLogined, removeCookie } from "../assets/utils";
 import "./style/nav.less";
 
 export default class extends React.Component {
@@ -19,7 +20,6 @@ export default class extends React.Component {
   };
   handleMouseLeave = e => {
     // console.log("handleMouseLeave");
-
     this.setState({ secondMenuVisible: false });
   };
   handleClick = e => {
@@ -59,6 +59,9 @@ export default class extends React.Component {
   handleItemClassName = (classNames, others) => {
     const ifSelf = this.isSelfRouter(classNames);
     return ifSelf ? `menu-item active ${others}` : `menu-item ${others}`;
+  };
+  confirm = () => {
+    removeCookie();
   };
   render() {
     const { menuVisible, secondMenuVisible } = this.state;
@@ -146,11 +149,24 @@ export default class extends React.Component {
           )}
         </div>
         <div className="log">
-          <Button size={size} type="danger" ghost>
-            <Link href={{ pathname: "/login" }}>
-              <a>登录</a>
-            </Link>
-          </Button>
+          {ifLogined() && (
+            <Popconfirm
+              title="是否要退出登录状态?"
+              onConfirm={this.confirm}
+              okText="确认"
+              cancelText="取消"
+            >
+              <a href="#">退出登录</a>
+            </Popconfirm>
+          )}
+          {!ifLogined() && (
+            <Button size={size} type="danger" ghost>
+              <Link href={{ pathname: "/login" }}>
+                <a>登录</a>
+              </Link>
+            </Button>
+          )}
+
           <span className="spacing-x" />
           <Button size={size}>
             <Link href={{ pathname: "/sign" }}>

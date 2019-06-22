@@ -3,8 +3,11 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
-import { Form, Icon, Input, Button, Row, Col } from "antd";
+import { Form, Icon, Input, Button, Row, Col, message } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
+import { sign } from "../service";
+import Router from "next/router";
+import md5 from "js-md5";
 
 import "../style/sign.less";
 
@@ -31,7 +34,28 @@ class Sign extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        sign({
+          user_name: values.user_name,
+          password: md5(values.password),
+          mail: values.mail
+        })
+          .then(function(response) {
+            if (response.code === 2000) {
+              message.info(response.msg);
+              Router.push({
+                pathname: "/login",
+                query: {
+                  user_name: values.user_name,
+                  mail: values.mail
+                }
+              });
+            } else {
+              message.error(response.msg);
+            }
+          })
+          .catch(function(error) {
+            message.error("服务器开小差了，请稍后再试");
+          });
       }
     });
   };
@@ -64,9 +88,11 @@ class Sign extends React.Component {
         <div className="sign-wraper">
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item label="账号">
-              {getFieldDecorator("username", {
+              {getFieldDecorator("user_name", {
                 rules: [
-                  { required: true, message: "Please input your username!" }
+                  { required: true, message: "请输入用户名!" },
+                  { max: 20, message: "用户名不能超过20个字符!" },
+                  { min: 4, message: "用户名不能少于4个字符!" }
                 ]
               })(
                 <Input
@@ -74,7 +100,7 @@ class Sign extends React.Component {
                     <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                   }
                   size="large"
-                  placeholder="Username"
+                  placeholder="4-20位"
                 />
               )}
             </Form.Item>
@@ -83,11 +109,13 @@ class Sign extends React.Component {
                 rules: [
                   {
                     required: true,
-                    message: "Please input your password!"
+                    message: "请输入密码!"
                   },
                   {
                     validator: this.validateToNextPassword
-                  }
+                  },
+                  { max: 20, message: "密码不能超过20个字符!" },
+                  { min: 4, message: "密码不能少于4个字符!" }
                 ]
               })(
                 <Input
@@ -96,7 +124,7 @@ class Sign extends React.Component {
                   }
                   type="password"
                   size="large"
-                  placeholder="Password"
+                  placeholder="4-20位"
                 />
               )}
             </Form.Item>
@@ -105,7 +133,7 @@ class Sign extends React.Component {
                 rules: [
                   {
                     required: true,
-                    message: "Please input your password!"
+                    message: "请输入确认密码!"
                   },
                   {
                     validator: this.compareToFirstPassword
@@ -118,7 +146,7 @@ class Sign extends React.Component {
                   }
                   type="password"
                   size="large"
-                  placeholder="Password"
+                  placeholder="请输入确认密码"
                 />
               )}
             </Form.Item>
@@ -134,7 +162,7 @@ class Sign extends React.Component {
                       />
                     }
                     size="large"
-                    placeholder="Username"
+                    placeholder="请输入验证码"
                   />
                 </Col>
                 <Col span={6}>
@@ -143,18 +171,18 @@ class Sign extends React.Component {
               </Row>
             </Form.Item>
             <Form.Item label="邮箱">
-              {getFieldDecorator("email", {
+              {getFieldDecorator("mail", {
                 rules: [
                   {
                     type: "email",
-                    message: "The input is not valid E-mail!"
+                    message: "请输入正确的邮箱!"
                   },
                   {
                     required: true,
-                    message: "Please input your E-mail!"
+                    message: "请输入邮箱!"
                   }
                 ]
-              })(<Input size="large" />)}
+              })(<Input size="large" placeholder="请输入邮箱" />)}
             </Form.Item>
             <Form.Item>
               <Button

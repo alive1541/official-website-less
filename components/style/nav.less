@@ -49,7 +49,7 @@ body {
     line-height: 49px;
   }
   .nav-icon-wrap {
-    margin: 0 10px;
+    margin: 0 15px;
     line-height: 49px;
     font-size: 20px;
     color: @primary-color;
@@ -163,6 +163,8 @@ body {
     border-bottom: 3px solid @primary-color;
   }
   .active {
+    // position: relative;
+    // z-index: 99999;
     border-bottom: 3px solid @primary-color;
   }
   .active a {
@@ -174,8 +176,11 @@ body {
     width: 45px;
   }
   .second-menu {
-    margin-top: 4px;
-    background-color: #f2efef;
+    // position: relative;
+    // z-index: 1;
+    // padding-top: 4px;
+    border-top: 4px solid transparent;
+    background-color: transparent;
     color: #333;
     font-size: 14px;
   }

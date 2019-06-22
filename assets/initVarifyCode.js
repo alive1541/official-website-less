@@ -96,7 +96,7 @@ export default function(input) {
       //验证回调函数
       if (result) {
         // alert("验证成功");
-        message.success("验证成功");
+        // message.success("验证成功");
       } else {
         message.error("验证码错误");
       }

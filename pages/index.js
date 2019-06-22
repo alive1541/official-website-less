@@ -4,6 +4,7 @@ import Nav from "../components/nav";
 import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
 import { Carousel, Button } from "antd";
+import Router from "next/router";
 
 import "../style/index.less";
 
@@ -146,7 +147,14 @@ export default class Home extends React.Component {
             2、然后登录好每个网站，并打开我们网站。当机会刷新的时候，分别在相应的网站找到相应的比赛下单。注意，下单时要检查确认网站比赛和你刷新的比赛赔率等都一致。
           </p>
           <p className="content">3、接下来就是等待比赛结束网站回款了。</p>
-          <Button className="index-content-btn" type="primary" size="large">
+          <Button
+            className="index-content-btn"
+            type="primary"
+            size="large"
+            onClick={() => {
+              Router.push("/concatUs");
+            }}
+          >
             查看套利机会
           </Button>
         </div>

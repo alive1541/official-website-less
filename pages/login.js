@@ -5,6 +5,9 @@ import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
 import { Form, Icon, Input, Button, Row, Col } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
+import { login } from "../service";
+import Router from "next/router";
+import { setCookie } from "../assets/utils";
 
 import "../style/login.less";
 
@@ -27,7 +30,22 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        login(values)
+          .then(function(response) {
+            if (response.code === 2000) {
+              message.info(response.msg);
+              setCookie(response.data);
+              Router.push({
+                pathname: "/index"
+              });
+            } else {
+              message.info(response.msg);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+            message.error("服务器开小差了，请稍后再试");
+          });
       }
     });
   };
@@ -43,7 +61,7 @@ class Login extends React.Component {
         <div className="login-wraper">
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item label="账号/邮箱">
-              {getFieldDecorator("username", {
+              {getFieldDecorator("user_name", {
                 rules: [
                   { required: true, message: "Please input your username!" }
                 ]
@@ -53,14 +71,14 @@ class Login extends React.Component {
                     <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                   }
                   size="large"
-                  placeholder="Username"
+                  placeholder="4-20位"
                 />
               )}
             </Form.Item>
             <Form.Item label="密码">
               {getFieldDecorator("password", {
                 rules: [
-                  { required: true, message: "Please input your Password!" }
+                  { required: true, message: "Please input your password!" }
                 ]
               })(
                 <Input
@@ -69,7 +87,7 @@ class Login extends React.Component {
                   }
                   type="password"
                   size="large"
-                  placeholder="Password"
+                  placeholder="4-20位"
                 />
               )}
             </Form.Item>
@@ -85,7 +103,7 @@ class Login extends React.Component {
                       />
                     }
                     size="large"
-                    placeholder="Username"
+                    placeholder="请输入验证码"
                   />
                 </Col>
                 <Col span={6}>
