@@ -61,7 +61,7 @@ export default class ConcatUs extends React.Component {
     const { mail, msg } = this.state;
     return (
       <div>
-        <Head title="ConcatUs" />
+        <Head />
         <Nav isMobile={isMobile} pathName="concatUs" />
         <div className="contract-wraper">
           <h2 className="contract-email">我们的邮箱：18810552193@163.com</h2>

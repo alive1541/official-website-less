@@ -5,7 +5,8 @@ import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
 import { Radio, Table, Button, message } from "antd";
 import { getHistoryData, getCurrentData } from "../service";
-import { ifLogined } from "../assets/utils";
+import { ifLogined, setTableKey } from "../assets/utils";
+import Router from "next/router";
 
 import "../style/subscribe.less";
 
@@ -19,7 +20,7 @@ export default class Service extends React.Component {
     try {
       const historyData = await getHistoryData({ page_no: 1 });
       if (historyData.code === 2000) {
-        return { isMobile, historyData: historyData.data };
+        return { isMobile, historyData: setTableKey(historyData.data) };
       } else {
         return { isMobile, historyData: [] };
       }
@@ -33,7 +34,8 @@ export default class Service extends React.Component {
     super(props);
     this.state = {
       mode: "history",
-      data: props.historyData
+      data: props.historyData.list,
+      total: props.historyData.total_num
     };
   }
 
@@ -56,7 +58,7 @@ export default class Service extends React.Component {
     this.getCurrentData();
     window.timer = setInterval(() => {
       this.getCurrentData();
-    }, 1000);
+    }, 60 * 1000);
   };
 
   getCurrentData = () => {
@@ -64,7 +66,7 @@ export default class Service extends React.Component {
     getCurrentData()
       .then(function(response) {
         if (response.code === 2000) {
-          _this.setState({ data: response.data });
+          _this.setState({ data: setTableKey(response.data) });
         } else {
           message.info(response.msg);
         }
@@ -75,14 +77,17 @@ export default class Service extends React.Component {
       });
   };
 
-  getHistoryData = () => {
+  getHistoryData = (page_no = 1) => {
     const _this = this;
     getHistoryData({
-      page_no: 1
+      page_no
     })
       .then(function(response) {
         if (response.code === 2000) {
-          _this.setState({ data: response.data });
+          _this.setState({
+            total: response.data.total_num,
+            data: setTableKey(response.data).list
+          });
         } else {
           message.info(response.msg);
         }
@@ -93,8 +98,10 @@ export default class Service extends React.Component {
       });
   };
 
-  pageChange = (...args) => {
-    console.log(args);
+  pageChange = val => {
+    const { current, total } = val;
+    this.setState({ total });
+    this.getHistoryData(current);
   };
 
   componentWillUnmount() {
@@ -103,10 +110,11 @@ export default class Service extends React.Component {
 
   render() {
     const { isMobile } = this.props;
-    const { mode, data } = this.state;
+    const { mode, data, total } = this.state;
+    const ifHasBorder = isMobile ? true : false;
     return (
       <div>
-        <Head title="Subscribe" />
+        <Head />
         <Nav isMobile={isMobile} pathName="subscribe" />
 
         <div className="subscribe-wraper">
@@ -120,32 +128,42 @@ export default class Service extends React.Component {
               <Radio.Button value="current">实时套利机会</Radio.Button>
             </Radio.Group>
           </div>
-          {mode === "current" && ifLogined() && (
+          {mode === "current" && !ifLogined() && (
             <p className="subcribe-info">
               您还没有订阅该产品，当前只能展示一个套利机会
             </p>
           )}
           {mode === "history" && (
             <Table
+              bordered={ifHasBorder}
               onChange={this.pageChange}
               columns={columns}
               dataSource={data}
+              pagination={{ defaultCurrent: 1, total }}
             />
           )}
           {mode === "current" && (
             <Table
+              bordered={ifHasBorder}
               onChange={this.pageChange}
               columns={columns}
               dataSource={data}
               pagination={false}
             />
           )}
-          {mode === "current" && ifLogined() && (
+          {mode === "current" && !ifLogined() && (
             <p className="subcribe-info-sign">
               <span className="subscribe-info-sing-content">
                 想获得更多更实时的机会吗？快点点击免费注册按钮注册吧，注册成功即可查看所有实时机会
               </span>
-              <Button type="primary">免费注册</Button>
+              <Button
+                type="primary"
+                onClick={() => {
+                  Router.push("/sign");
+                }}
+              >
+                免费注册
+              </Button>
             </p>
           )}
         </div>
@@ -158,8 +176,8 @@ export default class Service extends React.Component {
 const columns = [
   {
     title: "机会",
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "oppertunity",
+    key: "oppertunity",
     render: (text, row, index) => {
       const { game_time, game_teams } = row;
       return (
@@ -217,8 +235,8 @@ const columns = [
   },
   {
     title: "方向",
-    dataIndex: "age",
-    key: "age",
+    dataIndex: "second_choice",
+    key: "second_choice",
     render: (text, row, index) => {
       const { second_choice, play_type } = row;
       let book = {};
@@ -238,8 +256,8 @@ const columns = [
   },
   {
     title: "建议购买金额(赔率)",
-    dataIndex: "address",
-    key: "address",
+    dataIndex: "second_obbs",
+    key: "second_obbs",
     render: (text, row, index) => {
       const { second_amount, second_obbs } = row;
       return (
@@ -256,27 +274,3 @@ const columns = [
     key: "expected_min_profit"
   }
 ];
-
-// const data = [
-//   {
-//     key: "1",
-//     name: "John Brown",
-//     age: 32,
-//     address: "New York No. 1 Lake Park",
-//     tags: ["nice", "developer"]
-//   }
-//   // {
-//   //   key: "2",
-//   //   name: "Jim Green",
-//   //   age: 42,
-//   //   address: "London No. 1 Lake Park",
-//   //   tags: ["loser"]
-//   // },
-//   // {
-//   //   key: "3",
-//   //   name: "Joe Black",
-//   //   age: 32,
-//   //   address: "Sidney No. 1 Lake Park",
-//   //   tags: ["cool", "teacher"]
-//   // }
-// ];

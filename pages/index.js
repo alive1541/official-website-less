@@ -22,7 +22,7 @@ export default class Home extends React.Component {
     const { isMobile } = this.props;
     return (
       <div>
-        <Head title="KnowledgeBase" />
+        <Head />
         <Nav isMobile={isMobile} pathName="index" />
         <div className="index-wraper">
           <h1>什么是体育套利</h1>
@@ -152,7 +152,7 @@ export default class Home extends React.Component {
             type="primary"
             size="large"
             onClick={() => {
-              Router.push("/concatUs");
+              Router.push("/subscribe");
             }}
           >
             查看套利机会

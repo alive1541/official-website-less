@@ -21,7 +21,7 @@ export default class Home extends React.Component {
     const { isMobile } = this.props;
     return (
       <div>
-        <Head title="OrderService" />
+        <Head />
         <Nav isMobile={isMobile} pathName="orderService" />
         <div className="order-wraper">
           <div>

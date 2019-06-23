@@ -3,11 +3,12 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
-import { Form, Icon, Input, Button, Row, Col } from "antd";
+import { Form, Icon, Input, Button, Row, Col, message } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
 import { login } from "../service";
 import Router from "next/router";
 import { setCookie } from "../assets/utils";
+import md5 from "js-md5";
 
 import "../style/login.less";
 
@@ -29,8 +30,12 @@ class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+      const { user_name, password } = values;
       if (!err) {
-        login(values)
+        login({
+          user_name,
+          password: md5(password)
+        })
           .then(function(response) {
             if (response.code === 2000) {
               message.info(response.msg);
@@ -56,7 +61,7 @@ class Login extends React.Component {
 
     return (
       <div>
-        <Head title="login" />
+        <Head />
         <Nav isMobile={isMobile} />
         <div className="login-wraper">
           <Form onSubmit={this.handleSubmit} className="login-form">

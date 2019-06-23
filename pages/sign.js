@@ -83,7 +83,7 @@ class Sign extends React.Component {
 
     return (
       <div>
-        <Head title="sign" />
+        <Head />
         <Nav isMobile={isMobile} />
         <div className="sign-wraper">
           <Form onSubmit={this.handleSubmit} className="login-form">

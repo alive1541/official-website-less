@@ -5,11 +5,14 @@ import { string } from "prop-types";
 const defaultDescription = "";
 const defaultOGURL = "";
 const defaultOGImage = "";
+const defaultTitle = "体育套利";
+const defaultKeywords = "打水|足彩对冲|rebelbetting|利润盘|博彩网站";
 
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />
-    <title>{props.title || ""}</title>
+    <title>{props.title || defaultTitle}</title>
+    <meta name="keywords" content={props.keywords || defaultKeywords} />
     <meta
       name="description"
       content={props.description || defaultDescription}
