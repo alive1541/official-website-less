@@ -9,7 +9,7 @@ export function removeCookie() {
 }
 
 export function setCookie(value, options) {
-  let seconds = 60;
+  let seconds = 30 * 60;
   let expires = new Date(new Date() * 1 + seconds * 1000);
   if (value) {
     return Cookies.set("token", value, options || { expires });
