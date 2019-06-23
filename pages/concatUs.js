@@ -36,7 +36,6 @@ export default class ConcatUs extends React.Component {
     const { mail, msg } = this.state;
     msgSubmit({ mail, msg })
       .then(function(response) {
-        console.log(response);
         if (response.code === 2000) {
           message.info(response.msg);
           _this.resetState();
