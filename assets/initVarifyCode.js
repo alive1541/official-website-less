@@ -1,7 +1,6 @@
 import KinerCode from "./varifyCode.js";
-import { message } from "antd";
 
-export default function(input) {
+export default function(input, ctx) {
   const chars = [
     1,
     2,
@@ -95,11 +94,13 @@ export default function(input) {
     validateFn: function(result, code) {
       //验证回调函数
       if (result) {
-        // alert("验证成功");
+        ctx.state.varifyCode = true;
         // message.success("验证成功");
       } else {
-        message.error("验证码错误");
+        // message.error("验证码错误");
+        ctx.state.varifyCode = false;
       }
+      return true;
     }
   });
 }

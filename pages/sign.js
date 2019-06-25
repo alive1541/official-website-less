@@ -22,13 +22,23 @@ class Sign extends React.Component {
   }
 
   state = {
-    confirmDirty: false
+    confirmDirty: false,
+    varifyCode: false
   };
 
   componentDidMount() {
     const input = this.refs["inputCode"].input;
-    initVarifyCode(input);
+    initVarifyCode(input, this);
   }
+
+  ifAccessVarify = () => {
+    if (this.state.varifyCode) {
+      return true;
+    } else {
+      message.error("验证码错误");
+      return false;
+    }
+  };
 
   handleSubmit = e => {
     e.preventDefault();

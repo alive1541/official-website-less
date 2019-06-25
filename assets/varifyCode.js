@@ -184,8 +184,8 @@ KinerCode.prototype.bind = function() {
       self.opt.validateFn.call(self, self.validate(), self.myCode);
       if (self.opt.false2refresh && !self.validate()) {
         self.refresh();
-        self.opt.inputArea.focus();
-        self.opt.inputArea.select();
+        // self.opt.inputArea.focus();
+        // self.opt.inputArea.select();
       }
     }
   );
