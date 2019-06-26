@@ -39,12 +39,27 @@ export default class Service extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const hash = window.location.hash;
+    if (hash === "#current") {
+      this.setState({ mode: "current" });
+      this.setCurrentInterval();
+    }
+  }
+
+  setHash = curHash => {
+    const url = window.location.href.replace(/#[\S\s]*$/g, "");
+    window.location.href = url + curHash;
+  };
+
   handleModeChange = e => {
+    this.clearInterval();
     const mode = e.target.value;
     if (mode === "current") {
+      this.setHash("#current");
       this.setCurrentInterval();
     } else if (mode == "history") {
-      this.clearInterval();
+      this.setHash("#history");
       this.getHistoryData();
     }
     this.setState({ mode });

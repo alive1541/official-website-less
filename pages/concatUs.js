@@ -63,7 +63,9 @@ export default class ConcatUs extends React.Component {
         <Head />
         <Nav isMobile={isMobile} pathName="concatUs" />
         <div className="contract-wraper">
-          <h2 className="contract-email">我们的邮箱：18810552193@163.com</h2>
+          <h2 className="contract-email">
+            我们的邮箱：Opportech.service@gmail.com
+          </h2>
           <h2 className="contract-info">提交意见反馈并留下您的联系方式</h2>
           <TextArea
             value={msg}
