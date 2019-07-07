@@ -2,8 +2,9 @@ import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
+import Interest from "../components/calculator/interest";
 import initReactFastclick from "react-fastclick";
-import { Radio, Table, Button, message } from "antd";
+import { Radio, Table, Button, message, Modal, Checkbox, Icon } from "antd";
 import { getHistoryData, getCurrentData } from "../service";
 import { ifLogined, setTableKey } from "../assets/utils";
 import Router from "next/router";
@@ -35,7 +36,8 @@ export default class Service extends React.Component {
     this.state = {
       mode: "history",
       data: props.historyData.list,
-      total: props.historyData.total_num
+      total: props.historyData.total_num,
+      webFilterVisible: false
     };
   }
 
@@ -62,7 +64,17 @@ export default class Service extends React.Component {
       this.setHash("#history");
       this.getHistoryData();
     }
-    this.setState({ mode });
+    this.setState({ data: [], mode });
+  };
+
+  caculateClick = () => {
+    Router.push({
+      pathname: "/calculator"
+    });
+  };
+
+  webFilterClick = () => {
+    this.setState({ webFilterVisible: true });
   };
 
   clearInterval = () => {
@@ -119,20 +131,82 @@ export default class Service extends React.Component {
     this.getHistoryData(current);
   };
 
+  handleWebFilterOk = () => {
+    this.setState({ webFilterVisible: false });
+  };
+
+  handleWebFilterCancel = () => {
+    this.setState({ webFilterVisible: false });
+  };
+
+  webFilterChange = checkedValue => {
+    console.log(111, checkedValue);
+  };
+
+  handleWebsiteData = () => {
+    const options = [];
+    const values = [];
+    testWebData.forEach(item => {
+      if (item.is_focus) {
+        values.push(item.website_code);
+      }
+      options.push({
+        label: item.website_name,
+        value: item.website_code
+      });
+    });
+    console.log("values", values);
+    return { options, values };
+  };
+
+  addHandlerToColumns = () => {
+    if (columns[columns.length - 1].key === "expected_min_profit") {
+      columns.push({
+        title: "操作",
+        // dataIndex: "second_obbs",
+        // key: "second_obbs",
+        render: (text, row, index) => {
+          return (
+            <div>
+              <Icon
+                type="calculator"
+                style={{ color: "red" }}
+                onClick={() => this.handleClickMobile()}
+              />
+              <Icon
+                style={{ color: "red" }}
+                type="plus"
+                onClick={() => handleClickAdd(index)}
+              />
+            </div>
+          );
+        }
+      });
+    }
+  };
+
   componentWillUnmount() {
     this.clearInterval();
   }
 
   render() {
     const { isMobile } = this.props;
-    const { mode, data, total } = this.state;
+    const { mode, data, total, webFilterVisible } = this.state;
     const ifHasBorder = isMobile ? true : false;
+    const { options, values } = this.handleWebsiteData();
+    let style = {};
+    let ifHasInterest;
+    if (mode === "current" && ifLogined()) {
+      style = { maxWidth: "55%" };
+      ifHasInterest = true;
+      this.addHandlerToColumns();
+    }
     return (
       <div>
         <Head />
         <Nav isMobile={isMobile} pathName="subscribe" />
 
-        <div className="subscribe-wraper">
+        <div className="subscribe-wraper" style={style}>
           <div className="subscribe-tab">
             <Radio.Group
               onChange={this.handleModeChange}
@@ -141,7 +215,27 @@ export default class Service extends React.Component {
             >
               <Radio.Button value="history">历史套利机会</Radio.Button>
               <Radio.Button value="current">实时套利机会</Radio.Button>
-            </Radio.Group>
+            </Radio.Group>{" "}
+            {!isMobile && (
+              <Button
+                shape="round"
+                icon="calculator"
+                type="link"
+                onClick={this.caculateClick}
+              >
+                计算器
+              </Button>
+            )}{" "}
+            {!isMobile && (
+              <Button
+                shape="round"
+                icon="filter"
+                type="link"
+                onClick={this.webFilterClick}
+              >
+                网站过滤器
+              </Button>
+            )}
           </div>
           {mode === "current" && !ifLogined() && (
             <p className="subcribe-info">
@@ -183,10 +277,93 @@ export default class Service extends React.Component {
           )}
         </div>
         <Footer />
+        {ifHasInterest && <Interest data={testData} />}
+        <Modal
+          title="网站过滤器"
+          visible={webFilterVisible}
+          onOk={this.handleWebFilterOk}
+          onCancel={this.handleWebFilterCancel}
+        >
+          <Checkbox.Group
+            options={options}
+            defaultValue={values}
+            onChange={this.webFilterChange}
+          />
+        </Modal>
       </div>
     );
   }
 }
+
+const testWebData = [
+  { website_code: "betWay", website_name: "必威", is_focus: true },
+  { website_code: "liji", website_name: "liji", is_focus: false }
+];
+
+const testData = [
+  {
+    chance_id: "q",
+    game_time: "20190501 23:40",
+    host_name: "A队",
+    custom_name: "客队",
+    first_website: "betway",
+    first_obbs: 1.5,
+    first_amount: 1000,
+    first_plate_name: "主让0.5",
+    first_profit: 20,
+    first_website_name: "必威1",
+    first_place_bet_url: "http://www.xxx.com",
+    first_win_return: 123.0,
+    second_website: "liji",
+    second_choice: "left",
+    second_obbs: 1.1,
+    second_amount: 1000,
+    second_plate_name: "客负0.5",
+    second_profit: 25,
+    second_website_name: "立即",
+    second_place_bet_url: "http://www/xxy.com",
+    second_win_return: 123,
+    play_type_name: "全场",
+    min_profit: 800,
+    max_profit: 1000,
+    last_update_time: "23:45:12",
+    total_amount: 222,
+    profit_rate: 0.207,
+    game_name: "世界杯",
+    game_type_name: "全场"
+  },
+  {
+    chance_id: "q",
+    game_time: "20190501 23:40",
+    host_name: "A队",
+    custom_name: "客队",
+    first_website: "betway",
+    first_obbs: 1.5,
+    first_amount: 1000,
+    first_plate_name: "主让0.5",
+    first_profit: 20,
+    first_website_name: "必威2",
+    first_place_bet_url: "http://www.xxx.com",
+    first_win_return: 123.0,
+    second_website: "liji",
+    second_choice: "left",
+    second_obbs: 1.1,
+    second_amount: 1000,
+    second_plate_name: "客负0.5",
+    second_profit: 25,
+    second_website_name: "立即",
+    second_place_bet_url: "http://www/xxy.com",
+    second_win_return: 123,
+    play_type: 0,
+    min_profit: 800,
+    max_profit: 1000,
+    last_update_time: "23:45:12",
+    total_amount: 222,
+    profit_rate: 0.207,
+    game_name: "世界杯",
+    game_type_name: "全场"
+  }
+];
 
 const columns = [
   {

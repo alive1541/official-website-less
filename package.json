@@ -18,6 +18,7 @@
     "next": "^8.1.0",
     "null-loader": "2.0.0",
     "react": "^16.8.6",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
     "react-fastclick": "^3.0.2"
   },
