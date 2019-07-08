@@ -27,7 +27,7 @@ class Main extends Component {
     const style = {
       position: "fixed",
       top: "25px",
-      left: "25px"
+      left: isMobile ? "95px" : "25px"
     };
     return <div style={style}>{show && <Spin size="large" />}</div>;
   }
@@ -36,8 +36,12 @@ class Main extends Component {
 function isBrowser() {
   return process.browser;
 }
+
 let Box;
+let isMobile;
 if (isBrowser()) {
+  isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent);
+
   // 创建元素追加到body
   let div = window.document.createElement("div");
   let props = {};
