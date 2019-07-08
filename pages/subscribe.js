@@ -5,7 +5,14 @@ import Footer from "../components/footer";
 import Interest from "../components/calculator/interest";
 import initReactFastclick from "react-fastclick";
 import { Radio, Table, Button, message, Modal, Checkbox, Icon } from "antd";
-import { getHistoryData, getCurrentData } from "../service";
+import {
+  getHistoryData,
+  getCurrentData,
+  changeFocusChance,
+  changeFocusWebsite,
+  getFocusList,
+  realtimeGameInfoList
+} from "../service";
 import { ifLogined, setTableKey } from "../assets/utils";
 import Router from "next/router";
 
@@ -37,7 +44,10 @@ export default class Service extends React.Component {
       mode: "history",
       data: props.historyData.list,
       total: props.historyData.total_num,
-      webFilterVisible: false
+      webFilterVisible: false,
+      webSitesAll: [],
+      webSitesSelected: [],
+      interestData: []
     };
   }
 
@@ -46,6 +56,36 @@ export default class Service extends React.Component {
     if (hash === "#current") {
       this.setState({ mode: "current" });
       this.setCurrentInterval();
+      this.setInterestInterval();
+    }
+  }
+
+  keepActiveChange = checked => {
+    if (checked) {
+      this.setInterestInterval();
+    } else {
+      this.clearInterestTimer();
+    }
+  };
+
+  async setInterestInterval() {
+    this.getInterestData();
+    window.interestTimer = window.setInterval(
+      () => this.getInterestData(),
+      5 * 1000
+    );
+  }
+
+  async getInterestData() {
+    try {
+      const response = await realtimeGameInfoList();
+      if (response.code === 2000) {
+        this.setState({ interestData: response.data });
+      } else {
+        message.error(response.msg);
+      }
+    } catch (e) {
+      message.error(e);
     }
   }
 
@@ -55,10 +95,11 @@ export default class Service extends React.Component {
   };
 
   handleModeChange = e => {
-    this.clearInterval();
+    this.clearAllInterval();
     const mode = e.target.value;
     if (mode === "current") {
       this.setHash("#current");
+      this.setCurrentInterval();
       this.setCurrentInterval();
     } else if (mode == "history") {
       this.setHash("#history");
@@ -73,12 +114,38 @@ export default class Service extends React.Component {
     });
   };
 
-  webFilterClick = () => {
+  async webFilterClick() {
+    getFocusList().then(response => {
+      if (response.code === 2000) {
+        const data = response.data;
+        this.setState({
+          webSitesAll: data.map(v => {
+            return { label: v.website_name, value: v.website_code };
+          }),
+          webSitesSelected: data.map(v => {
+            if (v.is_focus === true) {
+              return v.website_code;
+            }
+          })
+        });
+      } else {
+        message.error("获取网站失败");
+      }
+    });
     this.setState({ webFilterVisible: true });
+  }
+
+  clearAllInterval = () => {
+    this.clearTimer();
+    this.clearInterestTimer();
   };
 
-  clearInterval = () => {
+  clearTimer = () => {
     window.clearInterval(window.timer);
+  };
+
+  clearInterestTimer = () => {
+    window.clearInterval(window.interestTimer);
   };
 
   setCurrentInterval = () => {
@@ -140,23 +207,7 @@ export default class Service extends React.Component {
   };
 
   webFilterChange = checkedValue => {
-    console.log(111, checkedValue);
-  };
-
-  handleWebsiteData = () => {
-    const options = [];
-    const values = [];
-    testWebData.forEach(item => {
-      if (item.is_focus) {
-        values.push(item.website_code);
-      }
-      options.push({
-        label: item.website_name,
-        value: item.website_code
-      });
-    });
-    console.log("values", values);
-    return { options, values };
+    this.setState({ webSitesSelected: checkedValue });
   };
 
   addHandlerToColumns = () => {
@@ -171,12 +222,12 @@ export default class Service extends React.Component {
               <Icon
                 type="calculator"
                 style={{ color: "red" }}
-                onClick={() => this.handleClickMobile()}
-              />
+                onClick={() => this.handleClickMobile(row)}
+              />{" "}
               <Icon
                 style={{ color: "red" }}
                 type="plus"
-                onClick={() => handleClickAdd(index)}
+                onClick={() => this.handleClickAdd(row)}
               />
             </div>
           );
@@ -185,15 +236,87 @@ export default class Service extends React.Component {
     }
   };
 
+  handleClickMobile = row => {
+    const { first_obbs, second_obbs, game_time, play_type_name } = row;
+    Router.push({
+      pathname: "/calculator",
+      query: {
+        first_obbs,
+        second_obbs,
+        game_time,
+        play_type_name
+      }
+    });
+  };
+
+  handleClickAdd = async row => {
+    const ifSuccess = await this.changeFocusChanceInterface(row, 0);
+    if (ifSuccess) {
+      this.getInterestData();
+    }
+  };
+
+  changeFocusChanceInterface = async (row, operation) => {
+    const { chance_id, game_time } = row;
+    try {
+      let response = await changeFocusChance({
+        operation,
+        chance_id,
+        game_time
+      });
+      if (response.code === 2000) {
+        message.info(response.msg);
+        return true;
+      } else {
+        message.error(response.msg);
+      }
+    } catch (e) {
+      message.error(e);
+    }
+    return false;
+  };
+
+  async sentWebsite() {
+    const { webSitesSelected } = this.state;
+    try {
+      let response = await changeFocusWebsite({
+        website_list_str: webSitesSelected.join("::")
+      });
+      if (response.code === 2000) {
+        message.info(response.msg);
+        this.handleWebFilterCancel();
+      } else {
+        message.error(response.msg);
+      }
+    } catch (e) {
+      message.error(e);
+    }
+  }
+
+  deleteInterestItem = async item => {
+    console.log("item", item);
+    const ifSuccess = await this.changeFocusChanceInterface(item, 1);
+    if (ifSuccess) {
+      this.getInterestData();
+    }
+  };
+
   componentWillUnmount() {
-    this.clearInterval();
+    this.clearAllInterval();
   }
 
   render() {
     const { isMobile } = this.props;
-    const { mode, data, total, webFilterVisible } = this.state;
+    const {
+      mode,
+      data,
+      total,
+      webFilterVisible,
+      webSitesAll,
+      webSitesSelected,
+      interestData
+    } = this.state;
     const ifHasBorder = isMobile ? true : false;
-    const { options, values } = this.handleWebsiteData();
     let style = {};
     let ifHasInterest;
     if (mode === "current" && ifLogined()) {
@@ -231,7 +354,7 @@ export default class Service extends React.Component {
                 shape="round"
                 icon="filter"
                 type="link"
-                onClick={this.webFilterClick}
+                onClick={() => this.webFilterClick()}
               >
                 网站过滤器
               </Button>
@@ -277,16 +400,22 @@ export default class Service extends React.Component {
           )}
         </div>
         <Footer />
-        {ifHasInterest && <Interest data={testData} />}
+        {ifHasInterest && (
+          <Interest
+            data={interestData}
+            keepActiveChange={this.keepActiveChange}
+            deleteInterestItem={this.deleteInterestItem}
+          />
+        )}
         <Modal
           title="网站过滤器"
           visible={webFilterVisible}
-          onOk={this.handleWebFilterOk}
+          onOk={() => this.sentWebsite()}
           onCancel={this.handleWebFilterCancel}
         >
           <Checkbox.Group
-            options={options}
-            defaultValue={values}
+            options={webSitesAll}
+            value={webSitesSelected}
             onChange={this.webFilterChange}
           />
         </Modal>
@@ -294,76 +423,6 @@ export default class Service extends React.Component {
     );
   }
 }
-
-const testWebData = [
-  { website_code: "betWay", website_name: "必威", is_focus: true },
-  { website_code: "liji", website_name: "liji", is_focus: false }
-];
-
-const testData = [
-  {
-    chance_id: "q",
-    game_time: "20190501 23:40",
-    host_name: "A队",
-    custom_name: "客队",
-    first_website: "betway",
-    first_obbs: 1.5,
-    first_amount: 1000,
-    first_plate_name: "主让0.5",
-    first_profit: 20,
-    first_website_name: "必威1",
-    first_place_bet_url: "http://www.xxx.com",
-    first_win_return: 123.0,
-    second_website: "liji",
-    second_choice: "left",
-    second_obbs: 1.1,
-    second_amount: 1000,
-    second_plate_name: "客负0.5",
-    second_profit: 25,
-    second_website_name: "立即",
-    second_place_bet_url: "http://www/xxy.com",
-    second_win_return: 123,
-    play_type_name: "全场",
-    min_profit: 800,
-    max_profit: 1000,
-    last_update_time: "23:45:12",
-    total_amount: 222,
-    profit_rate: 0.207,
-    game_name: "世界杯",
-    game_type_name: "全场"
-  },
-  {
-    chance_id: "q",
-    game_time: "20190501 23:40",
-    host_name: "A队",
-    custom_name: "客队",
-    first_website: "betway",
-    first_obbs: 1.5,
-    first_amount: 1000,
-    first_plate_name: "主让0.5",
-    first_profit: 20,
-    first_website_name: "必威2",
-    first_place_bet_url: "http://www.xxx.com",
-    first_win_return: 123.0,
-    second_website: "liji",
-    second_choice: "left",
-    second_obbs: 1.1,
-    second_amount: 1000,
-    second_plate_name: "客负0.5",
-    second_profit: 25,
-    second_website_name: "立即",
-    second_place_bet_url: "http://www/xxy.com",
-    second_win_return: 123,
-    play_type: 0,
-    min_profit: 800,
-    max_profit: 1000,
-    last_update_time: "23:45:12",
-    total_amount: 222,
-    profit_rate: 0.207,
-    game_name: "世界杯",
-    game_type_name: "全场"
-  }
-];
 
 const columns = [
   {

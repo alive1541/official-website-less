@@ -11,13 +11,12 @@ export default class Interest extends React.Component {
     const { data } = props;
     return { data };
   }
-  onChange = checked => {
-    console.log(`switch to ${checked}`);
-  };
-  handleClickDelete = index => {
-    const data = this.state.data;
-    data.splice(index, 1);
-    this.setState({});
+  state = {};
+  handleClickDelete = item => {
+    // const data = this.state.data;
+    // data.splice(index, 1);
+    // this.setState({});
+    this.props.deleteInterestItem(item);
   };
   render() {
     const { data } = this.state;
@@ -25,7 +24,7 @@ export default class Interest extends React.Component {
       <div className="interest-wrap">
         <div className="interest-header">我感兴趣的利润盘列表</div>
         <div className="interest-tab">
-          <Switch defaultChecked onChange={this.onChange} />
+          <Switch defaultChecked onChange={this.props.keepActiveChange} />
           <span className="interest-list-title">赔率变化时更新列表</span>
         </div>
         <div className="interest-content">
@@ -35,7 +34,7 @@ export default class Interest extends React.Component {
                 key={index}
                 data={item}
                 index={index}
-                handleClickDelete={this.handleClickDelete}
+                handleClickDelete={() => this.handleClickDelete(item)}
               />
             );
           })}
@@ -52,12 +51,19 @@ class Content extends React.Component {
     }
   };
   handleClickMobile = () => {
-    const { data } = this.props;
+    const {
+      first_obbs,
+      second_obbs,
+      game_time,
+      play_type_name
+    } = this.props.data;
     Router.push({
       pathname: "/calculator",
       query: {
-        a: data.first_obbs,
-        b: data.second_obbs
+        first_obbs,
+        second_obbs,
+        game_time,
+        play_type_name
       }
     });
   };

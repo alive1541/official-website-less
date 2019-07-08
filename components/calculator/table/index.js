@@ -49,15 +49,20 @@ export function NoHeaderTable({ data, columns }) {
             <tr>
               {columns.map((col, index) => {
                 let con = item[col.key] || "";
+                const colSpan = index === 1 ? "2" : "0";
                 if (index === 2) {
                   return <td key={index} />;
                 }
                 if (typeof col.render === "function") {
                   con = col.render(con, item);
-                  return <td key={index}>{con}</td>;
+                  return (
+                    <td colSpan={colSpan} key={index}>
+                      {con}
+                    </td>
+                  );
                 }
                 return (
-                  <td key={index} title={con}>
+                  <td key={index} title={con} colSpan={colSpan}>
                     {con}
                   </td>
                 );

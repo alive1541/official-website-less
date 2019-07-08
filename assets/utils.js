@@ -20,6 +20,10 @@ export function setCookie(value, options) {
   }
 }
 
+export function getCookie(key = "token") {
+  return Cookies.get("token");
+}
+
 export function setTableKey(data) {
   if (!Array.isArray(data.list)) {
     return data.map((item, index) => {
