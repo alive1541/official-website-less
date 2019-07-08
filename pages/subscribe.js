@@ -56,7 +56,7 @@ export default class Service extends React.Component {
     if (hash === "#current") {
       this.setState({ mode: "current" });
       this.setCurrentInterval();
-      this.setInterestInterval();
+      ifLogined() && this.setInterestInterval();
     }
   }
 
@@ -85,7 +85,7 @@ export default class Service extends React.Component {
         message.error(response.msg);
       }
     } catch (e) {
-      message.error(e);
+      console.log(e);
     }
   }
 
@@ -271,7 +271,7 @@ export default class Service extends React.Component {
         message.error(response.msg);
       }
     } catch (e) {
-      message.error(e);
+      console.log(e);
     }
     return false;
   };
@@ -289,7 +289,7 @@ export default class Service extends React.Component {
         message.error(response.msg);
       }
     } catch (e) {
-      message.error(e);
+      console.log(e);
     }
   }
 
@@ -299,6 +299,11 @@ export default class Service extends React.Component {
     if (ifSuccess) {
       this.getInterestData();
     }
+  };
+
+  modeIsCurrentAndLogined = () => {
+    const { mode } = this.state;
+    return mode === "current" && ifLogined();
   };
 
   componentWillUnmount() {
@@ -319,7 +324,7 @@ export default class Service extends React.Component {
     const ifHasBorder = isMobile ? true : false;
     let style = {};
     let ifHasInterest;
-    if (mode === "current" && ifLogined()) {
+    if (this.modeIsCurrentAndLogined()) {
       style = { maxWidth: "55%" };
       ifHasInterest = true;
       this.addHandlerToColumns();
