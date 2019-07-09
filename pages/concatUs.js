@@ -34,6 +34,9 @@ export default class ConcatUs extends React.Component {
   handleClick = () => {
     const _this = this;
     const { mail, msg } = this.state;
+    if (mail.length === 0 || msg.length === 0) {
+      return message.info("信息不完整");
+    }
     msgSubmit({ mail, msg })
       .then(function(response) {
         if (response.code === 2000) {

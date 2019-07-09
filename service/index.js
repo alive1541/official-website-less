@@ -17,13 +17,19 @@ export async function getHistoryData(params) {
     params
   });
 }
-
-export async function getCurrentData(params) {
-  return axios.get(baseApi + "/realtime_arbitrage_opportunities", {
+//获取实时机会 已登录
+export async function getCurrentDataLogined(params) {
+  return axios.get(baseApi + "/customer/realtime_arbitrage_opportunities", {
     params,
     headers: {
       token: getCookie()
     }
+  });
+}
+//获取实时机会 未登录
+export async function getCurrentData(params) {
+  return axios.get(baseApi + "/realtime_arbitrage_opportunities", {
+    params
   });
 }
 

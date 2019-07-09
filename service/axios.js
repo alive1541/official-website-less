@@ -10,7 +10,7 @@ axios.interceptors.request.use(
     if (ifLogined && !isLoginOrSing(config.url)) {
       setCookie();
     }
-    Box.start();
+    Box && Box.start();
     return config;
   },
   function(error) {
@@ -22,8 +22,7 @@ axios.interceptors.request.use(
 // Add a response interceptor
 axios.interceptors.response.use(
   function(response) {
-    Box.done();
-    console.log("response", response);
+    Box && Box.done();
 
     // Do something with response data
     if (response.status === 200) {

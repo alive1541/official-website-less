@@ -8,6 +8,7 @@ import { Radio, Table, Button, message, Modal, Checkbox, Icon } from "antd";
 import {
   getHistoryData,
   getCurrentData,
+  getCurrentDataLogined,
   changeFocusChance,
   changeFocusWebsite,
   getFocusList,
@@ -157,18 +158,33 @@ export default class Service extends React.Component {
 
   getCurrentData = () => {
     const _this = this;
-    getCurrentData()
-      .then(function(response) {
-        if (response.code === 2000) {
-          _this.setState({ data: setTableKey(response.data) });
-        } else {
-          message.info(response.msg);
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-        message.error("服务器开小差了，请稍后再试");
-      });
+    if (ifLogined()) {
+      getCurrentDataLogined()
+        .then(function(response) {
+          if (response.code === 2000) {
+            _this.setState({ data: setTableKey(response.data) });
+          } else {
+            message.info(response.msg);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          message.error("服务器开小差了，请稍后再试");
+        });
+    } else {
+      getCurrentData()
+        .then(function(response) {
+          if (response.code === 2000) {
+            _this.setState({ data: setTableKey(response.data) });
+          } else {
+            message.info(response.msg);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          message.error("服务器开小差了，请稍后再试");
+        });
+    }
   };
 
   getHistoryData = (page_no = 1) => {
@@ -301,9 +317,9 @@ export default class Service extends React.Component {
     }
   };
 
-  modeIsCurrentAndLogined = () => {
+  ifHasInterest = () => {
     const { mode } = this.state;
-    return mode === "current" && ifLogined();
+    return mode === "current" && ifLogined() && !this.props.isMobile;
   };
 
   componentWillUnmount() {
@@ -324,7 +340,7 @@ export default class Service extends React.Component {
     const ifHasBorder = isMobile ? true : false;
     let style = {};
     let ifHasInterest;
-    if (this.modeIsCurrentAndLogined()) {
+    if (this.ifHasInterest()) {
       style = { maxWidth: "55%" };
       ifHasInterest = true;
       this.addHandlerToColumns();

@@ -26,8 +26,8 @@ class Main extends Component {
     const { show } = this.state;
     const style = {
       position: "fixed",
-      top: "25px",
-      left: isMobile ? "95px" : "25px"
+      top: isMobile ? "100px" : "25px",
+      left: "25px"
     };
     return <div style={style}>{show && <Spin size="large" />}</div>;
   }

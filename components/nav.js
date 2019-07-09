@@ -72,7 +72,7 @@ export default class extends React.Component {
       <nav>
         <div className="nav-wraper">
           <div className="logo" style={{ width: "100px" }}>
-            LOGO
+            <img src="/static/img/logo.png" />
           </div>
           {isMobile && (
             <div className="nav-icon-wrap" onClick={this.handleIconClick}>
@@ -156,7 +156,9 @@ export default class extends React.Component {
               okText="确认"
               cancelText="取消"
             >
-              <a href="#">退出登录</a>
+              <a href="#" style={{ verticalAlign: "middle" }}>
+                退出{!isMobile && "登录"}
+              </a>
             </Popconfirm>
           )}
           {!ifLogined() && (
