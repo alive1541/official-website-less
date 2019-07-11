@@ -125,7 +125,7 @@ class Content extends React.Component {
     return (
       <div className="item-wrap">
         <div className="header">
-          <Breadcrumb separator=">>">
+          <Breadcrumb separator=">>" className="header-wrap">
             <Breadcrumb.Item>{data.game_type_name}</Breadcrumb.Item>
             <Breadcrumb.Item>{data.game_name}</Breadcrumb.Item>
           </Breadcrumb>

@@ -93,7 +93,7 @@ class Sign extends React.Component {
 
     return (
       <div>
-        <Head />
+        <Head /> 
         <Nav isMobile={isMobile} />
         <div className="sign-wraper">
           <Form onSubmit={this.handleSubmit} className="login-form">
@@ -102,7 +102,13 @@ class Sign extends React.Component {
                 rules: [
                   { required: true, message: "请输入用户名!" },
                   { max: 20, message: "用户名不能超过20个字符!" },
-                  { min: 4, message: "用户名不能少于4个字符!" }
+                  { min: 4, message: "用户名不能少于4个字符!" },
+                  {
+                    validator: (rule, value, callback) => {
+                      callback(/^[0-9a-zA-Z]*$/.test(value));
+                    },
+                    message: "只能填写数字和字母!"
+                  }
                 ]
               })(
                 <Input

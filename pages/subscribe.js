@@ -230,8 +230,7 @@ export default class Service extends React.Component {
     if (columns[columns.length - 1].key === "expected_min_profit") {
       columns.push({
         title: "操作",
-        // dataIndex: "second_obbs",
-        // key: "second_obbs",
+        key: "handler",
         render: (text, row, index) => {
           return (
             <div>
@@ -249,6 +248,13 @@ export default class Service extends React.Component {
           );
         }
       });
+    }
+  };
+
+  delHandlerToColumns = () => {
+    const len = columns.length;
+    if (columns[len - 1].key === "handler") {
+      columns.splice(len - 1, 1);
     }
   };
 
@@ -344,6 +350,10 @@ export default class Service extends React.Component {
       style = { maxWidth: "55%" };
       ifHasInterest = true;
       this.addHandlerToColumns();
+    } else {
+      style = null;
+      ifHasInterest = false;
+      this.delHandlerToColumns();
     }
     return (
       <div>
@@ -360,7 +370,7 @@ export default class Service extends React.Component {
               <Radio.Button value="history">历史套利机会</Radio.Button>
               <Radio.Button value="current">实时套利机会</Radio.Button>
             </Radio.Group>{" "}
-            {!isMobile && (
+            {ifHasInterest && (
               <Button
                 shape="round"
                 icon="calculator"
@@ -370,7 +380,7 @@ export default class Service extends React.Component {
                 计算器
               </Button>
             )}{" "}
-            {!isMobile && (
+            {ifHasInterest && (
               <Button
                 shape="round"
                 icon="filter"
@@ -463,7 +473,18 @@ const columns = [
   {
     title: "网站1",
     dataIndex: "first_website",
-    key: "first_website"
+    key: "first_website",
+    render: (text, row, index) => {
+      if (row.first_place_bet_url) {
+        return (
+          <a href={row.first_place_bet_url} target="_blank">
+            {text}
+          </a>
+        );
+      } else {
+        return text;
+      }
+    }
   },
   {
     title: "方向",
@@ -503,7 +524,18 @@ const columns = [
   {
     title: "网站2",
     dataIndex: "second_website",
-    key: "second_website"
+    key: "second_website",
+    render: (text, row, index) => {
+      if (row.second_place_bet_url) {
+        return (
+          <a href={row.second_place_bet_url} target="_blank">
+            {text}
+          </a>
+        );
+      } else {
+        return text;
+      }
+    }
   },
   {
     title: "方向",
