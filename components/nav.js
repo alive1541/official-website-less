@@ -86,12 +86,22 @@ export default class extends React.Component {
                 onClick={this.handleClick}
               >
                 <Link href={{ pathname: "/index" }}>
-                  <a className="index">知识库</a>
+                  <a className="index">产品介绍</a>
                 </Link>
               </div>
 
               <div className="block" />
+
               <div
+                className={this.handleItemClassName(["myBackStage"])}
+                onClick={this.handleClick}
+              >
+                <Link href={{ pathname: "/myBackStage" }}>
+                  <a className="index">我的后台</a>
+                </Link>
+              </div>
+
+              {/** <div
                 className="menu-item product"
                 className={this.handleItemClassName(
                   ["subscribe", "orderService"],
@@ -135,7 +145,7 @@ export default class extends React.Component {
                     </div>
                   </div>
                 )}
-              </div>
+              </div>**/}
               <div className="block" />
               <div
                 className={this.handleItemClassName(["concatUs"])}

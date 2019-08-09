@@ -50,8 +50,67 @@ h1 {
 .index-carousel-img-wraper img {
   width: 500px;
 }
-.index-content-btn {
-  width: 15%;
+
+.index-phone-content {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.index-phone-img {
+  display: inline-block;
+  width: 40%;
+}
+
+.index-phone-img img {
+  height: 500px;
+  float: right;
+}
+
+.index-phone-content {
+  display: inline-block;
+  width: 65%;
+}
+
+.index-product-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.index-product-info-item {
+  background: #f9f9f9;
+  padding: 35px;
+  padding-bottom: 140px;
+  text-align: center;
+  width: 45%;
+}
+.index-product-info-money {
+  margin: 20px 0;
+  color: #747474;
+  font-size: 22px;
+}
+
+.index-product-info-try {
+  margin: 40px 0;
+  color: #333333;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.index-modal {
+  text-align: center;
+  padding: 10px;
+}
+
+.index-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.index-modal-content {
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 25px;
 }
 
 // mobile
@@ -88,7 +147,29 @@ h1 {
     width: 100%;
     margin-bottom: 15px;
   }
-  .index-content-btn {
-    width: 75%;
+
+  .index-phone-img {
+    margin: 15px 0;
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+  .index-phone-img img {
+    float: none;
+  }
+  .index-phone-content {
+    width: 100%;
+  }
+
+  .index-product-info {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .index-product-info-item {
+    width: 90%;
+    margin: 10px 0;
+    height: 370px;
   }
 }

@@ -74,3 +74,11 @@ export async function realtimeGameInfoList(params) {
     }
   });
 }
+
+export async function activeVip(params) {
+  return axios.post(baseApi + "/customer/active_vip", params, {
+    headers: {
+      token: getCookie()
+    }
+  });
+}
