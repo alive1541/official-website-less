@@ -3,8 +3,10 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
-import { Carousel, Button, Modal } from "antd";
+import { Carousel, Button, Modal, message } from "antd";
 import Link from "next/link";
+import { activeVip, getUserInfo } from "../service";
+import { getCookie } from "../assets/utils";
 
 import "../style/index.less";
 
@@ -18,16 +20,78 @@ export default class Home extends React.Component {
     return { isMobile };
   }
 
-  href = "http://123.56.11.198:8990/#/";
+  href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}`;
 
   state = {
     purchaseVisible: false,
-    timerNum: 10
+    timerNum: 10,
+    expireDate: null
   };
 
+  componentDidMount() {
+    this.getUserInfo();
+  }
+
+  getUserInfo = async () => {
+    const result = await getUserInfo();
+    if (result.code === 2000) {
+      this.handleDate(result.data.expire_date);
+    } else {
+      message.info(result.msg);
+    }
+  };
+
+  handleDate(date) {
+    date = "2019-10-1";
+    if (date) {
+      const dateBar = new Date() - new Date(date);
+      if (dateBar > 0) {
+        const expireDate = { type: "overTime", date };
+        this.setStorage(expireDate);
+        this.setState({ expireDate });
+      } else {
+        const expireDate = {
+          type: "atTime",
+          date: Math.floor(-Number(dateBar) / 1000 / 60 / 60 / 24)
+        };
+        this.setStorage(expireDate);
+        this.setState({
+          expireDate
+        });
+      }
+    } else {
+      this.setState({ expireDate: null });
+    }
+  }
+
+  setStorage(expireDate) {
+    localStorage.setItem("expireDate", JSON.stringify(expireDate));
+  }
+
+  // checkStorage() {
+  //   try {
+  //     const expireDate = JSON.parse(localStorage.getItem("expireDate"));
+  //     if (expireDate) {
+  //       this.setState({ expireDate });
+  //     }
+  //   } catch (e) {
+  //     message.error("JSON解析出错");
+  //   }
+  // }
+
   purchase = () => {
-    this.setState({ purchaseVisible: true });
-    this.setTimer();
+    activeVip()
+      .then(response => {
+        if (response.code === 2000) {
+          this.setState({ purchaseVisible: true });
+          this.setTimer();
+        } else {
+          message.error(response.msg);
+        }
+      })
+      .catch(e => {
+        message.error(e);
+      });
   };
 
   setTimer = () => {
@@ -43,7 +107,7 @@ export default class Home extends React.Component {
 
   render() {
     const { isMobile } = this.props;
-    const { purchaseVisible, timerNum } = this.state;
+    const { purchaseVisible, timerNum, expireDate } = this.state;
     return (
       <div>
         <Head />
@@ -179,27 +243,24 @@ export default class Home extends React.Component {
             )}
           </div>
           <h1 id="target">怎么才能参与到体育套利中呢</h1>
-          <p className="content">
-            订阅我们的产品，即可成为会员，立即开始体育套利，现在还有首月免费的活动
-          </p>
-          <div className="index-phone-content">
+          {expireDate === null && (
+            <p className="content">
+              订阅我们的产品，即可成为会员，立即开始体育套利，现在还有首月免费的活动
+            </p>
+          )}
+
+          <div className="content">
             <div className="index-product-info">
               <div className="index-product-info-item">
                 <p className="index-product-info-money">1个月起定</p>
                 <p className="index-product-info-money">89元/月</p>
-                <div className="index-product-info-try">首月试用仅需0元</div>
-                <Button type="primary" onClick={this.purchase}>
-                  点击购买
-                </Button>
+                <Info expireDate={expireDate} />
               </div>
-              <div className="index-product-info-item">
+              {/* <div className="index-product-info-item">
                 <p className="index-product-info-money">12个月起定</p>
                 <p className="index-product-info-money">50元/月</p>
-                <div className="index-product-info-try">首月试用仅需0元</div>
-                <Button type="primary" onClick={this.purchase}>
-                  点击购买
-                </Button>
-              </div>
+                <Info expireDate={expireDate} />
+              </div> */}
             </div>
           </div>
         </div>
@@ -221,4 +282,29 @@ export default class Home extends React.Component {
       </div>
     );
   }
+}
+
+function Info(props, ctx) {
+  const { expireDate } = props;
+  return (
+    <>
+      {expireDate === null && (
+        <div className="index-product-info-try">首月试用仅需0元</div>
+      )}
+      {expireDate && expireDate.type === "atTime" && (
+        <div style={{ color: "black", fontWeight: 600 }}>
+          您的会员还有{expireDate.date}天到期 您可以点击续费续费
+        </div>
+      )}
+      {expireDate && expireDate.type === "overTime" && (
+        <div style={{ color: "black", fontWeight: 600 }}>
+          您的会员已于{expireDate.date}到期您可以点击继续续费
+        </div>
+      )}
+      <Button type="primary" onClick={ctx.purchase}>
+        {expireDate === null && "点击购买"}
+        {expireDate && "点击续费"}
+      </Button>
+    </>
+  );
 }

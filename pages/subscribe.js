@@ -4,7 +4,7 @@ import Nav from "../components/nav";
 import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
 import { Radio, Table, Button, message, Modal, Checkbox, Icon } from "antd";
-import { getHistoryData, activeVip } from "../service";
+import { getHistoryData } from "../service";
 import { ifLogined, setTableKey } from "../assets/utils";
 
 import "../style/subscribe.less";

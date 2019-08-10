@@ -66,6 +66,8 @@ class Sign extends React.Component {
           .catch(function(error) {
             message.error("服务器开小差了，请稍后再试");
           });
+      } else {
+        message.info(err);
       }
     });
   };
@@ -93,10 +95,10 @@ class Sign extends React.Component {
 
     return (
       <div>
-        <Head /> 
+        <Head />
         <Nav isMobile={isMobile} />
         <div className="sign-wraper">
-          <Form onSubmit={this.handleSubmit} className="login-form">
+          <Form onSubmit={e => this.handleSubmit(e)} className="login-form">
             <Form.Item label="账号">
               {getFieldDecorator("user_name", {
                 rules: [
@@ -105,7 +107,11 @@ class Sign extends React.Component {
                   { min: 4, message: "用户名不能少于4个字符!" },
                   {
                     validator: (rule, value, callback) => {
-                      callback(/^[0-9a-zA-Z]*$/.test(value));
+                      if (!/^[0-9a-zA-Z]*$/.test(value)) {
+                        callback(true);
+                      } else {
+                        callback();
+                      }
                     },
                     message: "只能填写数字和字母!"
                   }

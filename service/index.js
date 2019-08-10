@@ -75,8 +75,19 @@ export async function realtimeGameInfoList(params) {
   });
 }
 
+//用户试用
 export async function activeVip(params) {
   return axios.post(baseApi + "/customer/active_vip", params, {
+    headers: {
+      token: getCookie()
+    }
+  });
+}
+
+//获取vip过期时间
+export async function getUserInfo(params) {
+  return axios.get(baseApi + "/customer/user_info", {
+    params,
     headers: {
       token: getCookie()
     }

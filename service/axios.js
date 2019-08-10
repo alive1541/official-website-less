@@ -1,5 +1,5 @@
 const axios = require("axios");
-import { ifLogined, setCookie } from "../assets/utils";
+import { ifLogined, setCookie, getCookie } from "../assets/utils";
 import Box from "../components/progress";
 
 axios.defaults.withCredentials = true;
