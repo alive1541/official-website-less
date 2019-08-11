@@ -7,6 +7,8 @@ import { Carousel, Button, Modal, message } from "antd";
 import Link from "next/link";
 import { activeVip, getUserInfo } from "../service";
 import { getCookie } from "../assets/utils";
+import { ifLogined } from "../assets/utils";
+import Router from "next/router";
 
 import "../style/index.less";
 
@@ -29,7 +31,9 @@ export default class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.getUserInfo();
+    if (ifLogined()) {
+      this.getUserInfo();
+    }
   }
 
   getUserInfo = async () => {
@@ -42,7 +46,6 @@ export default class Home extends React.Component {
   };
 
   handleDate(date) {
-    date = "2019-10-1";
     if (date) {
       const dateBar = new Date() - new Date(date);
       if (dateBar > 0) {
@@ -80,18 +83,24 @@ export default class Home extends React.Component {
   // }
 
   purchase = () => {
-    activeVip()
-      .then(response => {
-        if (response.code === 2000) {
-          this.setState({ purchaseVisible: true });
-          this.setTimer();
-        } else {
-          message.error(response.msg);
-        }
-      })
-      .catch(e => {
-        message.error(e);
+    if (ifLogined()) {
+      activeVip()
+        .then(response => {
+          if (response.code === 2000) {
+            this.setState({ purchaseVisible: true });
+            this.setTimer();
+          } else {
+            message.error(response.msg);
+          }
+        })
+        .catch(e => {
+          message.error(e);
+        });
+    } else {
+      Router.push({
+        pathname: "/login"
       });
+    }
   };
 
   setTimer = () => {
@@ -254,12 +263,12 @@ export default class Home extends React.Component {
               <div className="index-product-info-item">
                 <p className="index-product-info-money">1个月起定</p>
                 <p className="index-product-info-money">89元/月</p>
-                <Info expireDate={expireDate} />
+                <Info expireDate={expireDate} ctx={this} />
               </div>
               {/* <div className="index-product-info-item">
                 <p className="index-product-info-money">12个月起定</p>
                 <p className="index-product-info-money">50元/月</p>
-                <Info expireDate={expireDate} />
+                <Info expireDate={expireDate} ctx={this} />
               </div> */}
             </div>
           </div>
@@ -284,8 +293,8 @@ export default class Home extends React.Component {
   }
 }
 
-function Info(props, ctx) {
-  const { expireDate } = props;
+function Info(props) {
+  const { expireDate, ctx } = props;
   return (
     <>
       {expireDate === null && (

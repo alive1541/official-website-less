@@ -67,7 +67,6 @@ export default class extends React.Component {
     const { menuVisible, secondMenuVisible } = this.state;
     const { isMobile } = this.props;
     const size = isMobile ? "small" : "default";
-    console.log("1", isMobile);
     return (
       <nav>
         <div className="nav-wraper">
