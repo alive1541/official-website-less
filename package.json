@@ -11,6 +11,7 @@
     "antd": "^3.5.4",
     "axios": "^0.19.0",
     "babel-plugin-import": "^1.7.0",
+    "intl": "^1.2.5",
     "js-cookie": "^2.2.0",
     "js-md5": "^0.7.3",
     "less": "3.0.4",
@@ -20,7 +21,10 @@
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
-    "react-fastclick": "^3.0.2"
+    "react-fastclick": "^3.0.2",
+    "react-intl": "^3.1.5",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4"
   },
   "license": "ISC"
 }

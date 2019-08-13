@@ -1,4 +1,7 @@
 import Cookies from "js-cookie";
+import enUs from "../intl/en_US";
+import zhCn from "../intl/zh_CN";
+import id from "../intl/id";
 
 export function ifLogined() {
   return Cookies.get("token") !== undefined;
@@ -24,16 +27,52 @@ export function getCookie(key = "token") {
   return Cookies.get("token");
 }
 
-export function setTableKey(data) {
-  if (!Array.isArray(data.list)) {
-    return data.map((item, index) => {
-      item.key = index.toString();
-      return item;
-    });
+// export function setTableKey(data) {
+//   if (!Array.isArray(data.list)) {
+//     return data.map((item, index) => {
+//       item.key = index.toString();
+//       return item;
+//     });
+//   }
+//   data.list = data.list.map((item, index) => {
+//     item.key = index.toString();
+//     return item;
+//   });
+//   return data;
+// }
+
+// 获取语言
+export function getLanguage() {
+  const lang = navigator.language || navigator.userLanguage; // 常规浏览器语言和IE浏览器
+  const localStorageLang = localStorage.getItem("lang");
+  const defaultLang = localStorageLang || lang;
+  return defaultLang;
+}
+
+// 修改html.lang显示
+export function changeHtmlLang(lang) {
+  return (document.getElementById("lang").lang = lang);
+}
+
+// 设置语言
+export function setLanguage(lang) {
+  const defaultLang = localStorage.setItem("lang", lang);
+  return defaultLang;
+}
+
+// 匹配语言
+export function chooseLocale(lan) {
+  switch (lan) {
+    case "en":
+      // changeHtmlLang(getLanguage());
+      return { ...enUs };
+    case "zh":
+      // changeHtmlLang(getLanguage());
+      return { ...zhCn };
+    case "id":
+      return { ...id };
+    default:
+      // changeHtmlLang(getLanguage());
+      return { ...zhCn };
   }
-  data.list = data.list.map((item, index) => {
-    item.key = index.toString();
-    return item;
-  });
-  return data;
 }

@@ -1,10 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import { Icon, Button, Popconfirm } from "antd";
+import { Icon, Button, Popconfirm, Select } from "antd";
 import { ifLogined, removeCookie } from "../assets/utils";
+import { FormattedMessage } from "react-intl";
 import "./style/nav.less";
+import { connect } from "react-redux";
 
-export default class extends React.Component {
+const { Option } = Select;
+
+class Nav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,8 +67,11 @@ export default class extends React.Component {
   confirm = () => {
     removeCookie();
   };
+  lanChange = value => {
+    this.props.dispatch({ type: "CHANGE_LANGUAGE", value });
+  };
   render() {
-    const { menuVisible, secondMenuVisible } = this.state;
+    const { menuVisible } = this.state;
     const { isMobile } = this.props;
     const size = isMobile ? "small" : "default";
     return (
@@ -85,7 +92,9 @@ export default class extends React.Component {
                 onClick={this.handleClick}
               >
                 <Link href={{ pathname: "/index" }}>
-                  <a className="index">产品介绍</a>
+                  <a className="index">
+                    <FormattedMessage id="nav1" />
+                  </a>
                 </Link>
               </div>
 
@@ -96,64 +105,38 @@ export default class extends React.Component {
                 onClick={this.handleClick}
               >
                 <Link href={{ pathname: "/myBackStage" }}>
-                  <a className="index">我的后台</a>
+                  <a className="index">
+                    <FormattedMessage id="nav2" />
+                  </a>
                 </Link>
               </div>
 
-              {/** <div
-                className="menu-item product"
-                className={this.handleItemClassName(
-                  ["subscribe", "orderService"],
-                  "product"
-                )}
-                onClick={this.handleClick}
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-              >
-                <div className="product-title">
-                  产品介绍
-                  {isMobile && (
-                    <span className="product-icon">
-                      <Icon type="down" />
-                    </span>
-                  )}
-                </div>
-                {secondMenuVisible && (
-                  <div className="second-menu">
-                    <div className="second-menu-item">
-                      <Link
-                        href={{
-                          pathname: "/subscribe"
-                        }}
-                      >
-                        <a className="subscribe">
-                          {isMobile && "- "}套利机会订阅
-                        </a>
-                      </Link>
-                    </div>
-                    <div className="second-menu-item">
-                      <Link
-                        href={{
-                          pathname: "/orderService"
-                        }}
-                      >
-                        <a className="orderService">
-                          {isMobile && "- "}套利下单服务
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </div>**/}
               <div className="block" />
               <div
                 className={this.handleItemClassName(["concatUs"])}
                 onClick={this.handleClick}
               >
                 <Link href={{ pathname: "/concatUs" }}>
-                  <a className="concatUs">联系我们</a>
+                  <a className="concatUs">
+                    <FormattedMessage id="nav3" />
+                  </a>
                 </Link>
               </div>
+            </div>
+          )}
+          {!isMobile && (
+            <div className="nav-lan">
+              <Select
+                style={{ width: "90px" }}
+                defaultValue="zh"
+                onChange={this.lanChange}
+              >
+                <Option value="zh">中文</Option>
+                <Option value="en">English</Option>
+                <Option value="id" title="Orang indonesia">
+                  Orang indonesia
+                </Option>
+              </Select>
             </div>
           )}
         </div>
@@ -165,27 +148,44 @@ export default class extends React.Component {
               okText="确认"
               cancelText="取消"
             >
-              <a href="#" style={{ verticalAlign: "middle" }}>
-                退出{!isMobile && "登录"}
+              <a
+                href="#"
+                style={{ verticalAlign: "middle" }}
+                // style={{ maxWidth: "60px" }}
+              >
+                退出{!isMobile && <FormattedMessage id="nav5" />}
               </a>
             </Popconfirm>
           )}
           {!ifLogined() && (
-            <Button size={size} type="danger" ghost>
+            <Button
+              size={size}
+              type="danger"
+              ghost
+              // style={{ maxWidth: "60px" }}
+            >
               <Link href={{ pathname: "/login" }}>
-                <a>登录</a>
+                <a>
+                  <FormattedMessage id="nav5" />
+                </a>
               </Link>
             </Button>
           )}
 
           <span className="spacing-x" />
-          <Button size={size}>
-            <Link href={{ pathname: "/sign" }}>
-              <a>注册</a>
-            </Link>
-          </Button>
+          {!ifLogined() && (
+            <Button size={size}>
+              <Link href={{ pathname: "/sign" }}>
+                <a>
+                  <FormattedMessage id="nav4" />
+                </a>
+              </Link>
+            </Button>
+          )}
         </div>
       </nav>
     );
   }
 }
+
+export default connect(state => state)(Nav);
