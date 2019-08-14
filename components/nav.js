@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { Icon, Button, Popconfirm, Select } from "antd";
-import { ifLogined, removeCookie } from "../assets/utils";
+import {
+  ifLogined,
+  removeCookie,
+  getLanguageFromStorage
+} from "../assets/utils";
 import { FormattedMessage } from "react-intl";
 import "./style/nav.less";
 import { connect } from "react-redux";
@@ -13,7 +17,8 @@ class Nav extends React.Component {
     super(props);
     this.state = {
       menuVisible: this.props.isMobile ? false : true,
-      secondMenuVisible: false
+      secondMenuVisible: false,
+      language: getLanguageFromStorage()
     };
   }
 
@@ -65,13 +70,23 @@ class Nav extends React.Component {
     return ifSelf ? `menu-item active ${others}` : `menu-item ${others}`;
   };
   confirm = () => {
+    // debugger;
     removeCookie();
+
+    if (this.props.isMobile) {
+      setTimeout(() => {
+        this.handleIconClick();
+      }, 500);
+    } else {
+      this.setState({});
+    }
   };
   lanChange = value => {
+    this.setState({ language: value });
     this.props.dispatch({ type: "CHANGE_LANGUAGE", value });
   };
   render() {
-    const { menuVisible } = this.state;
+    const { menuVisible, language } = this.state;
     const { isMobile } = this.props;
     const size = isMobile ? "small" : "default";
     return (
@@ -122,13 +137,59 @@ class Nav extends React.Component {
                   </a>
                 </Link>
               </div>
+              {isMobile && (
+                <div
+                  className={this.handleItemClassName(["concatUs"])}
+                  onClick={this.handleClick}
+                >
+                  {ifLogined() && (
+                    <div>
+                      {isMobile ? (
+                        <a href="#" onClick={this.confirm}>
+                          <sapn
+                            className="log-inner"
+                            title={<FormattedMessage id="nav7" />}
+                          >
+                            <FormattedMessage id="nav7" />
+                          </sapn>
+                        </a>
+                      ) : (
+                        <Popconfirm
+                          title="是否要退出登录状态?"
+                          onConfirm={this.confirm}
+                          okText="确认"
+                          cancelText="取消"
+                        >
+                          <a href="#" style={{ verticalAlign: "middle" }}>
+                            <span className="log-inner">
+                              <FormattedMessage id="nav7" />
+                            </span>
+                          </a>
+                        </Popconfirm>
+                      )}
+                    </div>
+                  )}
+                  {!ifLogined() && (
+                    <Link href={{ pathname: "/sign" }}>
+                      <a>
+                        <sapn
+                          className="log-inner"
+                          title={<FormattedMessage id="nav4" />}
+                        >
+                          <FormattedMessage id="nav4" />
+                        </sapn>
+                      </a>
+                    </Link>
+                  )}
+                </div>
+              )}
             </div>
           )}
-          {!isMobile && (
+          {
             <div className="nav-lan">
               <Select
                 style={{ width: "90px" }}
-                defaultValue="zh"
+                value={language}
                 onChange={this.lanChange}
               >
                 <Option value="zh">中文</Option>
@@ -138,51 +199,53 @@ class Nav extends React.Component {
                 </Option>
               </Select>
             </div>
-          )}
+          }
         </div>
-        <div className="log">
-          {ifLogined() && (
-            <Popconfirm
-              title="是否要退出登录状态?"
-              onConfirm={this.confirm}
-              okText="确认"
-              cancelText="取消"
-            >
-              <a
-                href="#"
-                style={{ verticalAlign: "middle" }}
-                // style={{ maxWidth: "60px" }}
+        {!isMobile && (
+          <div className="log">
+            {ifLogined() && (
+              <Popconfirm
+                title="是否要退出登录状态?"
+                onConfirm={this.confirm}
+                okText="确认"
+                cancelText="取消"
               >
-                退出{!isMobile && <FormattedMessage id="nav5" />}
-              </a>
-            </Popconfirm>
-          )}
-          {!ifLogined() && (
-            <Button
-              size={size}
-              type="danger"
-              ghost
-              // style={{ maxWidth: "60px" }}
-            >
-              <Link href={{ pathname: "/login" }}>
-                <a>
-                  <FormattedMessage id="nav5" />
+                <a href="#" style={{ verticalAlign: "middle" }}>
+                  <span className="log-inner">
+                    退出{!isMobile && <FormattedMessage id="nav5" />}
+                  </span>
                 </a>
-              </Link>
-            </Button>
-          )}
+              </Popconfirm>
+            )}
+            {!ifLogined() && (
+              <Button size={size} type="danger" ghost>
+                <Link href={{ pathname: "/sign" }}>
+                  <a>
+                    <sapn
+                      className="log-inner"
+                      title={<FormattedMessage id="nav4" />}
+                    >
+                      <FormattedMessage id="nav4" />
+                    </sapn>
+                  </a>
+                </Link>
+              </Button>
+            )}
 
-          <span className="spacing-x" />
-          {!ifLogined() && (
-            <Button size={size}>
-              <Link href={{ pathname: "/sign" }}>
-                <a>
-                  <FormattedMessage id="nav4" />
-                </a>
-              </Link>
-            </Button>
-          )}
-        </div>
+            {/* <span className="spacing-x" /> */}
+            {/* {!ifLogined() && (
+  <Button size={size}>
+    <Link href={{ pathname: "/sign" }}>
+      <a>
+        <sapn className="log-inner">
+          <FormattedMessage id="nav4" />
+        </sapn>
+      </a>
+    </Link>
+  </Button>
+)} */}
+          </div>
+        )}
       </nav>
     );
   }

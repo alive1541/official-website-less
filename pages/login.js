@@ -9,6 +9,9 @@ import { login } from "../service";
 import Router from "next/router";
 import { setCookie } from "../assets/utils";
 import md5 from "js-md5";
+import root from "../components/root";
+import { FormattedMessage } from "react-intl";
+import Intl from "../components/intl";
 
 import "../style/login.less";
 
@@ -74,81 +77,83 @@ class Login extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <div>
-        <Head />
-        <Nav isMobile={isMobile} />
-        <div className="login-wraper">
-          <Form onSubmit={this.handleSubmit} className="login-form">
-            <Form.Item label="账号/邮箱">
-              {getFieldDecorator("user_name", {
-                rules: [
-                  { required: true, message: "Please input your username!" }
-                ]
-              })(
-                <Input
-                  prefix={
-                    <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  size="large"
-                  placeholder="4-20位"
-                />
-              )}
-            </Form.Item>
-            <Form.Item label="密码">
-              {getFieldDecorator("password", {
-                rules: [
-                  { required: true, message: "Please input your password!" }
-                ]
-              })(
-                <Input
-                  prefix={
-                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  type="password"
-                  size="large"
-                  placeholder="4-20位"
-                />
-              )}
-            </Form.Item>
-            <Form.Item label="验证码">
-              <Row gutter={8}>
-                <Col span={18}>
+      <Intl>
+        <div>
+          <Head title="登录" />
+          <Nav isMobile={isMobile} />
+          <div className="login-wraper">
+            <Form onSubmit={this.handleSubmit} className="login-form">
+              <Form.Item label="账号/邮箱">
+                {getFieldDecorator("user_name", {
+                  rules: [
+                    { required: true, message: "Please input your username!" }
+                  ]
+                })(
                   <Input
-                    ref="inputCode"
                     prefix={
-                      <Icon
-                        type="picture"
-                        style={{ color: "rgba(0,0,0,.25)" }}
-                      />
+                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
                     size="large"
-                    placeholder="请输入验证码"
+                    placeholder="4-20位"
                   />
-                </Col>
-                <Col span={6}>
-                  <span id="code" className="mycode" />
-                </Col>
-              </Row>
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                className="login-form-button"
-              >
-                确认登录
-              </Button>
-              还没有账号？<a href="/sign">点击注册</a>
-            </Form.Item>
-          </Form>
+                )}
+              </Form.Item>
+              <Form.Item label="密码">
+                {getFieldDecorator("password", {
+                  rules: [
+                    { required: true, message: "Please input your password!" }
+                  ]
+                })(
+                  <Input
+                    prefix={
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    type="password"
+                    size="large"
+                    placeholder="4-20位"
+                  />
+                )}
+              </Form.Item>
+              <Form.Item label="验证码">
+                <Row gutter={8}>
+                  <Col span={18}>
+                    <Input
+                      ref="inputCode"
+                      prefix={
+                        <Icon
+                          type="picture"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                      size="large"
+                      placeholder="请输入验证码"
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <span id="code" className="mycode" />
+                  </Col>
+                </Row>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  size="large"
+                  className="login-form-button"
+                >
+                  确认登录
+                </Button>
+                还没有账号？<a href="/sign">点击注册</a>
+              </Form.Item>
+            </Form>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </Intl>
     );
   }
 }
 
 const WrappedRegistrationForm = Form.create({ name: "normal_login" })(Login);
-
-export default WrappedRegistrationForm;
+const RootCom = root(WrappedRegistrationForm);
+export default RootCom;

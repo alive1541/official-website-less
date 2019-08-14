@@ -3,8 +3,10 @@ const zhCn = {
   nav1: "产品介绍",
   nav2: "我的后台",
   nav3: "联系我们",
-  nav4: "注册",
+  nav4: "注册 - 登录",
   nav5: "登录",
+  nav6: "注册",
+  nav7: "退出",
   //index页面
   title1: "什么是体育套利？",
   content1_1:
@@ -53,6 +55,18 @@ const zhCn = {
   content6_8: "您的会员还有",
   content6_9: "天到期",
   content6_10: "点击续费",
-  content6_11: "点击购买"
+  content6_11: "点击购买",
+
+  //ConcatUs
+  content7_1: "我们的邮箱：",
+  content7_2: "提交意见反馈并留下联系方式",
+  content7_3: "留下您的邮箱",
+  content7_4: "提交",
+
+  //MyBackStage
+  content8_1:
+    "您还没有登录，不能查看此页面，请点击登录，若您还没有账号，请点击注册按钮注册",
+  content8_2:
+    "新用户您好，您当前还不是会员，点击购买按钮成为会员，新用户首期0元哟"
 };
 export default zhCn;

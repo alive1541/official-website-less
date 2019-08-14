@@ -27,19 +27,19 @@ export function getCookie(key = "token") {
   return Cookies.get("token");
 }
 
-// export function setTableKey(data) {
-//   if (!Array.isArray(data.list)) {
-//     return data.map((item, index) => {
-//       item.key = index.toString();
-//       return item;
-//     });
-//   }
-//   data.list = data.list.map((item, index) => {
-//     item.key = index.toString();
-//     return item;
-//   });
-//   return data;
-// }
+export function setTableKey(data) {
+  if (!Array.isArray(data.list)) {
+    return data.map((item, index) => {
+      item.key = index.toString();
+      return item;
+    });
+  }
+  data.list = data.list.map((item, index) => {
+    item.key = index.toString();
+    return item;
+  });
+  return data;
+}
 
 // 获取语言
 export function getLanguage() {
@@ -74,5 +74,13 @@ export function chooseLocale(lan) {
     default:
       // changeHtmlLang(getLanguage());
       return { ...zhCn };
+  }
+}
+
+export function getLanguageFromStorage() {
+  try {
+    return localStorage.getItem("language");
+  } catch (e) {
+    return null;
   }
 }

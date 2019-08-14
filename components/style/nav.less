@@ -17,6 +17,15 @@ body {
   height: 100%;
   vertical-align: middle;
 }
+.log-inner {
+  display: inline-block;
+  max-width: 80px;
+  line-height: 30px;
+  overflow: hidden;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @media only screen and (max-width: 1300px) {
   .log {
     right: 500px !important;
@@ -53,7 +62,7 @@ body {
   }
   .nav-icon-wrap {
     z-index: 99999;
-    margin: 0 15px;
+    padding: 0 25px;
     line-height: 49px;
     font-size: 20px;
     color: @primary-color;
@@ -107,14 +116,20 @@ body {
   // .menu-item:active .second-menu-item {
   //   background-color: #f6f6f6;
   // }
+  .nav-lan {
+    position: absolute;
+    right: 90px;
+    line-height: 93px;
+  }
 }
-.nav-lan {
-  position: absolute;
-  right: 200px;
-  line-height: 93px;
-}
+
 // pc
 @media only screen and (min-width: 768px) {
+  .nav-lan {
+    position: absolute;
+    right: 200px;
+    line-height: 93px;
+  }
   nav {
     box-shadow: 0 10px 50px -2px rgba(0, 0, 0, 0.14);
     height: 100%;

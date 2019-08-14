@@ -6,28 +6,31 @@ import initReactFastclick from "react-fastclick";
 import { Radio, Table, Button, message, Modal, Checkbox, Icon } from "antd";
 import { getHistoryData } from "../service";
 import { ifLogined, setTableKey } from "../assets/utils";
+import Intl from "../components/intl";
+import { FormattedMessage } from "react-intl";
+import root from "../components/root";
 
 import "../style/subscribe.less";
 
-export default class Service extends React.Component {
-  static async getInitialProps({ req }) {
-    const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
-    const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);
-    if (isMobile) {
-      initReactFastclick();
-    }
-    try {
-      const historyData = await getHistoryData({ page_no: 1 });
-      if (historyData.code === 2000) {
-        return { isMobile, historyData: setTableKey(historyData.data) };
-      } else {
-        return { isMobile, historyData: [] };
-      }
-    } catch (e) {
-      console.log("e==", e);
-      return { isMobile, historyData: [] };
-    }
-  }
+class Subscribe extends React.Component {
+  // static async getInitialProps({ req }) {
+  //   const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
+  //   const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);
+  //   if (isMobile) {
+  //     initReactFastclick();
+  //   }
+  //   try {
+  //     const historyData = await getHistoryData({ page_no: 1 });
+  //     if (historyData.code === 2000) {
+  //       return { isMobile, historyData: setTableKey(historyData.data) };
+  //     } else {
+  //       return { isMobile, historyData: [] };
+  //     }
+  //   } catch (e) {
+  //     console.log("e==", e);
+  //     return { isMobile, historyData: [] };
+  //   }
+  // }
 
   constructor(props) {
     super(props);
@@ -47,7 +50,9 @@ export default class Service extends React.Component {
         if (response.code === 2000) {
           _this.setState({
             total: response.data.total_num,
-            data: setTableKey(response.data).list
+            data: setTableKey(response.data)
+              ? setTableKey(response.data).list
+              : []
           });
         } else {
           message.info(response.msg);
@@ -71,27 +76,33 @@ export default class Service extends React.Component {
     const ifHasBorder = isMobile ? true : false;
 
     return (
-      <div>
-        <Head />
-        <Nav isMobile={isMobile} pathName="subscribe" />
+      <Intl>
+        <div>
+          <Head title="产品介绍" />
+          <Nav isMobile={isMobile} pathName="subscribe" />
 
-        <div className="subscribe-wraper">
-          <div className="subscribe-tab">历史套利机会</div>
-          {mode === "history" && (
-            <Table
-              bordered={ifHasBorder}
-              onChange={this.pageChange}
-              columns={columns}
-              dataSource={data}
-              pagination={{ defaultCurrent: 1, total }}
-            />
-          )}
+          <div className="subscribe-wraper">
+            <div className="subscribe-tab">
+              <FormattedMessage id="nav1" />
+            </div>
+            {mode === "history" && (
+              <Table
+                bordered={ifHasBorder}
+                onChange={this.pageChange}
+                columns={columns}
+                dataSource={data}
+                pagination={{ defaultCurrent: 1, total }}
+              />
+            )}
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </Intl>
     );
   }
 }
+
+export default root(Subscribe);
 
 const columns = [
   {

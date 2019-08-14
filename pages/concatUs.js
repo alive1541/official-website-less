@@ -2,22 +2,26 @@ import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
-import initReactFastclick from "react-fastclick";
+// import initReactFastclick from "react-fastclick";
 import { Input, Button, message } from "antd";
 import { msgSubmit } from "../service";
 const { TextArea } = Input;
+import Intl from "../components/intl";
+import { FormattedMessage, useIntl } from "react-intl";
+import root from "../components/root";
 
 import "../style/concatUs.less";
 
-export default class ConcatUs extends React.Component {
-  static async getInitialProps({ req }) {
-    const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
-    const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);
-    if (isMobile) {
-      initReactFastclick();
-    }
-    return { isMobile };
-  }
+class ConcatUs extends React.Component {
+  // static async getInitialProps({ req }) {
+  //   const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
+  //   const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);
+  //   if (isMobile) {
+  //     initReactFastclick();
+  //   }
+  //   console.log("------------------isMo -----", isMobile);
+  //   return { isMobile: true };
+  // }
 
   state = {
     mail: "",
@@ -62,32 +66,40 @@ export default class ConcatUs extends React.Component {
     const { isMobile } = this.props;
     const { mail, msg } = this.state;
     return (
-      <div>
-        <Head />
-        <Nav isMobile={isMobile} pathName="concatUs" />
-        <div className="contract-wraper">
-          <h2 className="contract-email">
-            我们的邮箱：Opportech.service@gmail.com
-          </h2>
-          <h2 className="contract-info">提交意见反馈并留下您的联系方式</h2>
-          <TextArea
-            value={msg}
-            onChange={e => this.handleInputChange("msg", e)}
-            autosize={{ minRows: 6, maxRows: 10 }}
-          />
-          <Input
-            value={mail}
-            onChange={e => this.handleInputChange("mail", e)}
-            className="contract-your-email"
-            size="large"
-            placeholder="留下您的邮箱"
-          />
-          <Button type="primary" block onClick={this.handleClick}>
-            提交
-          </Button>
+      <Intl>
+        <div>
+          <Head title="联系我们" />
+          <Nav isMobile={isMobile} pathName="concatUs" />
+          <div className="contract-wraper">
+            <h2 className="contract-email">
+              <FormattedMessage id="content7_1" />
+              <br />
+              Opportech.service@gmail.com
+            </h2>
+            <h2 className="contract-info">
+              <FormattedMessage id="content7_2" />
+            </h2>
+            <TextArea
+              value={msg}
+              onChange={e => this.handleInputChange("msg", e)}
+              autosize={{ minRows: 6, maxRows: 10 }}
+            />
+            <Input
+              value={mail}
+              onChange={e => this.handleInputChange("mail", e)}
+              className="contract-your-email"
+              size="large"
+              // placeholder={FormattedMessage({ id: "content7_3" })}
+            />
+            <Button type="primary" block onClick={this.handleClick}>
+              <FormattedMessage id="content7_4" />
+            </Button>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </Intl>
     );
   }
 }
+
+export default root(ConcatUs);

@@ -34,6 +34,7 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
+    console.log("href", this.href);
     if (ifLogined()) {
       this.getUserInfo();
     }
@@ -49,6 +50,7 @@ class Home extends React.Component {
   };
 
   handleDate(date) {
+    console.log("date", date);
     if (date) {
       const dateBar = new Date() - new Date(date);
       if (dateBar > 0) {
@@ -73,17 +75,6 @@ class Home extends React.Component {
   setStorage(expireDate) {
     localStorage.setItem("expireDate", JSON.stringify(expireDate));
   }
-
-  // checkStorage() {
-  //   try {
-  //     const expireDate = JSON.parse(localStorage.getItem("expireDate"));
-  //     if (expireDate) {
-  //       this.setState({ expireDate });
-  //     }
-  //   } catch (e) {
-  //     message.error("JSON解析出错");
-  //   }
-  // }
 
   purchase = () => {
     if (ifLogined()) {
@@ -118,13 +109,12 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log("index render");
     const { isMobile } = this.props;
     const { purchaseVisible, timerNum, expireDate } = this.state;
     return (
       <Intl>
         <div>
-          <Head />
+          <Head title="体育套利" />
           <Nav isMobile={isMobile} pathName="index" />
           <div className="index-wraper">
             <h1>
@@ -306,7 +296,7 @@ class Home extends React.Component {
             <Modal visible={purchaseVisible} closable={false} footer={false}>
               <div className="index-modal">
                 <p className="index-modal-title">
-                  恭喜您购买成功 会员有效期至{expireDate}
+                  恭喜您购买成功 会员有效期至{expireDate && expireDate.date}
                 </p>
                 <p className="index-modal-content">
                   系统还有{timerNum}s跳转至您的理财后台，点击这里迅速跳转，

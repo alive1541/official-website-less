@@ -3,8 +3,10 @@ const id = {
   nav1: "Info Produk",
   nav2: "Platform Saya",
   nav3: "Kontak Kami",
-  nav4: "Registrasi",
+  nav4: "Registrasi - Masuk",
   nav5: "Masuk",
+  nav6: "Registrasi",
+  nav7: "logOff",
   //index页面
   title1: "Apa itu arbitrase olahraga?",
   content1_1:
@@ -58,6 +60,18 @@ const id = {
   content6_8: "Masa berlangganan anda akan berakhir dalam ",
   content6_9: "hari.",
   content6_10: "Lanjut Berlangganan",
-  content6_11: "Beli"
+  content6_11: "Beli",
+
+  //ConcatUs
+  content7_1: "E-mail kami",
+  content7_2: "Kirimkan feedback dan berikan kontak anda",
+  content7_3: "Berikan e-mail anda",
+  content7_4: "Kirim",
+
+  //MyBackStage
+  content8_1:
+    "Anda belum masuk, anda tidak dapat melihat laman ini. Silahkan klik masuk. Jika anda belum memiliki akun, silahkan klik tombol daftar untuk registrasi.",
+  content8_2:
+    "Selamat datang pengguna baru! Saat ini, anda belum menjadi member. Klik tombol beli untuk berlangganan, gratis untuk satu bulan pertama!"
 };
 export default id;

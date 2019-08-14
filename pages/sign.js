@@ -8,6 +8,9 @@ import initVarifyCode from "../assets/initVarifyCode.js";
 import { sign } from "../service";
 import Router from "next/router";
 import md5 from "js-md5";
+import root from "../components/root";
+import { FormattedMessage } from "react-intl";
+import Intl from "../components/intl";
 
 import "../style/sign.less";
 
@@ -94,137 +97,139 @@ class Sign extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <div>
-        <Head />
-        <Nav isMobile={isMobile} />
-        <div className="sign-wraper">
-          <Form onSubmit={e => this.handleSubmit(e)} className="login-form">
-            <Form.Item label="账号">
-              {getFieldDecorator("user_name", {
-                rules: [
-                  { required: true, message: "请输入用户名!" },
-                  { max: 20, message: "用户名不能超过20个字符!" },
-                  { min: 4, message: "用户名不能少于4个字符!" },
-                  {
-                    validator: (rule, value, callback) => {
-                      if (!/^[0-9a-zA-Z]*$/.test(value)) {
-                        callback(true);
-                      } else {
-                        callback();
-                      }
-                    },
-                    message: "只能填写数字和字母!"
-                  }
-                ]
-              })(
-                <Input
-                  prefix={
-                    <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  size="large"
-                  placeholder="4-20位"
-                />
-              )}
-            </Form.Item>
-            <Form.Item label="密码">
-              {getFieldDecorator("password", {
-                rules: [
-                  {
-                    required: true,
-                    message: "请输入密码!"
-                  },
-                  {
-                    validator: this.validateToNextPassword
-                  },
-                  { max: 20, message: "密码不能超过20个字符!" },
-                  { min: 4, message: "密码不能少于4个字符!" }
-                ]
-              })(
-                <Input
-                  prefix={
-                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  type="password"
-                  size="large"
-                  placeholder="4-20位"
-                />
-              )}
-            </Form.Item>
-            <Form.Item label="确认密码">
-              {getFieldDecorator("confirm", {
-                rules: [
-                  {
-                    required: true,
-                    message: "请输入确认密码!"
-                  },
-                  {
-                    validator: this.compareToFirstPassword
-                  }
-                ]
-              })(
-                <Input
-                  prefix={
-                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  type="password"
-                  size="large"
-                  placeholder="请输入确认密码"
-                />
-              )}
-            </Form.Item>
-            <Form.Item label="验证码">
-              <Row gutter={8}>
-                <Col span={18}>
+      <Intl>
+        <div>
+          <Head title="注册" />
+          <Nav isMobile={isMobile} />
+          <div className="sign-wraper">
+            <Form onSubmit={e => this.handleSubmit(e)} className="login-form">
+              <Form.Item label={<FormattedMessage id="content7_4" />}>
+                {getFieldDecorator("user_name", {
+                  rules: [
+                    { required: true, message: "请输入用户名!" },
+                    { max: 20, message: "用户名不能超过20个字符!" },
+                    { min: 4, message: "用户名不能少于4个字符!" },
+                    {
+                      validator: (rule, value, callback) => {
+                        if (!/^[0-9a-zA-Z]*$/.test(value)) {
+                          callback(true);
+                        } else {
+                          callback();
+                        }
+                      },
+                      message: "只能填写数字和字母!"
+                    }
+                  ]
+                })(
                   <Input
-                    ref="inputCode"
                     prefix={
-                      <Icon
-                        type="picture"
-                        style={{ color: "rgba(0,0,0,.25)" }}
-                      />
+                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
                     size="large"
-                    placeholder="请输入验证码"
+                    placeholder="4-20位"
                   />
-                </Col>
-                <Col span={6}>
-                  <span id="code" className="mycode" />
-                </Col>
-              </Row>
-            </Form.Item>
-            <Form.Item label="邮箱">
-              {getFieldDecorator("mail", {
-                rules: [
-                  {
-                    type: "email",
-                    message: "请输入正确的邮箱!"
-                  },
-                  {
-                    required: true,
-                    message: "请输入邮箱!"
-                  }
-                ]
-              })(<Input size="large" placeholder="请输入邮箱" />)}
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                className="sign-form-button"
-              >
-                免费注册
-              </Button>
-              已有账号？<a href="/login">点击登录</a>
-            </Form.Item>
-          </Form>
+                )}
+              </Form.Item>
+              <Form.Item label="密码">
+                {getFieldDecorator("password", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "请输入密码!"
+                    },
+                    {
+                      validator: this.validateToNextPassword
+                    },
+                    { max: 20, message: "密码不能超过20个字符!" },
+                    { min: 4, message: "密码不能少于4个字符!" }
+                  ]
+                })(
+                  <Input
+                    prefix={
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    type="password"
+                    size="large"
+                    placeholder="4-20位"
+                  />
+                )}
+              </Form.Item>
+              <Form.Item label="确认密码">
+                {getFieldDecorator("confirm", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "请输入确认密码!"
+                    },
+                    {
+                      validator: this.compareToFirstPassword
+                    }
+                  ]
+                })(
+                  <Input
+                    prefix={
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    type="password"
+                    size="large"
+                    placeholder="请输入确认密码"
+                  />
+                )}
+              </Form.Item>
+              <Form.Item label="验证码">
+                <Row gutter={8}>
+                  <Col span={18}>
+                    <Input
+                      ref="inputCode"
+                      prefix={
+                        <Icon
+                          type="picture"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                      size="large"
+                      placeholder="请输入验证码"
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <span id="code" className="mycode" />
+                  </Col>
+                </Row>
+              </Form.Item>
+              <Form.Item label="邮箱">
+                {getFieldDecorator("mail", {
+                  rules: [
+                    {
+                      type: "email",
+                      message: "请输入正确的邮箱!"
+                    },
+                    {
+                      required: true,
+                      message: "请输入邮箱!"
+                    }
+                  ]
+                })(<Input size="large" placeholder="请输入邮箱" />)}
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  size="large"
+                  className="sign-form-button"
+                >
+                  免费注册
+                </Button>
+                已有账号？<a href="/login">点击登录</a>
+              </Form.Item>
+            </Form>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </Intl>
     );
   }
 }
 
 const WrappedRegistrationForm = Form.create({ name: "sign" })(Sign);
-
-export default WrappedRegistrationForm;
+const RootCom = root(WrappedRegistrationForm);
+export default RootCom;

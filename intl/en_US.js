@@ -3,8 +3,10 @@ const id = {
   nav1: "product description",
   nav2: "My background",
   nav3: "contact us",
-  nav4: "register",
+  nav4: "register and login",
   nav5: "login",
+  nav6: "register",
+  nav7: "logOff",
   //index页面
   title1: "What is sports arbitrage?",
   content1_1:
@@ -58,6 +60,19 @@ const id = {
   content6_8: "Your subscription will expire in",
   content6_9: "days",
   content6_10: "Click to renew",
-  content6_11: "Click to buy"
+  content6_11: "Click to buy",
+  // contact6_12: ''
+
+  //ConcatUs
+  content7_1: "our email",
+  content7_2: "Submit feedback and leave your contact details",
+  content7_3: "email",
+  content7_4: "submit",
+
+  //MyBackStage
+  content8_1:
+    "You are not logged in, can't view this page, please click login. If you don't have an account yet, please click the registration button to register.",
+  content8_2:
+    "Hello new user, you are not currently a member, click the buy button to become a member, the new user first yuan 0 yuan"
 };
 export default id;
