@@ -30,14 +30,15 @@ function root(WrapedComponent) {
       if (req && req.url === "/subscribe") {
         try {
           const historyData = await getHistoryData({ page_no: 1 });
+          console.log("---------", historyData);
           if (historyData.code === 2000) {
             return { isMobile, historyData: setTableKey(historyData.data) };
           } else {
-            return { isMobile, historyData: [] };
+            return { isMobile, historyData: {} };
           }
         } catch (e) {
           console.log("e==", e);
-          return { isMobile, historyData: [] };
+          return { isMobile, historyData: {} };
         }
       }
 
@@ -48,10 +49,7 @@ function root(WrapedComponent) {
       const { isMobile, historyData } = this.props;
       return (
         <Provider store={store}>
-          <WrapedComponent
-            isMobile={isMobile}
-            historyData={historyData ? historyData : null}
-          />
+          <WrapedComponent isMobile={isMobile} historyData={historyData} />
         </Provider>
       );
     }

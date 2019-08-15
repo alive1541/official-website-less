@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
-import enUs from "../intl/en_US";
-import zhCn from "../intl/zh_CN";
-import id from "../intl/id";
+import enUs from "../intl/en_US.js";
+import zhCn from "../intl/zh_CN.js";
+import id from "../intl/id.js";
 
 export function ifLogined() {
   return Cookies.get("token") !== undefined;

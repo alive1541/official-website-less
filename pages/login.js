@@ -82,6 +82,7 @@ class Login extends React.Component {
           <Head title="登录" />
           <Nav isMobile={isMobile} />
           <div className="login-wraper">
+            <p className="login-title">登录</p>
             <Form onSubmit={this.handleSubmit} className="login-form">
               <Form.Item label="账号/邮箱">
                 {getFieldDecorator("user_name", {

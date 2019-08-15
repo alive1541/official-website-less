@@ -73,6 +73,14 @@ const id = {
   content8_1:
     "You are not logged in, can't view this page, please click login. If you don't have an account yet, please click the registration button to register.",
   content8_2:
-    "Hello new user, you are not currently a member, click the buy button to become a member, the new user first yuan 0 yuan"
+    "Hello new user, you are not currently a member, click the buy button to become a member, the new user first yuan 0 yuan",
+
+  //login
+  content9_1: "Acount/Email",
+  content9_2: "Password",
+  content9_3: "Verification code",
+  content9_4: "Comfirm",
+  contact9_5: "No account yet?",
+  contact9_6: "Click to register"
 };
 export default id;

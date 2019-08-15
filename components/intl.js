@@ -1,17 +1,14 @@
 import React from "react";
 import { IntlProvider, addLocaleData, injectIntl } from "react-intl";
-// import zh from "react-intl/locale-data/zh";
-// import en from "react-intl/locale-data/en";
 import {
   chooseLocale,
   getLanguage,
   getLanguageFromStorage
 } from "../assets/utils";
-
 import { connect } from "react-redux";
 
 class Intl extends React.Component {
-  state = { defaultLang: "zh" };
+  state = { defaultLang: "en" };
   componentDidMount() {
     const defaultLang = getLanguageFromStorage() || getLanguage();
     this.setState({ defaultLang });
@@ -20,11 +17,16 @@ class Intl extends React.Component {
   render() {
     const { children, language } = this.props;
     const lan = language || this.state.defaultLang;
-    return (
-      <IntlProvider locale={lan} messages={chooseLocale(lan)}>
-        {children}
-      </IntlProvider>
-    );
+    // console.log("lan-----", chooseLocale(lan));
+    if (Intl) {
+      return (
+        <IntlProvider locale={lan} messages={chooseLocale(lan)}>
+          {children}
+        </IntlProvider>
+      );
+    } else {
+      return children;
+    }
   }
 }
 

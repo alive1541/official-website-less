@@ -72,6 +72,14 @@ const id = {
   content8_1:
     "Anda belum masuk, anda tidak dapat melihat laman ini. Silahkan klik masuk. Jika anda belum memiliki akun, silahkan klik tombol daftar untuk registrasi.",
   content8_2:
-    "Selamat datang pengguna baru! Saat ini, anda belum menjadi member. Klik tombol beli untuk berlangganan, gratis untuk satu bulan pertama!"
+    "Selamat datang pengguna baru! Saat ini, anda belum menjadi member. Klik tombol beli untuk berlangganan, gratis untuk satu bulan pertama!",
+
+  //login
+  content9_1: "Akun/E-mail",
+  content9_2: "Kata sandi",
+  content9_3: "Kode verifikasi",
+  content9_4: "Masuk",
+  contact9_5: "Tidak punya akun? ",
+  contact9_6: "Buat akun"
 };
 export default id;

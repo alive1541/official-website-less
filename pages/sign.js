@@ -102,6 +102,7 @@ class Sign extends React.Component {
           <Head title="注册" />
           <Nav isMobile={isMobile} />
           <div className="sign-wraper">
+            <p className="sign-title">注册</p>
             <Form onSubmit={e => this.handleSubmit(e)} className="login-form">
               <Form.Item label={<FormattedMessage id="content7_4" />}>
                 {getFieldDecorator("user_name", {

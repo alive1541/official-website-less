@@ -36,9 +36,21 @@ class Subscribe extends React.Component {
     super(props);
     this.state = {
       mode: "history",
-      data: props.historyData.list,
-      total: props.historyData.total_num
+      data: [],
+      total: 0
     };
+  }
+
+  componentDidMount() {
+    const { historyData } = this.props;
+    if (historyData) {
+      this.setState({
+        data: historyData.list || [],
+        total: historyData.total_num || 0
+      });
+    } else {
+      this.getHistoryData();
+    }
   }
 
   getHistoryData = (page_no = 1) => {
