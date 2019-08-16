@@ -7,18 +7,6 @@ import { setTableKey } from "../assets/utils";
 
 const store = configureStore();
 
-// class Root extends React.Component {
-//   componentDidMount() {}
-
-//   render() {
-//     return (
-//       <Provider store={store}>
-//         <Intl />
-//       </Provider>
-//     );
-//   }
-// }
-
 function root(WrapedComponent) {
   return class extends React.Component {
     static async getInitialProps({ req }) {
@@ -30,7 +18,6 @@ function root(WrapedComponent) {
       if (req && req.url === "/subscribe") {
         try {
           const historyData = await getHistoryData({ page_no: 1 });
-          console.log("---------", historyData);
           if (historyData.code === 2000) {
             return { isMobile, historyData: setTableKey(historyData.data) };
           } else {
@@ -44,6 +31,16 @@ function root(WrapedComponent) {
 
       return { isMobile };
     }
+
+    componentDidMount() {
+      try {
+        const VConsole = require("../node_modules/vconsole/dist/vconsole.min");
+        new VConsole();
+      } catch (e) {
+        console.log("-------e------", e);
+      }
+    }
+
     render() {
       // console.log("root", this.props);
       const { isMobile, historyData } = this.props;
