@@ -7,7 +7,8 @@ function setStorage(lan) {
   } catch (e) {}
 }
 
-export function language(state = "", action) {
+export function language(state = null, action) {
+  console.log("action", action);
   switch (action.type) {
     case CHANGE_LANGUAGE:
       setStorage(action.value);

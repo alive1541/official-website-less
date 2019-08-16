@@ -7,8 +7,9 @@ export function ifLogined() {
   return Cookies.get("token") !== undefined;
 }
 
-export function removeCookie() {
-  return Cookies.remove("token");
+export function removeCookieAndStorage() {
+  Cookies.remove("token");
+  localStorage.clear();
 }
 
 export function setCookie(value, options) {
@@ -43,22 +44,26 @@ export function setTableKey(data) {
 
 // 获取语言
 export function getLanguage() {
-  const lang = navigator.language || navigator.userLanguage; // 常规浏览器语言和IE浏览器
-  const localStorageLang = localStorage.getItem("lang");
-  const defaultLang = localStorageLang || lang;
-  return defaultLang;
+  try {
+    const lang = navigator.language || navigator.userLanguage; // 常规浏览器语言和IE浏览器
+    const localStorageLang = localStorage.getItem("lang");
+    const defaultLang = localStorageLang || lang;
+    return defaultLang;
+  } catch (e) {
+    return "en";
+  }
 }
 
-// 修改html.lang显示
-export function changeHtmlLang(lang) {
-  return (document.getElementById("lang").lang = lang);
-}
+// // 修改html.lang显示
+// export function changeHtmlLang(lang) {
+//   return (document.getElementById("lang").lang = lang);
+// }
 
-// 设置语言
-export function setLanguage(lang) {
-  const defaultLang = localStorage.setItem("lang", lang);
-  return defaultLang;
-}
+// // 设置语言
+// export function setLanguage(lang) {
+//   const defaultLang = localStorage.setItem("lang", lang);
+//   return defaultLang;
+// }
 
 // 匹配语言
 export function chooseLocale(lan) {

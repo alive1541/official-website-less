@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Icon, Button, Popconfirm, Select } from "antd";
 import {
   ifLogined,
-  removeCookie,
+  getLanguage,
+  removeCookieAndStorage,
   getLanguageFromStorage
 } from "../assets/utils";
 import { FormattedMessage } from "react-intl";
@@ -18,7 +19,7 @@ class Nav extends React.Component {
     this.state = {
       menuVisible: this.props.isMobile ? false : true,
       secondMenuVisible: false,
-      language: getLanguageFromStorage()
+      language: getLanguageFromStorage() || props.language || getLanguage()
     };
   }
 
@@ -71,7 +72,7 @@ class Nav extends React.Component {
   };
   confirm = () => {
     // debugger;
-    removeCookie();
+    removeCookieAndStorage();
 
     if (this.props.isMobile) {
       setTimeout(() => {
@@ -188,15 +189,13 @@ class Nav extends React.Component {
           {
             <div className="nav-lan">
               <Select
-                style={{ width: "90px" }}
+                // style={{ width: "90px" }}
                 value={language}
                 onChange={this.lanChange}
               >
                 <Option value="zh">中文</Option>
                 <Option value="en">English</Option>
-                <Option value="id" title="Orang indonesia">
-                  Orang indonesia
-                </Option>
+                <Option value="id">印尼语</Option>
               </Select>
             </div>
           }

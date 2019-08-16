@@ -7,27 +7,53 @@ import {
 } from "../assets/utils";
 import { connect } from "react-redux";
 
-class Intl extends React.Component {
-  state = { defaultLang: "en" };
-  componentDidMount() {
-    const defaultLang = getLanguageFromStorage() || getLanguage();
-    this.setState({ defaultLang });
-  }
+function Intl(Com) {
+  class Temp extends React.Component {
+    state = { defaultLang: "" };
+    componentDidMount() {
+      const defaultLang = getLanguageFromStorage() || getLanguage();
+      this.setState({ defaultLang });
+    }
 
-  render() {
-    const { children, language } = this.props;
-    const lan = language || this.state.defaultLang;
-    // console.log("lan-----", chooseLocale(lan));
-    if (Intl) {
-      return (
-        <IntlProvider locale={lan} messages={chooseLocale(lan)}>
-          {children}
-        </IntlProvider>
-      );
-    } else {
-      return children;
+    render() {
+      const { children, language } = this.props;
+      const lan =
+        getLanguageFromStorage() || language || this.state.defaultLang;
+      if (Intl) {
+        return (
+          <IntlProvider locale={lan} messages={chooseLocale(lan)}>
+            <Com {...this.props} />
+          </IntlProvider>
+        );
+      } else {
+        return children;
+      }
     }
   }
+  return connect(state => state)(Temp);
 }
 
-export default connect(state => state)(Intl);
+// class Intl extends React.Component {
+//   state = { defaultLang: "en" };
+//   componentDidMount() {
+//     const defaultLang = getLanguageFromStorage() || getLanguage();
+//     this.setState({ defaultLang });
+//   }
+
+//   render() {
+//     const { children, language } = this.props;
+//     const lan = getLanguageFromStorage() || language || this.state.defaultLang;
+//     if (Intl) {
+//       return (
+//         <IntlProvider locale={lan} messages={chooseLocale(lan)}>
+//           {children}
+//         </IntlProvider>
+//       );
+//     } else {
+//       return children;
+//     }
+//   }
+// }
+
+// export default connect(state => state)(Intl);
+export default Intl;

@@ -61,12 +61,19 @@ const id = {
   content6_9: "hari.",
   content6_10: "Lanjut Berlangganan",
   content6_11: "Beli",
+  content6_12: "Selamat! Pembelian anda telah berhasil.",
+  content6_13: "Masa berlaku langganan aktif sampai dengan",
+  content6_14: "Anda memiliki",
+  content6_15:
+    "detik sebelum anda diarahkan ke dalam platform keuangan anda, klik disini untuk segera masuk. Kata sandi pada akun platform keuangan anda cocok dengan kata sandi pada situs web anda.",
+  content6_16: "URL latar belakang keuangan：",
 
   //ConcatUs
   content7_1: "E-mail kami",
   content7_2: "Kirimkan feedback dan berikan kontak anda",
   content7_3: "Berikan e-mail anda",
   content7_4: "Kirim",
+  info7_1: "Silakan masukkan umpan balik Anda",
 
   //MyBackStage
   content8_1:
@@ -79,7 +86,39 @@ const id = {
   content9_2: "Kata sandi",
   content9_3: "Kode verifikasi",
   content9_4: "Masuk",
-  contact9_5: "Tidak punya akun? ",
-  contact9_6: "Buat akun"
+  content9_5: "Tidak punya akun? ",
+  content9_6: "Buat akun",
+  info9_1: "Silahkan masukkan nama pengguna",
+  info9_2: "Silahkan masukkan kata sandi",
+  info9_3: "Nama pengguna tidak boleh kurang dari 4 karakter",
+  info9_4: "Kata sandi tidak boleh melebihi 20 karakter!",
+  info9_5: "Silahkan masukkan kode verifikasi",
+  info9_10: "Kide verifikasi salah",
+  info9_11: "Server mengalami gangguan, silahkan coba lagi nanti.",
+
+  //sign
+  content10_1: "Ulangi kata sandi",
+  content10_2: "E-mail",
+  content10_3: "Daftar",
+  content10_4: "Punya akun?",
+  content10_5: "Masuk",
+  content10_6: "Akun",
+  info10_6: "4-20 karakter",
+  info10_7: "Silahkan masukkan ulang kata sandi",
+  info10_8: "Silahkan masukkan e-mail",
+  info10_9: "Silahkan masukkan e-mail anda dengan tepat",
+  info10_13: "Nama pengguna tidak boleh kurang dari 4 karakter",
+  info10_14: "Hanya dapat diisi dengan angka dan huruf",
+  info10_15: "Kata sandi tidak boleh kurang dari 4 karakter",
+  info10_16: "Kata sandi tidak sesuai",
+
+  //Subscribe
+  content11_1: "Peluang",
+  content11_2: "Situs 1",
+  content11_3: "Harga Beli(peluang)",
+  content11_4: "Situs 2",
+  content11_5: "Harga Beli(peluang)",
+  content11_6: "Estimasi Keuntungan ",
+  content11_7: "posisi"
 };
 export default id;

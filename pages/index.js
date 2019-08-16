@@ -9,7 +9,7 @@ import { activeVip, getUserInfo } from "../service";
 import { getCookie } from "../assets/utils";
 import { ifLogined } from "../assets/utils";
 import Router from "next/router";
-import Intl from "../components/intl";
+import intl from "../components/intl";
 import { FormattedMessage } from "react-intl";
 import root from "../components/root";
 
@@ -112,203 +112,208 @@ class Home extends React.Component {
     const { isMobile } = this.props;
     const { purchaseVisible, timerNum, expireDate } = this.state;
     return (
-      <Intl>
-        <div>
-          <Head title="体育套利" />
-          <Nav isMobile={isMobile} pathName="index" />
-          <div className="index-wraper">
-            <h1>
-              <FormattedMessage id="title1" />
-            </h1>
+      <div>
+        <Head title="体育套利" />
+        <Nav isMobile={isMobile} pathName="index" />
+        <div className="index-wraper">
+          <h1>
+            <FormattedMessage id="title1" />
+          </h1>
+          <p className="content">
+            <FormattedMessage id="content1_1" />
+          </p>
+          <p className="content">
+            <FormattedMessage id="content1_2" />
+          </p>
+          <p className="content">
+            <FormattedMessage id="content1_3" />
+          </p>
+          <p className="content">
+            <FormattedMessage id="content1_4" />
+          </p>
+          <h1>
+            <FormattedMessage id="title2" />
+          </h1>
+          <p className="content">
+            <FormattedMessage id="content2_1" />
+            <Link href={{ pathname: "/subscribe" }}>
+              <a>
+                <u>
+                  <FormattedMessage id="content2_2" />
+                </u>
+              </a>
+            </Link>
             <p className="content">
-              <FormattedMessage id="content1_1" />
+              <FormattedMessage id="content2_3" />
             </p>
-            <p className="content">
-              <FormattedMessage id="content1_2" />
-            </p>
-            <p className="content">
-              <FormattedMessage id="content1_3" />
-            </p>
-            <p className="content">
-              <FormattedMessage id="content1_4" />
-            </p>
-            <h1>
-              <FormattedMessage id="title2" />
-            </h1>
-            <p className="content">
-              <FormattedMessage id="content2_1" />
-              <Link href={{ pathname: "/subscribe" }}>
-                <a>
-                  <u>
-                    <FormattedMessage id="content2_2" />
-                  </u>
-                </a>
-              </Link>
-              <p className="content">
-                <FormattedMessage id="content2_3" />
+          </p>
+
+          <h1>
+            <FormattedMessage id="title3" />
+          </h1>
+          <p className="content">
+            <FormattedMessage id="content3_1" />
+          </p>
+
+          <h1>
+            <FormattedMessage id="title4" />
+          </h1>
+          <div className="content">
+            <div className="index-phone-content">
+              <p>
+                <FormattedMessage id="content4_1" />
               </p>
-            </p>
-
-            <h1>
-              <FormattedMessage id="title3" />
-            </h1>
-            <p className="content">
-              <FormattedMessage id="content3_1" />
-            </p>
-
-            <h1>
-              <FormattedMessage id="title4" />
-            </h1>
-            <div className="content">
-              <div className="index-phone-content">
-                <p>
-                  <FormattedMessage id="content4_1" />
-                </p>
-                <p>
-                  <FormattedMessage id="content4_2" />
-                </p>
-                <p>
-                  <FormattedMessage id="content4_3" />
-                </p>
-                <p>
-                  <FormattedMessage id="content4_4" />
-                </p>
-              </div>
-              <div className="index-phone-img">
-                <img src="/static/img/phone.png" />
-              </div>
+              <p>
+                <FormattedMessage id="content4_2" />
+              </p>
+              <p>
+                <FormattedMessage id="content4_3" />
+              </p>
+              <p>
+                <FormattedMessage id="content4_4" />
+              </p>
             </div>
+            <div className="index-phone-img">
+              <img src="/static/img/phone.png" />
+            </div>
+          </div>
 
-            <h1>
-              <FormattedMessage id="title5" />
-            </h1>
-            <div className="content">
-              {!isMobile && (
-                <Carousel autoplay>
-                  <div>
-                    <div className="index-carousel">
-                      <div className="index-carousel-content">
-                        <FormattedMessage id="content5_1" />
-                        <br />
-                        <FormattedMessage id="content5_2" />
-                      </div>
-                      <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart1.png" />
-                      </div>
+          <h1>
+            <FormattedMessage id="title5" />
+          </h1>
+          <div className="content">
+            {!isMobile && (
+              <Carousel autoplay>
+                <div>
+                  <div className="index-carousel">
+                    <div className="index-carousel-content">
+                      <FormattedMessage id="content5_1" />
+                      <br />
+                      <FormattedMessage id="content5_2" />
                     </div>
-                  </div>
-                  <div>
-                    <div className="index-carousel">
-                      <div className="index-carousel-content">
-                        <FormattedMessage id="content5_3" />
-                        <br />
-                        <FormattedMessage id="content5_4" />
-                      </div>
-                      <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart2.png" />
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="index-carousel">
-                      <div className="index-carousel-content">
-                        <FormattedMessage id="content5_5" />
-                        <br />
-                        <FormattedMessage id="content5_6" />
-                      </div>
-                      <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart2.png" />
-                      </div>
-                    </div>
-                  </div>
-                </Carousel>
-              )}
-              {isMobile && (
-                <div className="index-carousel-wraper">
-                  <div>
-                    <div className="index-carousel">
-                      <div className="index-carousel-content">
-                        <FormattedMessage id="content5_1" />
-                        <br />
-                        <FormattedMessage id="content5_2" />
-                      </div>
-                      <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart1.png" />
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="index-carousel">
-                      <div className="index-carousel-content">
-                        <FormattedMessage id="content5_3" />
-                        <br />
-                        <FormattedMessage id="content5_4" />
-                      </div>
-                      <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart2.png" />
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="index-carousel">
-                      <div className="index-carousel-content">
-                        <FormattedMessage id="content5_5" />
-                        <br />
-                        <FormattedMessage id="content5_6" />
-                      </div>
-                      <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart2.png" />
-                      </div>
+                    <div className="index-carousel-img-wraper">
+                      <img src="/static/img/line-chart1.png" />
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
-            <h1 id="target">
-              <FormattedMessage id="title6" />
-            </h1>
-            {expireDate === null && (
-              <p className="content">
-                <FormattedMessage id="content6_1" />
-              </p>
+                <div>
+                  <div className="index-carousel">
+                    <div className="index-carousel-content">
+                      <FormattedMessage id="content5_3" />
+                      <br />
+                      <FormattedMessage id="content5_4" />
+                    </div>
+                    <div className="index-carousel-img-wraper">
+                      <img src="/static/img/line-chart2.png" />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="index-carousel">
+                    <div className="index-carousel-content">
+                      <FormattedMessage id="content5_5" />
+                      <br />
+                      <FormattedMessage id="content5_6" />
+                    </div>
+                    <div className="index-carousel-img-wraper">
+                      <img src="/static/img/line-chart2.png" />
+                    </div>
+                  </div>
+                </div>
+              </Carousel>
             )}
-
-            <div className="content">
-              <div className="index-product-info">
-                <div className="index-product-info-item">
-                  <p className="index-product-info-money">
-                    <FormattedMessage id="content6_2" />
-                  </p>
-                  <p className="index-product-info-money">
-                    <FormattedMessage id="content6_3" />
-                  </p>
-                  <Info expireDate={expireDate} ctx={this} />
+            {isMobile && (
+              <div className="index-carousel-wraper">
+                <div>
+                  <div className="index-carousel">
+                    <div className="index-carousel-content">
+                      <FormattedMessage id="content5_1" />
+                      <br />
+                      <FormattedMessage id="content5_2" />
+                    </div>
+                    <div className="index-carousel-img-wraper">
+                      <img src="/static/img/line-chart1.png" />
+                    </div>
+                  </div>
                 </div>
-                {/* <div className="index-product-info-item">
+                <div>
+                  <div className="index-carousel">
+                    <div className="index-carousel-content">
+                      <FormattedMessage id="content5_3" />
+                      <br />
+                      <FormattedMessage id="content5_4" />
+                    </div>
+                    <div className="index-carousel-img-wraper">
+                      <img src="/static/img/line-chart2.png" />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="index-carousel">
+                    <div className="index-carousel-content">
+                      <FormattedMessage id="content5_5" />
+                      <br />
+                      <FormattedMessage id="content5_6" />
+                    </div>
+                    <div className="index-carousel-img-wraper">
+                      <img src="/static/img/line-chart2.png" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          <h1 id="target">
+            <FormattedMessage id="title6" />
+          </h1>
+          {expireDate === null && (
+            <p className="content">
+              <FormattedMessage id="content6_1" />
+            </p>
+          )}
+
+          <div className="content">
+            <div className="index-product-info">
+              <div className="index-product-info-item">
+                <p className="index-product-info-money">
+                  <FormattedMessage id="content6_2" />
+                </p>
+                <p className="index-product-info-money">
+                  <FormattedMessage id="content6_3" />
+                </p>
+                <Info expireDate={expireDate} ctx={this} />
+              </div>
+              {/* <div className="index-product-info-item">
                 <p className="index-product-info-money"><FormattedMessage id="content6_5" /></p>
                 <p className="index-product-info-money"><FormattedMessage id="content6_6" /></p>
                 <Info expireDate={expireDate} ctx={this} />
               </div> */}
-              </div>
             </div>
           </div>
-          {
-            <Modal visible={purchaseVisible} closable={false} footer={false}>
-              <div className="index-modal">
-                <p className="index-modal-title">
-                  恭喜您购买成功 会员有效期至{expireDate && expireDate.date}
-                </p>
-                <p className="index-modal-content">
-                  系统还有{timerNum}s跳转至您的理财后台，点击这里迅速跳转，
-                  理财后台的账号密码与您的官网注册密码一致
-                </p>
-                <a href={this.href}>理财后台网址：123.56.11.198:8990/#/</a>
-              </div>
-            </Modal>
-          }
-          <Footer />
         </div>
-      </Intl>
+        {
+          <Modal visible={purchaseVisible} closable={false} footer={false}>
+            <div className="index-modal">
+              <p className="index-modal-title">
+                <FormattedMessage id="content6_12" />
+                <br />
+                <FormattedMessage id="content6_13" />
+                {expireDate && expireDate.date}
+              </p>
+              <p className="index-modal-content">
+                <FormattedMessage id="content6_14" />
+                {timerNum}
+                <FormattedMessage id="content6_15" />
+              </p>
+              <a href={this.href}>
+                <FormattedMessage id="content6_16" />
+                123.56.11.198:8990/#/
+              </a>
+            </div>
+          </Modal>
+        }
+        <Footer />
+      </div>
     );
   }
 }
@@ -345,4 +350,4 @@ function Info(props) {
   );
 }
 
-export default root(Home);
+export default root(intl(Home));

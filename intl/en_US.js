@@ -61,13 +61,19 @@ const id = {
   content6_9: "days",
   content6_10: "Click to renew",
   content6_11: "Click to buy",
-  // contact6_12: ''
+  content6_12: "Congratulations on your successful purchase.",
+  content6_13: "Membership validity to",
+  content6_14: "The system also has ",
+  content6_15:
+    "s to jump to your financial backstage, click here to jump quickly.",
+  content6_16: "Financial Background Website: ",
 
   //ConcatUs
   content7_1: "our email",
   content7_2: "Submit feedback and leave your contact details",
   content7_3: "email",
   content7_4: "submit",
+  info7_1: "Please enter your feedback",
 
   //MyBackStage
   content8_1:
@@ -80,7 +86,39 @@ const id = {
   content9_2: "Password",
   content9_3: "Verification code",
   content9_4: "Comfirm",
-  contact9_5: "No account yet?",
-  contact9_6: "Click to register"
+  content9_5: "No account yet?",
+  content9_6: "Click to register",
+  info9_1: "Please input user name",
+  info9_2: "Please input password",
+  info9_3: "User name cannot be more than 20 characters",
+  info9_4: "Password cannot be more than 20 characters",
+  info9_5: "Please input verification code",
+  info9_10: "Incorrect verificaiton code",
+  info9_11: "Something went wrong, please try again later",
+
+  //sign
+  content10_1: "Comfirm password",
+  content10_2: "Email",
+  content10_3: "Register",
+  content10_4: "Already have an account? ",
+  content10_5: "Click to log in",
+  content10_6: "Account",
+  info10_6: "4-20 characters",
+  info10_7: "Please input comfirm password",
+  info10_8: "Please input email",
+  info10_9: "Please input correct email address",
+  info10_13: "User name cannot be less than 4 characters",
+  info10_14: "Only input numbers and characters",
+  info10_15: "Password cannot be less than 4 characters",
+  info10_16: "The passwords you input do not match",
+
+  //Subscribe
+  content11_1: "opportunity",
+  content11_2: "Website 1",
+  content11_3: "Recommended purchase amount(odds)",
+  content11_4: "Website 2",
+  content11_5: "Suggested purchase amount(odds)",
+  content11_6: "Expected return",
+  content11_7: "direction"
 };
 export default id;

@@ -9,8 +9,8 @@ import { sign } from "../service";
 import Router from "next/router";
 import md5 from "js-md5";
 import root from "../components/root";
-import { FormattedMessage } from "react-intl";
-import Intl from "../components/intl";
+import { FormattedMessage, injectIntl } from "react-intl";
+import intl from "../components/intl";
 
 import "../style/sign.less";
 
@@ -38,13 +38,14 @@ class Sign extends React.Component {
     if (this.state.varifyCode) {
       return true;
     } else {
-      message.error("验证码错误");
+      message.error(this.props.intl.messages["info9_10"]);
       return false;
     }
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    if (!this.ifAccessVarify()) return;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         sign({
@@ -67,7 +68,7 @@ class Sign extends React.Component {
             }
           })
           .catch(function(error) {
-            message.error("服务器开小差了，请稍后再试");
+            message.error(this.props.intl.messages["info9_11"]);
           });
       } else {
         message.info(err);
@@ -78,7 +79,7 @@ class Sign extends React.Component {
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue("password")) {
-      callback("两次输入的密码不一致！");
+      callback(this.props.intl.messages["info10_16"]);
     } else {
       callback();
     }
@@ -93,144 +94,152 @@ class Sign extends React.Component {
   };
 
   render() {
-    const { isMobile } = this.props;
+    const {
+      isMobile,
+      intl: { messages }
+    } = this.props;
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <Intl>
-        <div>
-          <Head title="注册" />
-          <Nav isMobile={isMobile} />
-          <div className="sign-wraper">
-            <p className="sign-title">注册</p>
-            <Form onSubmit={e => this.handleSubmit(e)} className="login-form">
-              <Form.Item label={<FormattedMessage id="content7_4" />}>
-                {getFieldDecorator("user_name", {
-                  rules: [
-                    { required: true, message: "请输入用户名!" },
-                    { max: 20, message: "用户名不能超过20个字符!" },
-                    { min: 4, message: "用户名不能少于4个字符!" },
-                    {
-                      validator: (rule, value, callback) => {
-                        if (!/^[0-9a-zA-Z]*$/.test(value)) {
-                          callback(true);
-                        } else {
-                          callback();
-                        }
-                      },
-                      message: "只能填写数字和字母!"
-                    }
-                  ]
-                })(
-                  <Input
-                    prefix={
-                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    size="large"
-                    placeholder="4-20位"
-                  />
-                )}
-              </Form.Item>
-              <Form.Item label="密码">
-                {getFieldDecorator("password", {
-                  rules: [
-                    {
-                      required: true,
-                      message: "请输入密码!"
-                    },
-                    {
-                      validator: this.validateToNextPassword
-                    },
-                    { max: 20, message: "密码不能超过20个字符!" },
-                    { min: 4, message: "密码不能少于4个字符!" }
-                  ]
-                })(
-                  <Input
-                    prefix={
-                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    type="password"
-                    size="large"
-                    placeholder="4-20位"
-                  />
-                )}
-              </Form.Item>
-              <Form.Item label="确认密码">
-                {getFieldDecorator("confirm", {
-                  rules: [
-                    {
-                      required: true,
-                      message: "请输入确认密码!"
-                    },
-                    {
-                      validator: this.compareToFirstPassword
-                    }
-                  ]
-                })(
-                  <Input
-                    prefix={
-                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    type="password"
-                    size="large"
-                    placeholder="请输入确认密码"
-                  />
-                )}
-              </Form.Item>
-              <Form.Item label="验证码">
-                <Row gutter={8}>
-                  <Col span={18}>
-                    <Input
-                      ref="inputCode"
-                      prefix={
-                        <Icon
-                          type="picture"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
+      <div>
+        <Head title={messages["nav6"]} />
+        <Nav isMobile={isMobile} />
+        <div className="sign-wraper">
+          <p className="sign-title">
+            <FormattedMessage id="nav6" />
+          </p>
+          <Form onSubmit={e => this.handleSubmit(e)} className="login-form">
+            <Form.Item label={<FormattedMessage id="content10_6" />}>
+              {getFieldDecorator("user_name", {
+                rules: [
+                  { required: true, message: messages["info9_1"] },
+                  { max: 20, message: messages["info9_3"] },
+                  { min: 4, message: messages["info10_13"] },
+                  {
+                    validator: (rule, value, callback) => {
+                      if (!/^[0-9a-zA-Z]*$/.test(value)) {
+                        callback(true);
+                      } else {
+                        callback();
                       }
-                      size="large"
-                      placeholder="请输入验证码"
-                    />
-                  </Col>
-                  <Col span={6}>
-                    <span id="code" className="mycode" />
-                  </Col>
-                </Row>
-              </Form.Item>
-              <Form.Item label="邮箱">
-                {getFieldDecorator("mail", {
-                  rules: [
-                    {
-                      type: "email",
-                      message: "请输入正确的邮箱!"
                     },
-                    {
-                      required: true,
-                      message: "请输入邮箱!"
-                    }
-                  ]
-                })(<Input size="large" placeholder="请输入邮箱" />)}
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
+                    message: messages["info10_14"]
+                  }
+                ]
+              })(
+                <Input
+                  prefix={
+                    <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
                   size="large"
-                  className="sign-form-button"
-                >
-                  免费注册
-                </Button>
-                已有账号？<a href="/login">点击登录</a>
-              </Form.Item>
-            </Form>
-          </div>
-          <Footer />
+                  placeholder={messages["info10_6"]}
+                />
+              )}
+            </Form.Item>
+            <Form.Item label={messages["content9_2"]}>
+              {getFieldDecorator("password", {
+                rules: [
+                  {
+                    required: true,
+                    message: messages["info9_2"]
+                  },
+                  {
+                    validator: this.validateToNextPassword
+                  },
+                  { max: 20, message: messages["info9_4"] },
+                  { min: 4, message: messages["info10_15"] }
+                ]
+              })(
+                <Input
+                  prefix={
+                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
+                  type="password"
+                  size="large"
+                  placeholder={messages["info10_6"]}
+                />
+              )}
+            </Form.Item>
+            <Form.Item label={messages["content10_1"]}>
+              {getFieldDecorator("confirm", {
+                rules: [
+                  {
+                    required: true,
+                    message: messages["info10_7"]
+                  },
+                  {
+                    validator: this.compareToFirstPassword
+                  }
+                ]
+              })(
+                <Input
+                  prefix={
+                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
+                  type="password"
+                  size="large"
+                  placeholder={messages["info10_7"]}
+                />
+              )}
+            </Form.Item>
+            <Form.Item label={messages["content9_3"]}>
+              <Row gutter={8}>
+                <Col span={18}>
+                  <Input
+                    ref="inputCode"
+                    prefix={
+                      <Icon
+                        type="picture"
+                        style={{ color: "rgba(0,0,0,.25)" }}
+                      />
+                    }
+                    size="large"
+                    placeholder={messages["info9_5"]}
+                  />
+                </Col>
+                <Col span={6}>
+                  <span id="code" className="mycode" />
+                </Col>
+              </Row>
+            </Form.Item>
+            <Form.Item label={messages["content10_2"]}>
+              {getFieldDecorator("mail", {
+                rules: [
+                  {
+                    type: "email",
+                    message: messages["info10_9"]
+                  },
+                  {
+                    required: true,
+                    message: messages["info10_8"]
+                  }
+                ]
+              })(<Input size="large" placeholder={messages["info10_8"]} />)}
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="large"
+                className="sign-form-button"
+              >
+                <FormattedMessage id="content10_3" />
+              </Button>
+              <FormattedMessage id="content10_4" />
+              <a href="/login">
+                <FormattedMessage id="content10_5" />
+              </a>
+            </Form.Item>
+          </Form>
         </div>
-      </Intl>
+        <Footer />
+      </div>
     );
   }
 }
 
-const WrappedRegistrationForm = Form.create({ name: "sign" })(Sign);
+const WrappedRegistrationForm = Form.create({ name: "sign" })(
+  intl(injectIntl(Sign))
+);
 const RootCom = root(WrappedRegistrationForm);
 export default RootCom;
