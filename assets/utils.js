@@ -47,7 +47,7 @@ export function setTableKey(data) {
 export function getLanguage() {
   try {
     let defaultLang = navigator.language || navigator.userLanguage; // 常规浏览器语言和IE浏览器
-    if (defaultLang === "zh_CN") {
+    if (defaultLang === "zh-CN") {
       defaultLang = "zh";
     }
     return defaultLang;
