@@ -6,7 +6,10 @@ const id = {
   nav4: "Registrasi - Masuk",
   nav5: "Masuk",
   nav6: "Registrasi",
-  nav7: "logOff",
+  nav7: "Keluar",
+  nav8: "Apakah anda yakin ingin keluar?",
+  nav9: "Lanjutkan",
+  nav10: "Batalkan",
   //index页面
   title1: "Apa itu arbitrase olahraga?",
   content1_1:
@@ -59,14 +62,14 @@ const id = {
   content6_7: "Masa berlangganan anda telah berakhir pada",
   content6_8: "Masa berlangganan anda akan berakhir dalam ",
   content6_9: "hari.",
-  content6_10: "Lanjut Berlangganan",
+  content6_10: "Fungsi pembaruan sempurna",
   content6_11: "Beli",
   content6_12: "Selamat! Pembelian anda telah berhasil.",
   content6_13: "Masa berlaku langganan aktif sampai dengan",
   content6_14: "Anda memiliki",
   content6_15:
     "detik sebelum anda diarahkan ke dalam platform keuangan anda, klik disini untuk segera masuk. Kata sandi pada akun platform keuangan anda cocok dengan kata sandi pada situs web anda.",
-  content6_16: "URL latar belakang keuangan：",
+  content6_16: "URL latar belakang keuangan",
 
   //ConcatUs
   content7_1: "E-mail kami",
@@ -74,6 +77,7 @@ const id = {
   content7_3: "Berikan e-mail anda",
   content7_4: "Kirim",
   info7_1: "Silakan masukkan umpan balik Anda",
+  info7_2: "Informasi tidak lengkap",
 
   //MyBackStage
   content8_1:
@@ -119,6 +123,10 @@ const id = {
   content11_4: "Situs 2",
   content11_5: "Harga Beli(peluang)",
   content11_6: "Estimasi Keuntungan ",
-  content11_7: "posisi"
+  content11_7: "posisi",
+  info11_1: "Pemilik",
+  info11_2: "Tamu",
+  info11_3: "Besar",
+  info11_4: "Kecil"
 };
 export default id;

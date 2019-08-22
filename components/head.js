@@ -6,7 +6,7 @@ const defaultDescription = "";
 const defaultOGURL = "";
 const defaultOGImage = "";
 const defaultTitle = "体育套利";
-const defaultKeywords = "打水|足彩对冲|rebelbetting|利润盘|博彩网站";
+const defaultKeywords = "打水|足彩对冲|rebelbetting|利润盘|彩票网站";
 
 const Head = props => (
   <NextHead>

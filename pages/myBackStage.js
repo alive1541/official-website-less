@@ -3,14 +3,13 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
 import Link from "next/link";
-import { Button } from "antd";
-import { ifLogined } from "../assets/utils";
-import { getCookie } from "../assets/utils";
+import { Button, message } from "antd";
+import { ifLogined, getCookie, getLanguageFromStorage } from "../assets/utils";
 import intl from "../components/intl";
 import { FormattedMessage } from "react-intl";
 import root from "../components/root";
 
-import "../style/myBackstage.less";
+import "../style/myBackStage.less";
 
 class MyBackStage extends React.Component {
   constructor(props) {
@@ -29,18 +28,20 @@ class MyBackStage extends React.Component {
   checkStorage() {
     try {
       const expireDate = JSON.parse(localStorage.getItem("expireDate"));
-      if (expireDate && expireDate.type === "atTime") {
-        this.refGo();
-      }
+      // if (ifLogined() && expireDate && expireDate.type === "atTime") {
+      //   this.refGo();
+      //   // location.href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}&language=${getLanguageFromStorage()}`
+      // }
       this.setState({ expireDate: expireDate });
     } catch (e) {
+      console.log("--e--", e);
       // message.error("JSON解析出错");
     }
   }
 
-  refGo() {
-    location.href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}`;
-  }
+  // refGo() {
+  //   location.href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}&language=${getLanguageFromStorage()}`;
+  // }
 
   render() {
     const { isMobile } = this.props;

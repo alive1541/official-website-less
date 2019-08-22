@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo '====================== npm install ======================'
+
+npm install
+
+echo '====================== npm install end ======================'
+
 echo '====================== build start ======================'
 
 npm run build

@@ -110,13 +110,13 @@ class Subscribe extends React.Component {
           let book = {};
           if (play_type == 2) {
             book = {
-              left: "大",
-              right: "小"
+              left: messages["info11_3"],
+              right: messages["info11_4"]
             };
           } else {
             book = {
-              left: "主",
-              right: "客"
+              left: messages["info11_1"],
+              right: messages["info11_2"]
             };
           }
           return <div>{book[first_choice]}</div>;
@@ -161,13 +161,13 @@ class Subscribe extends React.Component {
           let book = {};
           if (play_type == 2) {
             book = {
-              left: "大",
-              right: "小"
+              left: messages["info11_3"],
+              right: messages["info11_4"]
             };
           } else {
             book = {
-              left: "主",
-              right: "客"
+              left: messages["info11_1"],
+              right: messages["info11_2"]
             };
           }
           return <div>{book[second_choice]}</div>;

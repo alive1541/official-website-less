@@ -11,14 +11,13 @@ function Intl(Com) {
   class Temp extends React.Component {
     state = { defaultLang: "" };
     componentDidMount() {
-      const defaultLang = getLanguageFromStorage() || getLanguage();
+      const defaultLang = getLanguageFromStorage();
       this.setState({ defaultLang });
     }
 
     render() {
       const { children, language } = this.props;
-      const lan =
-        getLanguageFromStorage() || language || this.state.defaultLang;
+      const lan = getLanguageFromStorage() || this.state.defaultLang;
       if (Intl) {
         return (
           <IntlProvider locale={lan} messages={chooseLocale(lan)}>

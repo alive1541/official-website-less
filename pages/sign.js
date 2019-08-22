@@ -3,6 +3,7 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
+import Link from "next/link";
 import { Form, Icon, Input, Button, Row, Col, message } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
 import { sign } from "../service";
@@ -226,9 +227,11 @@ class Sign extends React.Component {
                 <FormattedMessage id="content10_3" />
               </Button>
               <FormattedMessage id="content10_4" />
-              <a href="/login">
-                <FormattedMessage id="content10_5" />
-              </a>
+              <Link href={{ pathname: "/login" }}>
+                <a style={{ margin: "5px 10px" }}>
+                  <FormattedMessage id="content10_5" />
+                </a>
+              </Link>
             </Form.Item>
           </Form>
         </div>

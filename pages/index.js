@@ -6,8 +6,7 @@ import initReactFastclick from "react-fastclick";
 import { Carousel, Button, Modal, message } from "antd";
 import Link from "next/link";
 import { activeVip, getUserInfo } from "../service";
-import { getCookie } from "../assets/utils";
-import { ifLogined } from "../assets/utils";
+import { getCookie, ifLogined, getLanguageFromStorage } from "../assets/utils";
 import Router from "next/router";
 import intl from "../components/intl";
 import { FormattedMessage } from "react-intl";
@@ -25,7 +24,7 @@ class Home extends React.Component {
     return { isMobile };
   }
 
-  href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}`;
+  href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}&language=${getLanguageFromStorage()}`;
 
   state = {
     purchaseVisible: false,
@@ -307,7 +306,6 @@ class Home extends React.Component {
               </p>
               <a href={this.href}>
                 <FormattedMessage id="content6_16" />
-                123.56.11.198:8990/#/
               </a>
             </div>
           </Modal>

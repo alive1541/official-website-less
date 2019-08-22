@@ -9,7 +9,8 @@ export function ifLogined() {
 
 export function removeCookieAndStorage() {
   Cookies.remove("token");
-  localStorage.clear();
+  // localStorage.clear();
+  localStorage.removeItem("expireDate");
 }
 
 export function setCookie(value, options) {
@@ -45,9 +46,10 @@ export function setTableKey(data) {
 // 获取语言
 export function getLanguage() {
   try {
-    const lang = navigator.language || navigator.userLanguage; // 常规浏览器语言和IE浏览器
-    const localStorageLang = localStorage.getItem("lang");
-    const defaultLang = localStorageLang || lang;
+    let defaultLang = navigator.language || navigator.userLanguage; // 常规浏览器语言和IE浏览器
+    if (defaultLang === "zh_CN") {
+      defaultLang = "zh";
+    }
     return defaultLang;
   } catch (e) {
     return "en";
@@ -84,7 +86,7 @@ export function chooseLocale(lan) {
 
 export function getLanguageFromStorage() {
   try {
-    return localStorage.getItem("language");
+    return localStorage.getItem("language") || getLanguage();
   } catch (e) {
     return null;
   }

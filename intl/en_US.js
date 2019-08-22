@@ -7,6 +7,9 @@ const id = {
   nav5: "login",
   nav6: "register",
   nav7: "logOff",
+  nav8: "Do you want to log out?",
+  nav9: "Confirm",
+  nav10: "Cancel",
   //index页面
   title1: "What is sports arbitrage?",
   content1_1:
@@ -59,14 +62,14 @@ const id = {
   content6_7: "Your subscription expired on",
   content6_8: "Your subscription will expire in",
   content6_9: "days",
-  content6_10: "Click to renew",
+  content6_10: "The renewal function is improving, please look forward to it",
   content6_11: "Click to buy",
   content6_12: "Congratulations on your successful purchase.",
   content6_13: "Membership validity to",
   content6_14: "The system also has ",
   content6_15:
     "s to jump to your financial backstage, click here to jump quickly.",
-  content6_16: "Financial Background Website: ",
+  content6_16: "Financial Background Website",
 
   //ConcatUs
   content7_1: "our email",
@@ -74,6 +77,7 @@ const id = {
   content7_3: "email",
   content7_4: "submit",
   info7_1: "Please enter your feedback",
+  info7_2: "Incomplete information",
 
   //MyBackStage
   content8_1:
@@ -119,6 +123,10 @@ const id = {
   content11_4: "Website 2",
   content11_5: "Suggested purchase amount(odds)",
   content11_6: "Expected return",
-  content11_7: "direction"
+  content11_7: "direction",
+  info11_1: "master",
+  info11_2: "guest",
+  info11_3: "big",
+  info11_4: "small"
 };
 export default id;

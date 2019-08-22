@@ -21,11 +21,11 @@ function root(WrapedComponent) {
           if (historyData.code === 2000) {
             return { isMobile, historyData: setTableKey(historyData.data) };
           } else {
-            return { isMobile, historyData: {} };
+            return { isMobile };
           }
         } catch (e) {
           console.log("e==", e);
-          return { isMobile, historyData: {} };
+          return { isMobile };
         }
       }
 
@@ -33,12 +33,12 @@ function root(WrapedComponent) {
     }
 
     componentDidMount() {
-      try {
-        const VConsole = require("../node_modules/vconsole/dist/vconsole.min");
-        new VConsole();
-      } catch (e) {
-        console.log("-------e------", e);
-      }
+      // try {
+      //   const VConsole = require("../node_modules/vconsole/dist/vconsole.min");
+      //   new VConsole();
+      // } catch (e) {
+      //   console.log("-------e------", e);
+      // }
     }
 
     render() {

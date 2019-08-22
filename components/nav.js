@@ -3,13 +3,14 @@ import Link from "next/link";
 import { Icon, Button, Popconfirm, Select } from "antd";
 import {
   ifLogined,
-  getLanguage,
+  getCookie,
   removeCookieAndStorage,
   getLanguageFromStorage
 } from "../assets/utils";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import "./style/nav.less";
 import { connect } from "react-redux";
+import Router from "next/router";
 
 const { Option } = Select;
 
@@ -19,7 +20,7 @@ class Nav extends React.Component {
     this.state = {
       menuVisible: this.props.isMobile ? false : true,
       secondMenuVisible: false,
-      language: getLanguageFromStorage() || props.language || getLanguage()
+      language: getLanguageFromStorage()
     };
   }
 
@@ -74,21 +75,39 @@ class Nav extends React.Component {
     // debugger;
     removeCookieAndStorage();
 
-    if (this.props.isMobile) {
-      setTimeout(() => {
-        this.handleIconClick();
-      }, 500);
-    } else {
-      this.setState({});
-    }
+    // if (this.props.isMobile) {
+    //   setTimeout(() => {
+    //     this.handleIconClick();
+    //   }, 500);
+    // } else {
+    //   this.setState({});
+    // }
+    // this.setState({});
+    location.reload();
   };
   lanChange = value => {
     this.setState({ language: value });
     this.props.dispatch({ type: "CHANGE_LANGUAGE", value });
   };
+  goXXbussiness = () => {
+    console.log(111);
+    try {
+      const expireDate = JSON.parse(localStorage.getItem("expireDate"));
+      if (ifLogined() && expireDate && expireDate.type === "atTime") {
+        location.href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}&language=${getLanguageFromStorage()}`;
+      } else {
+        Router.push({
+          pathname: "/myBackStage"
+        });
+      }
+    } catch (e) {}
+  };
   render() {
     const { menuVisible, language } = this.state;
-    const { isMobile } = this.props;
+    const {
+      isMobile,
+      intl: { messages }
+    } = this.props;
     const size = isMobile ? "small" : "default";
     return (
       <nav>
@@ -120,11 +139,14 @@ class Nav extends React.Component {
                 className={this.handleItemClassName(["myBackStage"])}
                 onClick={this.handleClick}
               >
-                <Link href={{ pathname: "/myBackStage" }}>
-                  <a className="index">
-                    <FormattedMessage id="nav2" />
-                  </a>
-                </Link>
+                {/* <Link
+                  onClick={this.goXXbussiness}
+                  // href={{ pathname: "/myBackStage" }}
+                > */}
+                <a className="myBackStage" onClick={this.goXXbussiness}>
+                  <FormattedMessage id="nav2" />
+                </a>
+                {/* </Link> */}
               </div>
 
               <div className="block" />
@@ -140,13 +162,13 @@ class Nav extends React.Component {
               </div>
               {isMobile && (
                 <div
-                  className={this.handleItemClassName(["concatUs"])}
+                  className={this.handleItemClassName(["loginner"])}
                   onClick={this.handleClick}
                 >
                   {ifLogined() && (
                     <div>
                       {isMobile ? (
-                        <a href="#" onClick={this.confirm}>
+                        <a href="#" onClick={this.confirm} className="sign">
                           <sapn
                             className="log-inner"
                             title={<FormattedMessage id="nav7" />}
@@ -156,10 +178,10 @@ class Nav extends React.Component {
                         </a>
                       ) : (
                         <Popconfirm
-                          title="是否要退出登录状态?"
+                          title={messages["nav8"]}
                           onConfirm={this.confirm}
-                          okText="确认"
-                          cancelText="取消"
+                          okText={messages["nav9"]}
+                          cancelText={messages["nav10"]}
                         >
                           <a href="#" style={{ verticalAlign: "middle" }}>
                             <span className="log-inner">
@@ -189,13 +211,15 @@ class Nav extends React.Component {
           {
             <div className="nav-lan">
               <Select
-                // style={{ width: "90px" }}
+                dropdownStyle={{ zIndex: "9999999" }}
                 value={language}
                 onChange={this.lanChange}
               >
                 <Option value="zh">中文</Option>
                 <Option value="en">English</Option>
-                <Option value="id">印尼语</Option>
+                <Option value="id">
+                  <div className="nav-lan-item">indonesia</div>
+                </Option>
               </Select>
             </div>
           }
@@ -204,14 +228,15 @@ class Nav extends React.Component {
           <div className="log">
             {ifLogined() && (
               <Popconfirm
-                title="是否要退出登录状态?"
+                title={messages["nav8"]}
                 onConfirm={this.confirm}
-                okText="确认"
-                cancelText="取消"
+                okText={messages["nav9"]}
+                cancelText={messages["nav10"]}
               >
                 <a href="#" style={{ verticalAlign: "middle" }}>
                   <span className="log-inner">
-                    退出{!isMobile && <FormattedMessage id="nav5" />}
+                    <FormattedMessage id="nav7" />
+                    {/* {!isMobile && <FormattedMessage id="nav5" />} */}
                   </span>
                 </a>
               </Popconfirm>
@@ -250,4 +275,4 @@ class Nav extends React.Component {
   }
 }
 
-export default connect(state => state)(Nav);
+export default connect(state => state)(injectIntl(Nav));
