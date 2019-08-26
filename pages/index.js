@@ -91,7 +91,8 @@ class Home extends React.Component {
         });
     } else {
       Router.push({
-        pathname: "/login"
+        pathname: "/login",
+        query: { ifFromIndexPage: "true" }
       });
     }
   };

@@ -90,17 +90,20 @@ class Nav extends React.Component {
     this.props.dispatch({ type: "CHANGE_LANGUAGE", value });
   };
   goXXbussiness = () => {
-    console.log(111);
     try {
       const expireDate = JSON.parse(localStorage.getItem("expireDate"));
       if (ifLogined() && expireDate && expireDate.type === "atTime") {
         location.href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}&language=${getLanguageFromStorage()}`;
+      } else if (ifLogined() && expireDate === null) {
+        location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}`;
       } else {
         Router.push({
           pathname: "/myBackStage"
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(11111, e);
+    }
   };
   render() {
     const { menuVisible, language } = this.state;

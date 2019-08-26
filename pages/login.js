@@ -3,16 +3,17 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
 import Link from "next/link";
+import Router from "next/router";
 import initReactFastclick from "react-fastclick";
 import { Form, Icon, Input, Button, Row, Col, message } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
 import { login } from "../service";
-import Router from "next/router";
 import { setCookie } from "../assets/utils";
 import md5 from "js-md5";
 import root from "../components/root";
 import { injectIntl, FormattedMessage } from "react-intl";
 import intl from "../components/intl";
+import qs from "qs";
 
 import "../style/login.less";
 
@@ -27,12 +28,26 @@ class Login extends React.Component {
   }
 
   state = {
-    varifyCode: false
+    varifyCode: false,
+    ifFromIndexPage: false
   };
 
   componentDidMount() {
     const input = this.refs["inputCode"].input;
     initVarifyCode(input, this);
+    this.setPageOrigin();
+  }
+
+  setPageOrigin() {
+    try {
+      const query = window.location.search.slice(1);
+      const { ifFromIndexPage } = qs.parse(query);
+      if (ifFromIndexPage === "true") {
+        this.setState({ ifFromIndexPage: true });
+      } else {
+        this.setState({ ifFromIndexPage: false });
+      }
+    } catch (e) {}
   }
 
   ifAccessVarify = () => {
@@ -54,24 +69,41 @@ class Login extends React.Component {
           user_name,
           password: md5(password)
         })
-          .then(function(response) {
+          .then(response => {
             if (response.code === 2000) {
               message.info(response.msg);
               setCookie(response.data);
-              Router.push({
-                pathname: "/index"
-              });
+              //移除expireDate
+              localStorage.removeItem("expireDate");
+              this.gotoIndex();
+            } else if (response.code === 1004) {
+              // Router.push({
+              //   pathname: "/index"
+              // });
             } else {
               message.info(response.msg);
             }
           })
-          .catch(function(error) {
+          .catch(error => {
             console.log(error);
             message.error(this.props.intl.messages["info9_11"]);
           });
       }
     });
   };
+
+  gotoIndex() {
+    if (this.state.ifFromIndexPage) {
+      Router.push({
+        pathname: "/index",
+        hash: "#target"
+      });
+    } else {
+      Router.push({
+        pathname: "/index"
+      });
+    }
+  }
 
   render() {
     const {

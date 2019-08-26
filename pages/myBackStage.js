@@ -15,7 +15,6 @@ class MyBackStage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userState: 1,
       //atTime 未过期 ， overTime 过期  null 新用户
       expireDate: null
     };
