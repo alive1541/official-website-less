@@ -14,7 +14,7 @@ import root from "../components/root";
 
 import "../style/index.less";
 
-class Home extends React.Component {
+class Index extends React.Component {
   static async getInitialProps({ req }) {
     const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
     const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);
@@ -143,9 +143,9 @@ class Home extends React.Component {
                 </u>
               </a>
             </Link>
-            <p className="content">
+            <span>
               <FormattedMessage id="content2_3" />
-            </p>
+            </span>
           </p>
 
           <h1>
@@ -183,44 +183,46 @@ class Home extends React.Component {
           </h1>
           <div className="content">
             {!isMobile && (
-              <Carousel autoplay>
-                <div>
-                  <div className="index-carousel">
-                    <div className="index-carousel-content">
-                      <FormattedMessage id="content5_1" />
-                      <br />
-                      <FormattedMessage id="content5_2" />
-                    </div>
-                    <div className="index-carousel-img-wraper">
-                      <img src="/static/img/line-chart1.png" />
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="index-carousel">
-                    <div className="index-carousel-content">
-                      <FormattedMessage id="content5_3" />
-                      <br />
-                      <FormattedMessage id="content5_4" />
-                    </div>
-                    <div className="index-carousel-img-wraper">
-                      <img src="/static/img/line-chart2.png" />
+              <div>
+                <Carousel autoplay>
+                  <div>
+                    <div className="index-carousel">
+                      <div className="index-carousel-content">
+                        <FormattedMessage id="content5_1" />
+                        <br />
+                        <FormattedMessage id="content5_2" />
+                      </div>
+                      <div className="index-carousel-img-wraper">
+                        <img src="/static/img/line-chart1.png" />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div>
-                  <div className="index-carousel">
-                    <div className="index-carousel-content">
-                      <FormattedMessage id="content5_5" />
-                      <br />
-                      <FormattedMessage id="content5_6" />
-                    </div>
-                    <div className="index-carousel-img-wraper">
-                      <img src="/static/img/line-chart2.png" />
+                  <div>
+                    <div className="index-carousel">
+                      <div className="index-carousel-content">
+                        <FormattedMessage id="content5_3" />
+                        <br />
+                        <FormattedMessage id="content5_4" />
+                      </div>
+                      <div className="index-carousel-img-wraper">
+                        <img src="/static/img/line-chart2.png" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Carousel>
+                  <div>
+                    <div className="index-carousel">
+                      <div className="index-carousel-content">
+                        <FormattedMessage id="content5_5" />
+                        <br />
+                        <FormattedMessage id="content5_6" />
+                      </div>
+                      <div className="index-carousel-img-wraper">
+                        <img src="/static/img/line-chart2.png" />
+                      </div>
+                    </div>
+                  </div>
+                </Carousel>
+              </div>
             )}
             {isMobile && (
               <div className="index-carousel-wraper">
@@ -349,4 +351,4 @@ function Info(props) {
   );
 }
 
-export default root(intl(Home));
+export default root(intl(Index));

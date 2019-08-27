@@ -26,7 +26,7 @@ const id = {
     "According to our historical data , the annualized return can easily reach more than 100%.",
   content2_2: "Click to view historical arbitrage opportunities",
   content2_3:
-    "Of course, there is definitely risk. But overall the risk is ontrollable and smaller than the security market.",
+    ".Of course, there is definitely risk. But overall the risk is ontrollable and smaller than the security market.",
 
   title3: "If it can make money, why not invest all by yourself?",
   content3_1:

@@ -26,7 +26,7 @@ const id = {
     "Berdasarkan estimasi konservatif tentang riwayat data pemesanan, selama setahun anda bisa mendapatkan lebih dari 100%.",
   content2_2: "Klik untuk melihat riwayat peluang arbitrase.",
   content2_3:
-    "Tentunya pasti ada resiko. Tetapi secara keseluruhan, resiko yang ada masih dapat untuk dikontrol dan tetap lebih kecil dari harga pasar.",
+    ".Tentunya pasti ada resiko. Tetapi secara keseluruhan, resiko yang ada masih dapat untuk dikontrol dan tetap lebih kecil dari harga pasar.",
 
   title3: "Jika ini menguntungkan, mengapa tidak melakukan investasi?",
   content3_1:
