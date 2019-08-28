@@ -1,5 +1,5 @@
 import axios from "./axios";
-import { baseApi } from "./config.js";
+import { baseApi, xxBussinessApi } from "./config.js";
 import { getCookie } from "../assets/utils";
 import configureStore from "../store/store";
 import { getLanguage } from "../assets/utils";
@@ -124,6 +124,16 @@ export async function activeVip(params) {
 //获取vip过期时间
 export async function getUserInfo(params) {
   return axios.get(baseApi + "/customer/user_info", {
+    params,
+    headers: {
+      token: getCookie(),
+      language: getLan()
+    }
+  });
+}
+
+export async function websiteBalance(params = { order_name: "Website_code" }) {
+  return axios.get(xxBussinessApi + "/customer/websiteBalance", {
     params,
     headers: {
       token: getCookie(),

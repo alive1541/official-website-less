@@ -5,7 +5,7 @@ import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
 import { Carousel, Button, Modal, message } from "antd";
 import Link from "next/link";
-import { activeVip, getUserInfo } from "../service";
+import { activeVip, getUserInfo, websiteBalance } from "../service";
 import { getCookie, ifLogined, getLanguageFromStorage } from "../assets/utils";
 import Router from "next/router";
 import intl from "../components/intl";
@@ -24,7 +24,7 @@ class Index extends React.Component {
     return { isMobile };
   }
 
-  href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}&language=${getLanguageFromStorage()}`;
+  href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
 
   state = {
     purchaseVisible: false,
@@ -33,9 +33,9 @@ class Index extends React.Component {
   };
 
   componentDidMount() {
-    console.log("href", this.href);
     if (ifLogined()) {
       this.getUserInfo();
+      this.getWebsiteBalance();
     }
   }
 
@@ -48,8 +48,22 @@ class Index extends React.Component {
     }
   };
 
+  getWebsiteBalance = async () => {
+    const result = await websiteBalance();
+    if (result.errorCode === 0) {
+      const data = result.data;
+      //data没有数据说明这个用户没有注册过网站，这类用户是新用户
+      if (data.length === 0) {
+        localStorage.setItem("isNewUser", "true");
+      } else {
+        localStorage.setItem("isNewUser", "false");
+      }
+    } else {
+      message.info(result.msg);
+    }
+  };
+
   handleDate(date) {
-    console.log("date", date);
     if (date) {
       const dateBar = new Date() - new Date(date);
       if (dateBar > 0) {

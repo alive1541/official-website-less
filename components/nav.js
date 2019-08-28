@@ -92,10 +92,13 @@ class Nav extends React.Component {
   goXXbussiness = () => {
     try {
       const expireDate = JSON.parse(localStorage.getItem("expireDate"));
-      if (ifLogined() && expireDate && expireDate.type === "atTime") {
+      const isNewUser = JSON.parse(localStorage.getItem("isNewUser"));
+      //未注册过网站的(新用户)
+      if (ifLogined() && isNewUser) {
+        location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
+        //注册过网站的
+      } else if (ifLogined() && expireDate && expireDate.type === "atTime") {
         location.href = `http://123.56.11.198:8990/#/page/account?token=${getCookie()}&language=${getLanguageFromStorage()}`;
-      } else if (ifLogined() && expireDate === null) {
-        location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}`;
       } else {
         Router.push({
           pathname: "/myBackStage"

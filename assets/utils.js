@@ -11,6 +11,7 @@ export function removeCookieAndStorage() {
   Cookies.remove("token");
   // localStorage.clear();
   localStorage.removeItem("expireDate");
+  localStorage.removeItem("isNewUser");
 }
 
 export function setCookie(value, options) {
