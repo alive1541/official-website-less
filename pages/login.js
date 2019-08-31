@@ -94,10 +94,12 @@ class Login extends React.Component {
 
   gotoIndex() {
     if (this.state.ifFromIndexPage) {
-      Router.push({
-        pathname: "/index",
-        hash: "#target"
-      });
+      // Router.push({
+      //   pathname: "/index",
+      //   hash: "#target-id"
+      // });
+      //使用next路由移动端会定位不准
+      window.location.href = "/index#target-id";
     } else {
       Router.push({
         pathname: "/index"

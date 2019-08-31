@@ -280,7 +280,7 @@ class Index extends React.Component {
               </div>
             )}
           </div>
-          <h1 id="target">
+          <h1 id="target-id">
             <FormattedMessage id="title6" />
           </h1>
           {expireDate === null && (
