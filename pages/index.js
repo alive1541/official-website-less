@@ -358,10 +358,16 @@ function Info(props) {
           <FormattedMessage id="content6_10" />
         </div>
       )}
-      <Button type="primary" onClick={ctx.purchase}>
-        {expireDate === null && <FormattedMessage id="content6_11" />}
-        {expireDate && <FormattedMessage id="content6_10" />}
-      </Button>
+      {expireDate === null && (
+        <Button type="primary" onClick={ctx.purchase}>
+          <FormattedMessage id="content6_11" />
+        </Button>
+      )}
+      {expireDate && (
+        <Button type="primary">
+          <FormattedMessage id="content6_10" />
+        </Button>
+      )}
     </>
   );
 }
