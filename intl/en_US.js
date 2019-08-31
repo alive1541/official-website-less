@@ -6,7 +6,7 @@ const id = {
   nav4: "Register and login",
   nav5: "login",
   nav6: "register",
-  nav7: "logOff",
+  nav7: "LogOff",
   nav8: "Do you want to log out?",
   nav9: "Confirm",
   nav10: "Cancel",

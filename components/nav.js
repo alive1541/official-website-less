@@ -72,18 +72,10 @@ class Nav extends React.Component {
     return ifSelf ? `menu-item active ${others}` : `menu-item ${others}`;
   };
   confirm = () => {
-    // debugger;
     removeCookieAndStorage();
-
-    // if (this.props.isMobile) {
-    //   setTimeout(() => {
-    //     this.handleIconClick();
-    //   }, 500);
-    // } else {
-    //   this.setState({});
-    // }
-    // this.setState({});
-    location.reload();
+    //在index页面的?token会造成刷新不了
+    // location.reload();
+    window.location.href = `${location.origin}${location.pathname}`;
   };
   lanChange = value => {
     this.setState({ language: value });
