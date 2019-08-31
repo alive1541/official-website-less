@@ -6,11 +6,17 @@ import initReactFastclick from "react-fastclick";
 import { Carousel, Button, Modal, message } from "antd";
 import Link from "next/link";
 import { activeVip, getUserInfo, websiteBalance } from "../service";
-import { getCookie, ifLogined, getLanguageFromStorage } from "../assets/utils";
+import {
+  getCookie,
+  setCookie,
+  ifLogined,
+  getLanguageFromStorage
+} from "../assets/utils";
 import Router from "next/router";
 import intl from "../components/intl";
 import { FormattedMessage } from "react-intl";
 import root from "../components/root";
+import qs from "qs";
 
 import "../style/index.less";
 
@@ -33,8 +39,17 @@ class Index extends React.Component {
   };
 
   componentDidMount() {
+    this.handleTokenFromXXBussiness();
     if (ifLogined()) {
       this.getUserInfo();
+    }
+  }
+
+  handleTokenFromXXBussiness() {
+    const { token } = qs.parse(window.location.search.slice(1));
+    // console.log(11, qs.parse(window.location.search));
+    if (token) {
+      setCookie(token);
     }
   }
 
