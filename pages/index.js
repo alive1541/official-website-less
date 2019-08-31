@@ -35,7 +35,6 @@ class Index extends React.Component {
   componentDidMount() {
     if (ifLogined()) {
       this.getUserInfo();
-      this.getWebsiteBalance();
     }
   }
 
@@ -79,6 +78,8 @@ class Index extends React.Component {
         this.setState({
           expireDate
         });
+        //如果是会员没到期，请求额外信息
+        this.getWebsiteBalance();
       }
     } else {
       this.setState({ expireDate: null });
