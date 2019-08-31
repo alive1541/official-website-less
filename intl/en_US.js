@@ -1,9 +1,9 @@
 const id = {
   //nav
-  nav1: "product description",
-  nav2: "My background",
-  nav3: "contact us",
-  nav4: "register and login",
+  nav1: "Product description",
+  nav2: "My dashboard",
+  nav3: "Contact us",
+  nav4: "Register and login",
   nav5: "login",
   nav6: "register",
   nav7: "logOff",

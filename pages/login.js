@@ -101,9 +101,11 @@ class Login extends React.Component {
       //使用next路由移动端会定位不准
       window.location.href = "/index#target-id";
     } else {
-      Router.push({
-        pathname: "/index"
-      });
+      //使用next路由移动端会定位不准
+      window.location.href = "/index";
+      // Router.push({
+      //   pathname: "/index"
+      // });
     }
   }
 
