@@ -1,5 +1,5 @@
 const axios = require("axios");
-import { ifLogined, setCookie, getCookie } from "../assets/utils";
+import { ifLogined, setCookie, removeCookieAndStorage } from "../assets/utils";
 import Box from "../components/progress";
 
 axios.defaults.withCredentials = true;
@@ -26,6 +26,11 @@ axios.interceptors.response.use(
 
     // Do something with response data
     if (response.status === 200) {
+      if (response.data && response.data.errorCode === 7) {
+        setTimeout(() => {
+          gotoLogin();
+        }, 5 * 1000);
+      }
       return response.data;
     }
     return response;
@@ -38,6 +43,13 @@ axios.interceptors.response.use(
 
 function isLoginOrSing(url) {
   return /login|register$/.test(url);
+}
+
+function gotoLogin() {
+  try {
+    removeCookieAndStorage();
+    window.location.href = "/login";
+  } catch (e) {}
 }
 
 export default axios;
