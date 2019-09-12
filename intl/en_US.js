@@ -11,34 +11,28 @@ const id = {
   nav9: "Confirm",
   nav10: "Cancel",
   //index页面
-  title1: "What is sports arbitrage?",
+  title1: "What is your product?",
   content1_1:
-    "Sports arbitrage is to find the risk-free betting opportunities by collecting and analyzing odds data of each gaming company.",
+    "Our products are information based products that provide opportunity predictions for sports events. By subscribing to our products, you can get professional analysis and recommended strategy, and if you need further assistance, the system can also help you in execution.",
   content1_2:
-    "Since a large number of players are on different platforms, traders will adjust the odds according to their own market conditions. At the same time, different traders will make different judgments on the games to determine the odds. When the sum of the odds of both sides is greater than 4, betting on both sides will lead to a certain percentage of profit, no matter which side wins or loses.",
-  content1_3:
-    "For example, two teams A and B are matching. The odds of Team A winning is 2.2, and the odds of Team B winning is 1.9.",
-  content1_4:
-    "Now, you buy Team A win on website 1 and place a bet of 86 yuan. At the same time, you buy Team B win on website 2, and place an order of 100 yuan. Now your total cost is 186 yuan. If Team A wins, you will get 189.2,Your profit is 3.2 yuan; if Team B wins, you will get 190 and your profit is 4 yuan. That is to say, no matter which team wins, you will get at least 3.2 yuan profit.",
+    "Our strategy has been developed by dozens of expert teams for many years and has undergone a one-year online test. The current test yield is maintained at around 100% per year, which is higher than the industry level. Currently we have limited-time free trial for new users.",
 
-  title2: "How high is the return and How big is the risk?",
+  title2: "How high is the return on investment? How big is the risk?",
   content2_1:
-    "According to our historical data , the annualized return can easily reach more than 100%.",
-  content2_2: "Click to view historical arbitrage opportunities",
+    "According to historical test data, annualized return can reach more than 100%,",
+  content2_2: "click to view historical opportunities",
   content2_3:
-    ".Of course, there is definitely risk. But overall the risk is ontrollable and smaller than the security market.",
+    "Of course, there is definitely a risk. But overall the risk is within the acceptable range and smaller than the securities market. Also, we provide 100% loss coverage in the first three months.",
 
-  title3: "If it can make money, why not invest all by yourself?",
-  content3_1:
-    "Since an account has limited betting counts per day and also limited betting amount, the principal cannot be invested indefinitely. So we want to share the opportunity with more people and let more people make money through sports arbitrage.",
-
-  title4: "Why choose your sports arbitrage product?",
+  title4: "Why choose your product?",
   content4_1:
-    "1,Automatically place orders, manage acounts on mobile phones, no need to always stare at computer screens.",
-  content4_2: "2. Up to 100% annualized income.",
-  content4_3: "3. The first month fee is waived and you can try it for free.",
-  content4_4:
-    "4. Convenient and user-friendly acount management through mobile phones",
+    "1, Our products can automatically place orders and provide account management through mobile phones. No need to always stare at a computer screen.",
+  content4_2: "2. Up to 100% annualized return.",
+  content4_3:
+    "3. The first month service is waived and you can try it for free.",
+  content4_4: "4. Convenient and easy-to-use mobile phone account management.",
+  content4_5:
+    "5. For the first 3 months, if you have any loss, we will provide you with 100% loss coverage.",
 
   title5: "What are the successful examples?",
   content5_1: "Investing 10,000, customer Tatag Yuli Eko:",

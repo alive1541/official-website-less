@@ -155,12 +155,6 @@ class Index extends React.Component {
           <p className="content">
             <FormattedMessage id="content1_2" />
           </p>
-          <p className="content">
-            <FormattedMessage id="content1_3" />
-          </p>
-          <p className="content">
-            <FormattedMessage id="content1_4" />
-          </p>
           <h1>
             <FormattedMessage id="title2" />
           </h1>
@@ -173,16 +167,9 @@ class Index extends React.Component {
                 </u>
               </a>
             </Link>
-            <span>
-              <FormattedMessage id="content2_3" />
-            </span>
           </p>
-
-          <h1>
-            <FormattedMessage id="title3" />
-          </h1>
           <p className="content">
-            <FormattedMessage id="content3_1" />
+            <FormattedMessage id="content2_3" />
           </p>
 
           <h1>
@@ -201,6 +188,9 @@ class Index extends React.Component {
               </p>
               <p>
                 <FormattedMessage id="content4_4" />
+              </p>
+              <p>
+                <FormattedMessage id="content4_5" />
               </p>
             </div>
             <div className="index-phone-img">

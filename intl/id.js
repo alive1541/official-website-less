@@ -11,34 +11,28 @@ const id = {
   nav9: "Lanjutkan",
   nav10: "Batalkan",
   //index页面
-  title1: "Apa itu arbitrase olahraga?",
+  title1: "Apa aplikasi kalian?",
   content1_1:
-    "Arbitrase olahraga adalah kegiatan mengumpulkan dan menganalisa perbedaan data dari berbagai platform perusahaan bet untuk menemukan skema bebas resiko.",
+    "Aplikasi kami adalah aplikasi yang menyediakan informasi tentang prediksi peluang dalam acara olahraga. Dengan ikut berlangganan dalam aplikasi kami, Anda bisa mendapatkan analisa strategi yang profesional. Jika Anda ingin berpartisipasi lebih, maka sistem juga dapat membantu Anda untuk mengimplementasikannya.",
   content1_2:
-    "Karena banyaknya jumlah pemain yang bermain pada platform yang berbeda, maka operator akan menyesuaikan peluang dengan jumlah yang dipasang oleh setiap pemain. Dan pemain yang berbeda akan membuat keputusan yang berbeda juga pada permainan untuk membuka peluang baru untuk mendapatkan keuntungan. Berdasarkan peningkatan peluang lebih dari 4 untuk peluang atas dan bawah, maka kita dapat melakukan bet pada harga atas dan bawah dari perusahaan yang berbeda. Terlepas dari harga mana yang akan keluar pada hasil akhir, kita tetap akan mendapatkan sejumlah keuntungan.Sebagai contoh, dalam pertandingan antara tim A dan tim B, situs pertama memberik",
-  content1_3:
-    "Sebagai contoh, dalam pertandingan antara tim A dan tim B, situs pertama memberikan peluang sebesar 2.2 bahwa tim A akan memenangkan permainan, dan situs kedua memberikan peluang sebesar 1.9 bahwa tim B akan memenangkan permainan.",
-  content1_4:
-    "Pada saat ini, anda bisa melakukan pemesanan sebesar 86 Yuan di situs pertama untuk tim A (menang), dan sebesar 100 Yuan di situs kedua untuk tim B (menang). Total pemesanan anda sekarang adalah 186Yuan. Jika tim A menang, maka anda akan mendapatkan 189.2Yuan (dengan keuntungan 3.2Yuan). Namun jika tim B menang, maka anda akan mendapatkan 190Yuan (dengan keuntungan 4Yuan). Maka, tim manapun yang menang, anda akan tetap mendapatkan keuntungan sebesar 3.2Yuan.",
+    "Strategi kami telah dikembangkan oleh puluhan ahli tim teknis. Selama bertahun-tahun melakukan pengembangan, dan juga melakukan uji coba kasus online selama satu tahun penuh,  sekarang persentase keuntungan bertahan pada angka kurang lebih 100% per tahun, dimana persentase tersebut lebih tinggi daripada persentase pada tingkatan industri. Dan untuk saat ini, pengguna baru diberikan uji coba gratis dengan batas waktu.",
 
-  title2: "Berapa besar keuntungannya? Berapa besar resiko nya?",
+  title2: "Seberapa besar laba dari investasi? Seberapa besar risiko nya?",
   content2_1:
-    "Berdasarkan estimasi konservatif tentang riwayat data pemesanan, selama setahun anda bisa mendapatkan lebih dari 100%.",
-  content2_2: "Klik untuk melihat riwayat peluang arbitrase.",
+    "Berdasarkan dari data hasil uji coba, persentase keuntungan pertahun dapat mencapai lebih dari 100%. ",
+  content2_2: "Klik untuk melihat riwayat peluang arbitrase",
   content2_3:
-    ".Tentunya pasti ada resiko. Tetapi secara keseluruhan, resiko yang ada masih dapat untuk dikontrol dan tetap lebih kecil dari harga pasar.",
+    "Tentu saja pasti ada risiko. Tetapi secara keseluruhan, risiko masih dapat di kontrol dan masih lebih kecil dibandingkan dengan pasar saham. Dan juga, pada 3 bulan pertama, kami menyediakan layanan 100% kembali modal.",
 
-  title3: "Jika ini menguntungkan, mengapa tidak melakukan investasi?",
-  content3_1:
-    "Karena akun tidak bisa melakukan pemesanan tanpa batas, maka jumlah investasi modal juga terbatas. Kami akan berbagi kesempatan kepada banyak orang agar mereka juga bisa mendapatkan keuntungan melalui arbitrase olahraga.",
-
-  title4: "Mengapa memilih produk kami?",
+  title4: "Mengapa memilih menggunakan aplikasi kami?",
   content4_1:
-    "1. Produk kami dapat dipesan secara otomatis melalui sistem dan bisa di kelola melalui ponsel tanpa harus berada di depan layar komputer sepanjang hari.",
-  content4_2:
-    "2. Kesempatan mendapatkan lebih dari 100% total pendapatan tahunan",
-  content4_3: "3. Pengguna tidak dipungut biaya pada bulan pertama pemakaian",
-  content4_4: "4. Platform yang mudah dan praktis untuk ponsel",
+    "1. Aplikasi kami dapat melakukan pesanan otomatis oleh sistem dan dapat di pantau melalui ponsel tanpa harus menatap layar komputer sepanjang hari.",
+  content4_2: "2. Keuntungan per tahun mencapai 100% ke atas.",
+  content4_3:
+    "3. Gratis untuk bulan pertama. Anda dapat mencobanya dengan gratis.",
+  content4_4: "4. Mudah, cepat dan platform manajemen ponsel yang sempurna.",
+  content4_5:
+    "5. 100% uang kembali pada 3 bulan pertama jika Anda mengalami kerugian!",
 
   title5: "Testimoni Pengguna",
   content5_1: "Investasi Rp 2.000.000 - Agus Yulianto",
