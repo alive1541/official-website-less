@@ -54,10 +54,8 @@ function root(WrapedComponent) {
     reSetIsMobile() {
       const isMobileLayOut = getClientWidth() < 1024;
       if (isMobileLayOut) {
-        console.log("ismobile", true);
         this.setState({ isMobile: true });
       } else {
-        console.log("ismobile", false);
         this.setState({ isMobile: false });
       }
     }
