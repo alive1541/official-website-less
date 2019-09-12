@@ -16,14 +16,14 @@ import intl from "../components/intl";
 import "../style/sign.less";
 
 class Sign extends React.Component {
-  static async getInitialProps({ req }) {
-    const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
-    const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);
-    if (isMobile) {
-      initReactFastclick();
-    }
-    return { isMobile };
-  }
+  // static async getInitialProps({ req }) {
+  //   const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
+  //   const isMobile = /Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent);
+  //   if (isMobile) {
+  //     initReactFastclick();
+  //   }
+  //   return { isMobile };
+  // }
 
   state = {
     confirmDirty: false,
@@ -103,7 +103,7 @@ class Sign extends React.Component {
 
     return (
       <div>
-        <Head title={messages["nav6"]} />
+        <Head title={messages["nav6"]} isLoginOrSign={true} />
         <Nav isMobile={isMobile} />
         <div className="sign-wraper">
           <p className="sign-title">

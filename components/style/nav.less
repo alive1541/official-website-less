@@ -27,13 +27,20 @@ body {
   white-space: nowrap;
 }
 
-@media only screen and (max-width: 1300px) {
-  .log {
-    right: 500px !important;
-  }
-}
+// @media only screen and (min-width: 1300px) {
+//   .log {
+//     right: 600px !important;
+//   }
+// }
+
+// @media only screen and (max-width: 1325px) {
+//   .log {
+//     right: 670px !important;
+//   }
+// }
+
 // mobile
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1024px) {
   nav {
     box-shadow: 0 10px 50px -2px rgba(0, 0, 0, 0.14);
   }
@@ -125,15 +132,15 @@ body {
   // }
   .nav-lan {
     position: absolute;
-    right: 70px;
+    right: 65px;
     line-height: 93px;
   }
 }
 
 // pc
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .nav-lan {
-    position: absolute;
+    // position: absolute;
     right: 200px;
     line-height: 93px;
   }
@@ -152,10 +159,9 @@ body {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 0 20px;
+    padding: 0 10px;
     line-height: 93px;
     text-align: center;
-    width: 200px;
     height: 100%;
   }
   .nav-wraper {
@@ -166,7 +172,6 @@ body {
     zoom: 1;
     font-size: 16px;
     height: 93px;
-    padding-right: 4%;
   }
   .logo {
     line-height: 93px;
@@ -175,7 +180,10 @@ body {
     }
   }
   .menu {
+    flex: 1;
     display: flex;
+    padding-left: 200px;
+    padding-right: 40px;
     justify-content: space-around;
   }
   .menu-item {
@@ -211,8 +219,9 @@ body {
   }
   .block {
     display: inline-block;
+    flex: 1;
     height: 100%;
-    width: 45px;
+    width: 1px;
   }
   .second-menu {
     // position: relative;
@@ -236,5 +245,26 @@ body {
   }
   .second-menu-item:hover {
     background-color: aliceblue;
+  }
+}
+
+//特殊处理
+@media only screen and (min-width: 1240px) and (max-width: 1325px) {
+  .log {
+    right: 690px !important;
+  }
+}
+
+//特殊处理
+@media only screen and (min-width: 1124px) and (max-width: 1240px) {
+  .log {
+    right: 645px !important;
+  }
+}
+
+//特殊处理
+@media only screen and (min-width: 1024px) and (max-width: 1124px) {
+  .log {
+    right: 605px !important;
   }
 }

@@ -92,3 +92,11 @@ export function getLanguageFromStorage() {
     return null;
   }
 }
+
+export function getClientWidth() {
+  return (
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth
+  );
+}

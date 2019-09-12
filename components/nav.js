@@ -110,7 +110,7 @@ class Nav extends React.Component {
     return (
       <nav>
         <div className="nav-wraper">
-          <div className="logo" style={{ width: "100px" }}>
+          <div className="logo">
             <img src="/static/img/logo.png" />
           </div>
           {isMobile && (
@@ -209,6 +209,7 @@ class Nav extends React.Component {
           {
             <div className="nav-lan">
               <Select
+                style={{ width: "104px" }}
                 dropdownStyle={{ zIndex: "9999999" }}
                 value={language}
                 onChange={this.lanChange}
@@ -216,7 +217,7 @@ class Nav extends React.Component {
                 <Option value="zh">中文</Option>
                 <Option value="en">English</Option>
                 <Option value="id">
-                  <div className="nav-lan-item">indonesia</div>
+                  <div>indonesia</div>
                 </Option>
               </Select>
             </div>
@@ -253,19 +254,6 @@ class Nav extends React.Component {
                 </Link>
               </Button>
             )}
-
-            {/* <span className="spacing-x" /> */}
-            {/* {!ifLogined() && (
-  <Button size={size}>
-    <Link href={{ pathname: "/sign" }}>
-      <a>
-        <sapn className="log-inner">
-          <FormattedMessage id="nav4" />
-        </sapn>
-      </a>
-    </Link>
-  </Button>
-)} */}
           </div>
         )}
       </nav>
