@@ -9,8 +9,6 @@ const defaultTitle = "体育套利";
 const defaultKeywords = "打水|足彩对冲|rebelbetting|利润盘|彩票网站";
 
 const Head = props => {
-  const isLoginOrSign = props.isLoginOrSign;
-
   return (
     <NextHead>
       <meta charSet="UTF-8" />
@@ -40,12 +38,6 @@ const Head = props => {
       <meta property="og:image" content={props.ogImage || defaultOGImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-
-      {isLoginOrSign && <meta http-equiv="pragma" content="no-cache"></meta>}
-      {isLoginOrSign && (
-        <meta http-equiv="cache-control" content="no-cache"></meta>
-      )}
-      {isLoginOrSign && <meta http-equiv="expires" content="0"></meta>}
     </NextHead>
   );
 };

@@ -103,7 +103,7 @@ class Sign extends React.Component {
 
     return (
       <div>
-        <Head title={messages["nav6"]} isLoginOrSign={true} />
+        <Head title={messages["nav6"]} />
         <Nav isMobile={isMobile} />
         <div className="sign-wraper">
           <p className="sign-title">

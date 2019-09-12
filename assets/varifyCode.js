@@ -235,7 +235,8 @@ KinerCode.prototype.createCodeEle = function(code) {
   item.style.color = this.toRGB().color;
   item.style.textAlign = "center";
   item.style.height = "100%";
-  item.style.lineHeight = this.opt.codeArea.offsetHeight + "px";
+  // item.style.lineHeight = this.opt.codeArea.offsetHeight + "px";
+  item.style.lineHeight = window.getComputedStyle(this.opt.codeArea).height;
   item.style["-webkit-text-shadow"] =
     "#000 1px 1px 5px,#FFCC99 -1px -1px 1px,#000 -1px -1px 2px";
   item.style["-moz-text-shadow"] = "#000 0px 0px 5px,#FFCC99 -1px -1px 1px";

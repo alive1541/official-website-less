@@ -117,7 +117,7 @@ class Login extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
-        <Head title={messages["nav5"]} isLoginOrSign={true} />
+        <Head title={messages["nav5"]} />
         <Nav isMobile={isMobile} />
         <div className="login-wraper">
           <p className="login-title">
