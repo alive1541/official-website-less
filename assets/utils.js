@@ -15,8 +15,9 @@ export function removeCookieAndStorage() {
 }
 
 export function setCookie(value, options) {
-  let seconds = 30 * 60;
-  let expires = new Date(new Date() * 1 + seconds * 1000);
+  //30天
+  let seconds = 30 * 24 * 60 * 60 * 1000;
+  let expires = new Date(new Date() * 1 + seconds);
   if (value) {
     return Cookies.set("token", value, options || { expires });
   }
