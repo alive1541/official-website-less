@@ -51,7 +51,7 @@ class Sign extends React.Component {
         sign({
           user_name: values.user_name,
           password: md5(values.password),
-          mail: values.mail
+          mail: values.user_name
         })
           .then(function(response) {
             if (response.code === 2000) {
@@ -76,14 +76,14 @@ class Sign extends React.Component {
     });
   };
 
-  compareToFirstPassword = (rule, value, callback) => {
-    const form = this.props.form;
-    if (value && value !== form.getFieldValue("password")) {
-      callback(this.props.intl.messages["info10_16"]);
-    } else {
-      callback();
-    }
-  };
+  // compareToFirstPassword = (rule, value, callback) => {
+  //   const form = this.props.form;
+  //   if (value && value !== form.getFieldValue("password")) {
+  //     callback(this.props.intl.messages["info10_16"]);
+  //   } else {
+  //     callback();
+  //   }
+  // };
 
   validateToNextPassword = (rule, value, callback) => {
     const form = this.props.form;
@@ -109,21 +109,18 @@ class Sign extends React.Component {
             <FormattedMessage id="nav6" />
           </p>
           <Form onSubmit={e => this.handleSubmit(e)} className="login-form">
-            <Form.Item label={<FormattedMessage id="content10_6" />}>
+            <Form.Item>
               {getFieldDecorator("user_name", {
                 rules: [
-                  { required: true, message: messages["info9_1"] },
+                  {
+                    type: "email",
+                    message: messages["info10_9"]
+                  },
                   { max: 20, message: messages["info9_3"] },
                   { min: 4, message: messages["info10_13"] },
                   {
-                    validator: (rule, value, callback) => {
-                      if (!/^[0-9a-zA-Z]*$/.test(value)) {
-                        callback(true);
-                      } else {
-                        callback();
-                      }
-                    },
-                    message: messages["info10_14"]
+                    required: true,
+                    message: messages["info9_1"]
                   }
                 ]
               })(
@@ -136,7 +133,8 @@ class Sign extends React.Component {
                 />
               )}
             </Form.Item>
-            <Form.Item label={messages["content9_2"]}>
+
+            <Form.Item>
               {getFieldDecorator("password", {
                 rules: [
                   {
@@ -156,33 +154,12 @@ class Sign extends React.Component {
                   }
                   type="password"
                   size="large"
-                  placeholder={messages["info10_6"]}
-                />
-              )}
-            </Form.Item>
-            <Form.Item label={messages["content10_1"]}>
-              {getFieldDecorator("confirm", {
-                rules: [
-                  {
-                    required: true,
-                    message: messages["info10_7"]
-                  },
-                  {
-                    validator: this.compareToFirstPassword
-                  }
-                ]
-              })(
-                <Input
-                  prefix={
-                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  type="password"
-                  size="large"
                   placeholder={messages["info10_7"]}
                 />
               )}
             </Form.Item>
-            <Form.Item label={messages["content9_3"]}>
+
+            <Form.Item>
               <Row gutter={8}>
                 <Col span={18}>
                   <Input
@@ -194,7 +171,7 @@ class Sign extends React.Component {
                       />
                     }
                     size="large"
-                    placeholder={messages["info9_5"]}
+                    placeholder={messages["content9_3"]}
                   />
                 </Col>
                 <Col span={6}>
@@ -202,20 +179,7 @@ class Sign extends React.Component {
                 </Col>
               </Row>
             </Form.Item>
-            <Form.Item label={messages["content10_2"]}>
-              {getFieldDecorator("mail", {
-                rules: [
-                  {
-                    type: "email",
-                    message: messages["info10_9"]
-                  },
-                  {
-                    required: true,
-                    message: messages["info10_8"]
-                  }
-                ]
-              })(<Input size="large" placeholder={messages["info10_8"]} />)}
-            </Form.Item>
+
             <Form.Item>
               <Button
                 type="primary"

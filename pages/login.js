@@ -123,9 +123,15 @@ class Login extends React.Component {
             <FormattedMessage id="nav5" />
           </p>
           <Form onSubmit={this.handleSubmit} className="login-form">
-            <Form.Item label={messages["content9_1"]}>
+            <Form.Item>
               {getFieldDecorator("user_name", {
-                rules: [{ required: true, message: messages["info9_1"] }]
+                rules: [
+                  { required: true, message: messages["info9_1"] },
+                  {
+                    type: "email",
+                    message: messages["info10_9"]
+                  }
+                ]
               })(
                 <Input
                   prefix={
@@ -136,7 +142,7 @@ class Login extends React.Component {
                 />
               )}
             </Form.Item>
-            <Form.Item label={messages["content9_2"]}>
+            <Form.Item>
               {getFieldDecorator("password", {
                 rules: [{ required: true, message: messages["info9_2"] }]
               })(
@@ -150,7 +156,7 @@ class Login extends React.Component {
                 />
               )}
             </Form.Item>
-            <Form.Item label={messages["content9_3"]}>
+            <Form.Item>
               <Row gutter={8}>
                 <Col span={18}>
                   <Input
@@ -162,7 +168,7 @@ class Login extends React.Component {
                       />
                     }
                     size="large"
-                    placeholder={messages["info9_5"]}
+                    placeholder={messages["content9_3"]}
                   />
                 </Col>
                 <Col span={6}>
