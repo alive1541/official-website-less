@@ -167,12 +167,12 @@ class Nav extends React.Component {
                     <div>
                       {isMobile ? (
                         <a href="#" onClick={this.confirm} className="sign">
-                          <sapn
+                          <span
                             className="log-inner"
                             title={<FormattedMessage id="nav7" />}
                           >
                             <FormattedMessage id="nav7" />
-                          </sapn>
+                          </span>
                         </a>
                       ) : (
                         <Popconfirm
@@ -193,12 +193,12 @@ class Nav extends React.Component {
                   {!ifLogined() && (
                     <Link href={{ pathname: "/sign" }}>
                       <a>
-                        <sapn
+                        <span
                           className="log-inner"
                           title={<FormattedMessage id="nav4" />}
                         >
                           <FormattedMessage id="nav4" />
-                        </sapn>
+                        </span>
                       </a>
                     </Link>
                   )}
@@ -244,12 +244,12 @@ class Nav extends React.Component {
               <Button size={size} type="danger" ghost>
                 <Link href={{ pathname: "/sign" }}>
                   <a>
-                    <sapn
+                    <span
                       className="log-inner"
                       title={<FormattedMessage id="nav4" />}
                     >
                       <FormattedMessage id="nav4" />
-                    </sapn>
+                    </span>
                   </a>
                 </Link>
               </Button>
