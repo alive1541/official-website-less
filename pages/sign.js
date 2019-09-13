@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
-import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
 import Link from "next/link";
 import { Form, Icon, Input, Button, Row, Col, message } from "antd";
@@ -235,7 +234,6 @@ class Sign extends React.Component {
             </Form.Item>
           </Form>
         </div>
-        <Footer />
       </div>
     );
   }

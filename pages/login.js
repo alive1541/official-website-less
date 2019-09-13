@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
-import Footer from "../components/footer";
 import Link from "next/link";
 import Router from "next/router";
 import initReactFastclick from "react-fastclick";
@@ -189,7 +188,6 @@ class Login extends React.Component {
             </Form.Item>
           </Form>
         </div>
-        <Footer />
       </div>
     );
   }

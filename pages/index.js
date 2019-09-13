@@ -1,9 +1,8 @@
 import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
-import Footer from "../components/footer";
 import initReactFastclick from "react-fastclick";
-import { Carousel, Button, Modal, message } from "antd";
+import { Carousel, Modal, message } from "antd";
 import Link from "next/link";
 import { activeVip, getUserInfo, websiteBalance } from "../service";
 import {
@@ -14,7 +13,7 @@ import {
 } from "../assets/utils";
 import Router from "next/router";
 import intl from "../components/intl";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import root from "../components/root";
 import qs from "qs";
 
@@ -139,7 +138,11 @@ class Index extends React.Component {
   };
 
   render() {
-    const { isMobile } = this.props;
+    const {
+      isMobile,
+      intl: { messages }
+    } = this.props;
+
     const { purchaseVisible, timerNum, expireDate } = this.state;
     return (
       <div>
@@ -294,7 +297,8 @@ class Index extends React.Component {
             </p>
           )}
 
-          <div className="content">
+          <Footer ctx={this} expireDate={expireDate} messages={messages} />
+          {/* <div className="content">
             <div className="index-product-info">
               <div className="index-product-info-item">
                 <p className="index-product-info-money">
@@ -305,13 +309,8 @@ class Index extends React.Component {
                 </p>
                 <Info expireDate={expireDate} ctx={this} />
               </div>
-              {/* <div className="index-product-info-item">
-                <p className="index-product-info-money"><FormattedMessage id="content6_5" /></p>
-                <p className="index-product-info-money"><FormattedMessage id="content6_6" /></p>
-                <Info expireDate={expireDate} ctx={this} />
-              </div> */}
             </div>
-          </div>
+          </div> */}
         </div>
         {
           <Modal visible={purchaseVisible} closable={false} footer={false}>
@@ -333,48 +332,107 @@ class Index extends React.Component {
             </div>
           </Modal>
         }
-        <Footer />
       </div>
     );
   }
 }
 
-function Info(props) {
-  const { expireDate, ctx } = props;
+function Footer(props) {
+  const { expireDate, ctx, messages } = props;
   return (
-    <>
+    <div className="index-footer">
       {expireDate === null && (
-        <div className="index-product-info-try">
-          <FormattedMessage id="content6_4" />
-        </div>
+        <>
+          <div className="index-info">
+            <div className="index-top">
+              <FormattedMessage id="content6_2" />
+            </div>
+            <div className="index-bottom">
+              <FormattedMessage id="content6_3" />
+            </div>
+          </div>
+          <div className="index-button" onClick={ctx.purchase}>
+            <FormattedMessage id="content6_4" />
+          </div>
+        </>
       )}
       {expireDate && expireDate.type === "atTime" && (
-        <div style={{ color: "black", fontWeight: 600 }}>
-          <FormattedMessage id="content6_8" />
-          {expireDate.date}
-          <FormattedMessage id="content6_9" />{" "}
-          <FormattedMessage id="content6_10" />
-        </div>
+        <>
+          <div className="index-info">
+            <div className="index-top">
+              <FormattedMessage id="content6_5" />
+            </div>
+            <div className="index-bottom">
+              <FormattedMessage id="content6_6" />
+              {expireDate.date}
+              <FormattedMessage id="content6_7" />
+            </div>
+          </div>
+          <div
+            className="index-button"
+            onClick={() => message.info(messages["content6_10"])}
+          >
+            <FormattedMessage id="content6_8" />
+          </div>
+        </>
       )}
       {expireDate && expireDate.type === "overTime" && (
-        <div style={{ color: "black", fontWeight: 600 }}>
-          <FormattedMessage id="content6_7" />
-          {expireDate.date}
-          <FormattedMessage id="content6_10" />
-        </div>
+        <>
+          <div className="index-info">
+            <div className="index-top">
+              <FormattedMessage id="content6_5" />
+            </div>
+            <div className="index-bottom">
+              <FormattedMessage id="content6_6" />
+              {expireDate.date}
+              <FormattedMessage id="content6_7" />
+            </div>
+          </div>
+          <div className="index-button" onClick={ctx.purchase}>
+            <FormattedMessage id="content6_8" />
+          </div>
+        </>
       )}
-      {expireDate === null && (
-        <Button type="primary" onClick={ctx.purchase}>
-          <FormattedMessage id="content6_11" />
-        </Button>
-      )}
-      {expireDate && (
-        <Button type="primary">
-          <FormattedMessage id="content6_10" />
-        </Button>
-      )}
-    </>
+    </div>
   );
 }
 
-export default root(intl(Index));
+// function Info(props) {
+//   const { expireDate, ctx } = props;
+//   return (
+//     <>
+//       {expireDate === null && (
+//         <div className="index-product-info-try">
+//           <FormattedMessage id="content6_4" />
+//         </div>
+//       )}
+//       {expireDate && expireDate.type === "atTime" && (
+//         <div style={{ color: "black", fontWeight: 600 }}>
+//           <FormattedMessage id="content6_8" />
+//           {expireDate.date}
+//           <FormattedMessage id="content6_9" />{" "}
+//           <FormattedMessage id="content6_10" />
+//         </div>
+//       )}
+//       {expireDate && expireDate.type === "overTime" && (
+//         <div style={{ color: "black", fontWeight: 600 }}>
+//           <FormattedMessage id="content6_7" />
+//           {expireDate.date}
+//           <FormattedMessage id="content6_10" />
+//         </div>
+//       )}
+//       {expireDate === null && (
+//         <Button type="primary" onClick={ctx.purchase}>
+//           <FormattedMessage id="content6_11" />
+//         </Button>
+//       )}
+//       {expireDate && (
+//         <Button type="primary">
+//           <FormattedMessage id="content6_10" />
+//         </Button>
+//       )}
+//     </>
+//   );
+// }
+
+export default root(intl(injectIntl(Index)));

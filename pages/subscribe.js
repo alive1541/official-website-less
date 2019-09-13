@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
-import Footer from "../components/footer";
 import { Radio, Table, Button, message, Modal, Checkbox, Icon } from "antd";
 import { getHistoryData } from "../service";
 import { ifLogined, setTableKey } from "../assets/utils";
@@ -213,7 +212,6 @@ class Subscribe extends React.Component {
             />
           )}
         </div>
-        <Footer />
       </div>
     );
   }

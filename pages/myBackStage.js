@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
-import Footer from "../components/footer";
 import Link from "next/link";
 import { Button, message } from "antd";
 import { ifLogined, getCookie, getLanguageFromStorage } from "../assets/utils";
@@ -165,7 +164,6 @@ class MyBackStage extends React.Component {
             </div>
           )}
         </div>
-        <Footer />
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
-import Footer from "../components/footer";
 import { Input, Button, message } from "antd";
 import { msgSubmit } from "../service";
 const { TextArea } = Input;
@@ -87,7 +86,6 @@ class ConcatUs extends React.Component {
             <FormattedMessage id="content7_4" />
           </Button>
         </div>
-        <Footer />
       </div>
     );
   }
