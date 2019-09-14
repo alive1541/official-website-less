@@ -57,7 +57,7 @@ const id = {
   // content6_8: "Masa berlangganan anda akan berakhir dalam ",
   // content6_9: "hari.",
   content6_10: "Fungsi pembaruan sempurna",
-  // content6_11: "Beli",
+  content6_11: "Beli",
 
   content6_2: "Rp 0   (Waktu terbatas)",
   content6_3: "178.000",

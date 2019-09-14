@@ -57,7 +57,7 @@ const id = {
   // content6_8: "Your subscription will expire in",
   // content6_9: "days",
   content6_10: "The renewal function is improving",
-  // content6_11: "Click to buy",
+  content6_11: "Click to buy",
 
   content6_2: "Limited time 0 yuan",
   content6_3: "$89",

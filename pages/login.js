@@ -38,7 +38,14 @@ class Login extends React.Component {
   componentDidMount() {
     const input = this.refs["inputCode"].input;
     initVarifyCode(input, this);
+    this.checkLogin();
     // this.setPageOrigin();
+  }
+
+  checkLogin() {
+    if (ifLogined()) {
+      window.location.href = "/index";
+    }
   }
 
   // setPageOrigin() {
@@ -133,7 +140,7 @@ class Login extends React.Component {
             message.info(this.props.intl.messages["content6_12"]);
             setTimeout(() => {
               window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
-            }, 1000);
+            }, 2000);
           } else {
             message.error(response.msg);
           }

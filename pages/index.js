@@ -40,9 +40,9 @@ class Index extends React.Component {
   componentDidMount() {
     this.handleTokenFromXXBussiness();
     this.setExpireDate();
-    // if (ifLogined()) {
-    //   this.getUserInfo();
-    // }
+    if (ifLogined()) {
+      this.getUserInfo();
+    }
   }
 
   setExpireDate() {
@@ -63,57 +63,57 @@ class Index extends React.Component {
     }
   }
 
-  // getUserInfo = async () => {
-  //   const result = await getUserInfo();
-  //   if (result.code === 2000) {
-  //     this.handleDate(result.data.expire_date);
-  //   } else {
-  //     message.info(result.msg);
-  //   }
-  // };
+  getUserInfo = async () => {
+    const result = await getUserInfo();
+    if (result.code === 2000) {
+      this.handleDate(result.data.expire_date);
+    } else {
+      message.info(result.msg);
+    }
+  };
 
-  // getWebsiteBalance = async () => {
-  //   const result = await websiteBalance();
-  //   if (result.errorCode === 0) {
-  //     const data = result.data;
-  //     //data没有数据说明这个用户没有注册过网站，这类用户是新用户
-  //     if (data.length === 0) {
-  //       localStorage.setItem("isNewUser", "true");
-  //     } else {
-  //       localStorage.setItem("isNewUser", "false");
-  //     }
-  //   } else {
-  //     message.info(result.msg);
-  //   }
-  // };
+  getWebsiteBalance = async () => {
+    const result = await websiteBalance();
+    if (result.errorCode === 0) {
+      const data = result.data;
+      //data没有数据说明这个用户没有注册过网站，这类用户是新用户
+      if (data.length === 0) {
+        localStorage.setItem("isNewUser", "true");
+      } else {
+        localStorage.setItem("isNewUser", "false");
+      }
+    } else {
+      message.info(result.msg);
+    }
+  };
 
-  // handleDate(date) {
-  //   if (date) {
-  //     const dateBar = new Date() - new Date(date);
-  //     if (dateBar > 0) {
-  //       const expireDate = { type: "overTime", date };
-  //       this.setStorage(expireDate);
-  //       this.setState({ expireDate });
-  //     } else {
-  //       const expireDate = {
-  //         type: "atTime",
-  //         date: Math.floor(-Number(dateBar) / 1000 / 60 / 60 / 24)
-  //       };
-  //       this.setStorage(expireDate);
-  //       this.setState({
-  //         expireDate
-  //       });
-  //       //如果是会员没到期，请求额外信息
-  //       this.getWebsiteBalance();
-  //     }
-  //   } else {
-  //     this.setState({ expireDate: null });
-  //   }
-  // }
+  handleDate(date) {
+    if (date) {
+      const dateBar = new Date() - new Date(date);
+      if (dateBar > 0) {
+        const expireDate = { type: "overTime", date };
+        this.setStorage(expireDate);
+        this.setState({ expireDate });
+      } else {
+        const expireDate = {
+          type: "atTime",
+          date: Math.floor(-Number(dateBar) / 1000 / 60 / 60 / 24)
+        };
+        this.setStorage(expireDate);
+        this.setState({
+          expireDate
+        });
+        //如果是会员没到期，请求额外信息
+        this.getWebsiteBalance();
+      }
+    } else {
+      this.setState({ expireDate: null });
+    }
+  }
 
-  // setStorage(expireDate) {
-  //   localStorage.setItem("expireDate", JSON.stringify(expireDate));
-  // }
+  setStorage(expireDate) {
+    localStorage.setItem("expireDate", JSON.stringify(expireDate));
+  }
 
   purchase = () => {
     if (ifLogined()) {
@@ -299,14 +299,6 @@ class Index extends React.Component {
               </div>
             )}
           </div>
-          <h1 id="target-id">
-            <FormattedMessage id="title6" />
-          </h1>
-          {expireDate === null && (
-            <p className="content">
-              <FormattedMessage id="content6_1" />
-            </p>
-          )}
 
           <Footer ctx={this} expireDate={expireDate} messages={messages} />
           {/* <div className="content">

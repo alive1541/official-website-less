@@ -53,7 +53,7 @@ const zhCn = {
   // content6_8: "您的会员还有",
   // content6_9: "天到期",
   content6_10: "续费功能完善中，敬请期待",
-  // content6_11: "点击购买",
+  content6_11: "点击购买",
   content6_2: "限时0元",
   content6_3: "¥89",
   content6_4: "立即获取",
