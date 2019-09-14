@@ -158,39 +158,24 @@ class Nav extends React.Component {
                   </a>
                 </Link>
               </div>
-              {isMobile && (
+              {isMobile && ifLogined() && (
                 <div
                   className={this.handleItemClassName(["loginner"])}
                   onClick={this.handleClick}
                 >
-                  {ifLogined() && (
+                  {
                     <div>
-                      {isMobile ? (
-                        <a href="#" onClick={this.confirm} className="sign">
-                          <span
-                            className="log-inner"
-                            title={<FormattedMessage id="nav7" />}
-                          >
-                            <FormattedMessage id="nav7" />
-                          </span>
-                        </a>
-                      ) : (
-                        <Popconfirm
-                          title={messages["nav8"]}
-                          onConfirm={this.confirm}
-                          okText={messages["nav9"]}
-                          cancelText={messages["nav10"]}
+                      <a href="#" onClick={this.confirm} className="sign">
+                        <span
+                          className="log-inner"
+                          title={<FormattedMessage id="nav7" />}
                         >
-                          <a href="#" style={{ verticalAlign: "middle" }}>
-                            <span className="log-inner">
-                              <FormattedMessage id="nav7" />
-                            </span>
-                          </a>
-                        </Popconfirm>
-                      )}
+                          <FormattedMessage id="nav7" />
+                        </span>
+                      </a>
                     </div>
-                  )}
-                  {!ifLogined() && (
+                  }
+                  {/* {!ifLogined() && (
                     <Link href={{ pathname: "/sign" }}>
                       <a>
                         <span
@@ -201,7 +186,7 @@ class Nav extends React.Component {
                         </span>
                       </a>
                     </Link>
-                  )}
+                  )} */}
                 </div>
               )}
             </div>
@@ -223,9 +208,9 @@ class Nav extends React.Component {
             </div>
           }
         </div>
-        {!isMobile && (
+        {!isMobile && ifLogined() && (
           <div className="log">
-            {ifLogined() && (
+            {
               <Popconfirm
                 title={messages["nav8"]}
                 onConfirm={this.confirm}
@@ -239,21 +224,7 @@ class Nav extends React.Component {
                   </span>
                 </a>
               </Popconfirm>
-            )}
-            {!ifLogined() && (
-              <Button size={size} type="danger" ghost>
-                <Link href={{ pathname: "/sign" }}>
-                  <a>
-                    <span
-                      className="log-inner"
-                      title={<FormattedMessage id="nav4" />}
-                    >
-                      <FormattedMessage id="nav4" />
-                    </span>
-                  </a>
-                </Link>
-              </Button>
-            )}
+            }
           </div>
         )}
       </nav>
