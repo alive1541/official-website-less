@@ -95,7 +95,7 @@ const id = {
   content9_4: "Comfirm",
   content9_5: "No account yet?",
   content9_6: "Click to register",
-  info9_1: "Please input user name",
+  info9_1: "Please input email",
   info9_2: "Please input password",
   info9_3: "Please enter the email address",
   info9_4: "please enter your password",

@@ -95,7 +95,7 @@ const id = {
   content9_4: "Masuk",
   content9_5: "Tidak punya akun? ",
   content9_6: "Buat akun",
-  info9_1: "Silahkan masukkan nama pengguna",
+  info9_1: "Silahkan masukkan e-mail",
   info9_2: "Silahkan masukkan kata sandi",
   info9_3: "Silahkan masukkan e-mail anda yang terdaftar",
   info9_4: "Silahkan masukkan kata sandi anda",

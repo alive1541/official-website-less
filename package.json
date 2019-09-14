@@ -2,6 +2,7 @@
   "name": "official-website",
   "version": "1.0.0",
   "scripts": {
+    "devs": "npm i && npm run dev",
     "dev": "NODE_ENV=production next",
     "build": "next build",
     "start": "next start"
