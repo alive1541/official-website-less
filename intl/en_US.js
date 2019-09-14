@@ -114,7 +114,7 @@ const id = {
   info10_7: "Please set your password",
   info10_8: "Please input email",
   info10_9: "Please input correct email address",
-  info10_13: "User name cannot be less than 4 characters",
+  info10_13: "cannot be less than 4 characters",
   info10_14: "Only input numbers and characters",
   info10_15: "Password cannot be less than 4 characters",
   info10_16: "The passwords you input do not match",

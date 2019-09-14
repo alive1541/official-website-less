@@ -5,7 +5,8 @@
     "devs": "npm i && npm run dev",
     "dev": "NODE_ENV=production next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "send": "sh start.sh"
   },
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
