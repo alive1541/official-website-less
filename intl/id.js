@@ -67,7 +67,7 @@ const id = {
   content6_7: "hari lagi sebelum langganan kamu habis",
   content6_8: "LANJUT BERLANGGANAN",
 
-  content6_12: "Selamat! Pembelian anda telah berhasil.",
+  content6_12: "Selamat! Pembelian anda telah berhasil",
   content6_13: "Masa berlaku langganan aktif sampai dengan",
   content6_14: "Anda memiliki",
   content6_15:

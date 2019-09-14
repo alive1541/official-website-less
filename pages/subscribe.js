@@ -49,7 +49,7 @@ class Subscribe extends React.Component {
           message.info(response.msg);
         }
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
         message.error(this.props.intl.messages("info9_11"));
       });

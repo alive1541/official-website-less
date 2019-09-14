@@ -1,11 +1,16 @@
 import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
-import initReactFastclick from "react-fastclick";
 import Link from "next/link";
 import { Form, Icon, Input, Button, Row, Col, message } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
-import { sign } from "../service";
+import { sign, login, getUserInfo, activeVip } from "../service";
+import {
+  getCookie,
+  setCookie,
+  ifLogined,
+  getLanguageFromStorage
+} from "../assets/utils";
 import Router from "next/router";
 import md5 from "js-md5";
 import root from "../components/root";
@@ -43,31 +48,125 @@ class Sign extends React.Component {
     }
   };
 
+  async autoLogin(user_name, password) {
+    await this.login(user_name, password);
+  }
+
+  async login(user_name, password) {
+    const response = await login({
+      user_name,
+      password
+    });
+
+    if (response.code === 2000) {
+      setCookie(response.data);
+      //移除expireDate
+      localStorage.removeItem("expireDate");
+      this.getUserInfoFn();
+    } else {
+      message.info(result.msg);
+      window.location.href = "/login";
+    }
+  }
+
+  getUserInfoFn = async () => {
+    const result = await getUserInfo();
+    if (result.code === 2000) {
+      this.handleDate(result.data.expire_date);
+    } else {
+      message.info(result.msg);
+    }
+  };
+
+  handleDate(date) {
+    if (date) {
+      const dateBar = new Date() - new Date(date);
+      if (dateBar > 0) {
+        const expireDate = { type: "overTime", date };
+        this.setStorage(expireDate);
+        this.setState({ expireDate });
+      } else {
+        const expireDate = {
+          type: "atTime",
+          date: Math.floor(-Number(dateBar) / 1000 / 60 / 60 / 24)
+        };
+        this.setStorage(expireDate);
+        this.setState({
+          expireDate
+        });
+        //如果是会员没到期，请求额外信息
+        this.getWebsiteBalance();
+      }
+    } else {
+      //刚注册的用户
+      this.purchase();
+    }
+  }
+
+  purchase() {
+    if (ifLogined()) {
+      activeVip()
+        .then(response => {
+          if (response.code === 2000) {
+            message.info(this.props.intl.messages["content6_12"]);
+            setTimeout(() => {
+              window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
+            }, 1000);
+          } else {
+            message.error(response.msg);
+            window.location.href = "/index";
+          }
+        })
+        .catch(e => {
+          message.error(e);
+          window.location.href = "/index";
+        });
+    } else {
+      message.info("activeVip失败");
+    }
+  }
+
+  getWebsiteBalance = async () => {
+    const result = await websiteBalance();
+    if (result.errorCode === 0) {
+      const data = result.data;
+      //data没有数据说明这个用户没有注册过网站，这类用户是新用户
+      if (data.length === 0) {
+        localStorage.setItem("isNewUser", "true");
+      } else {
+        localStorage.setItem("isNewUser", "false");
+      }
+    } else {
+      message.info(result.msg);
+    }
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     if (!this.ifAccessVarify()) return;
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        const password = md5(values.password);
         sign({
           user_name: values.user_name,
-          password: md5(values.password),
+          password,
           mail: values.user_name
         })
-          .then(function(response) {
+          .then(response => {
             if (response.code === 2000) {
-              message.info(response.msg);
-              Router.push({
-                pathname: "/login",
-                query: {
-                  user_name: values.user_name,
-                  mail: values.mail
-                }
-              });
+              this.autoLogin(values.user_name, password);
+              // Router.push({
+              //   pathname: "/login",
+              //   query: {
+              //     user_name: values.user_name,
+              //     mail: values.mail
+              //   }
+              // });
             } else {
               message.error(response.msg);
             }
           })
-          .catch(function(error) {
+          .catch(error => {
             message.error(this.props.intl.messages["info9_11"]);
           });
       } else {

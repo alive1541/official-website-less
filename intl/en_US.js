@@ -67,7 +67,7 @@ const id = {
   content6_7: "days to expire",
   content6_8: "Renewal fee",
 
-  content6_12: "Congratulations on your successful purchase.",
+  content6_12: "Congratulations on your successful purchase",
   content6_13: "Membership validity to",
   content6_14: "The system also has ",
   content6_15:

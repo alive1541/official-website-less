@@ -6,13 +6,17 @@ import Router from "next/router";
 import initReactFastclick from "react-fastclick";
 import { Form, Icon, Input, Button, Row, Col, message } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
-import { login } from "../service";
-import { setCookie } from "../assets/utils";
+import { login, getUserInfo, activeVip, websiteBalance } from "../service";
+import {
+  getCookie,
+  setCookie,
+  ifLogined,
+  getLanguageFromStorage
+} from "../assets/utils";
 import md5 from "js-md5";
 import root from "../components/root";
 import { injectIntl, FormattedMessage } from "react-intl";
 import intl from "../components/intl";
-import qs from "qs";
 
 import "../style/login.less";
 
@@ -27,27 +31,27 @@ class Login extends React.Component {
   }
 
   state = {
-    varifyCode: false,
-    ifFromIndexPage: false
+    varifyCode: false
+    // ifFromIndexPage: false
   };
 
   componentDidMount() {
     const input = this.refs["inputCode"].input;
     initVarifyCode(input, this);
-    this.setPageOrigin();
+    // this.setPageOrigin();
   }
 
-  setPageOrigin() {
-    try {
-      const query = window.location.search.slice(1);
-      const { ifFromIndexPage } = qs.parse(query);
-      if (ifFromIndexPage === "true") {
-        this.setState({ ifFromIndexPage: true });
-      } else {
-        this.setState({ ifFromIndexPage: false });
-      }
-    } catch (e) {}
-  }
+  // setPageOrigin() {
+  //   try {
+  //     const query = window.location.search.slice(1);
+  //     const { ifFromIndexPage } = qs.parse(query);
+  //     if (ifFromIndexPage === "true") {
+  //       this.setState({ ifFromIndexPage: true });
+  //     } else {
+  //       this.setState({ ifFromIndexPage: false });
+  //     }
+  //   } catch (e) {}
+  // }
 
   ifAccessVarify = () => {
     if (this.state.varifyCode) {
@@ -70,11 +74,10 @@ class Login extends React.Component {
         })
           .then(response => {
             if (response.code === 2000) {
-              message.info(response.msg);
               setCookie(response.data);
               //移除expireDate
               localStorage.removeItem("expireDate");
-              this.gotoIndex();
+              this.getUserInfoFn();
             } else if (response.code === 1004) {
               // Router.push({
               //   pathname: "/index"
@@ -84,28 +87,102 @@ class Login extends React.Component {
             }
           })
           .catch(error => {
-            console.log(error);
             message.error(this.props.intl.messages["info9_11"]);
           });
       }
     });
   };
 
-  gotoIndex() {
-    if (this.state.ifFromIndexPage) {
-      // Router.push({
-      //   pathname: "/index",
-      //   hash: "#target-id"
-      // });
-      //使用next路由移动端会定位不准
-      window.location.href = "/index#target-id";
+  getUserInfoFn = async () => {
+    const result = await getUserInfo();
+    if (result.code === 2000) {
+      this.handleDate(result.data.expire_date);
     } else {
-      //使用next路由移动端会定位不准
-      window.location.href = "/index";
-      // Router.push({
-      //   pathname: "/index"
-      // });
+      message.info(result.msg);
     }
+  };
+
+  handleDate(date) {
+    if (date) {
+      const dateBar = new Date() - new Date(date);
+      if (dateBar > 0) {
+        const expireDate = { type: "overTime", date };
+        this.setStorage(expireDate);
+        this.gotoIndex();
+      } else {
+        const expireDate = {
+          type: "atTime",
+          date: Math.floor(-Number(dateBar) / 1000 / 60 / 60 / 24)
+        };
+        this.setStorage(expireDate);
+        //如果是会员没到期，请求额外信息
+        this.getWebsiteBalance();
+        this.gotoIndex();
+      }
+    } else {
+      //刚注册的用户
+      this.purchase();
+    }
+  }
+
+  purchase() {
+    if (ifLogined()) {
+      activeVip()
+        .then(response => {
+          if (response.code === 2000) {
+            message.info(this.props.intl.messages["content6_12"]);
+            setTimeout(() => {
+              window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
+            }, 1000);
+          } else {
+            message.error(response.msg);
+          }
+        })
+        .catch(e => {
+          message.error(e);
+          this.gotoIndex();
+        });
+    } else {
+      message.info("activeVip失败");
+      this.gotoIndex();
+    }
+  }
+
+  getWebsiteBalance = async () => {
+    const result = await websiteBalance();
+    if (result.errorCode === 0) {
+      const data = result.data;
+      //data没有数据说明这个用户没有注册过网站，这类用户是新用户
+      if (data.length === 0) {
+        localStorage.setItem("isNewUser", "true");
+      } else {
+        localStorage.setItem("isNewUser", "false");
+      }
+    } else {
+      message.info(result.msg);
+    }
+  };
+
+  gotoIndex() {
+    window.location.href = "/index";
+    // if (this.state.ifFromIndexPage) {
+    //   // Router.push({
+    //   //   pathname: "/index",
+    //   //   hash: "#target-id"
+    //   // });
+    //   //使用next路由移动端会定位不准
+    //   window.location.href = "/index#target-id";
+    // } else {
+    //   //使用next路由移动端会定位不准
+    //   window.location.href = "/index";
+    //   // Router.push({
+    //   //   pathname: "/index"
+    //   // });
+    // }
+  }
+
+  setStorage(expireDate) {
+    localStorage.setItem("expireDate", JSON.stringify(expireDate));
   }
 
   render() {
