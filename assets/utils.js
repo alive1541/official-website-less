@@ -90,7 +90,7 @@ export function getLanguageFromStorage() {
   try {
     return localStorage.getItem("language") || getLanguage();
   } catch (e) {
-    return null;
+    return "en";
   }
 }
 
