@@ -265,7 +265,7 @@ class Sign extends React.Component {
 
             <Form.Item>
               <Row gutter={8}>
-                <Col span={18}>
+                <Col span={17}>
                   <Input
                     ref="inputCode"
                     prefix={
@@ -278,7 +278,7 @@ class Sign extends React.Component {
                     placeholder={messages["content9_3"]}
                   />
                 </Col>
-                <Col span={6}>
+                <Col span={7}>
                   <span id="code" className="mycode" />
                 </Col>
               </Row>
