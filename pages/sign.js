@@ -16,6 +16,7 @@ import md5 from "js-md5";
 import root from "../components/root";
 import { FormattedMessage, injectIntl } from "react-intl";
 import intl from "../components/intl";
+import { commonPoint } from "../assets/buryingPoint";
 
 import "../style/sign.less";
 
@@ -37,6 +38,7 @@ class Sign extends React.Component {
   componentDidMount() {
     const input = this.refs["inputCode"].input;
     initVarifyCode(input, this);
+    commonPoint("common", "注册页pv");
   }
 
   ifAccessVarify = () => {
@@ -142,6 +144,9 @@ class Sign extends React.Component {
   };
 
   handleSubmit = e => {
+    setTimeout(() => {
+      commonPoint("click", "注册按钮", "sign-button");
+    }, 0);
     e.preventDefault();
     if (!this.ifAccessVarify()) return;
     this.props.form.validateFields((err, values) => {

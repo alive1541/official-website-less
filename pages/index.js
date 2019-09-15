@@ -16,6 +16,7 @@ import intl from "../components/intl";
 import { FormattedMessage, injectIntl } from "react-intl";
 import root from "../components/root";
 import qs from "qs";
+import { commonPoint } from "../assets/buryingPoint";
 
 import "../style/index.less";
 
@@ -43,6 +44,7 @@ class Index extends React.Component {
     if (ifLogined()) {
       this.getUserInfo();
     }
+    commonPoint("common", "首页pv");
   }
 
   setExpireDate() {
@@ -116,6 +118,9 @@ class Index extends React.Component {
   }
 
   purchase = () => {
+    setTimeout(() => {
+      commonPoint("click", "立即获取按钮", "purchase-button");
+    }, 0);
     if (ifLogined()) {
       activeVip()
         .then(response => {
@@ -301,19 +306,6 @@ class Index extends React.Component {
           </div>
 
           <Footer ctx={this} expireDate={expireDate} messages={messages} />
-          {/* <div className="content">
-            <div className="index-product-info">
-              <div className="index-product-info-item">
-                <p className="index-product-info-money">
-                  <FormattedMessage id="content6_2" />
-                </p>
-                <p className="index-product-info-money">
-                  <FormattedMessage id="content6_3" />
-                </p>
-                <Info expireDate={expireDate} ctx={this} />
-              </div>
-            </div>
-          </div> */}
         </div>
         {
           <Modal visible={purchaseVisible} closable={false} footer={false}>
@@ -336,6 +328,13 @@ class Index extends React.Component {
 }
 
 function Footer(props) {
+  function rePay() {
+    setTimeout(() => {
+      commonPoint("click", "点击续费按钮", "repay-button");
+    }, 0);
+    message.info(messages["content6_10"]);
+  }
+
   const { expireDate, ctx, messages } = props;
   return (
     <div className="index-footer">
@@ -366,10 +365,7 @@ function Footer(props) {
               <FormattedMessage id="content6_7" />
             </div>
           </div>
-          <div
-            className="index-button"
-            onClick={() => message.info(messages["content6_10"])}
-          >
+          <div className="index-button" onClick={rePay}>
             <FormattedMessage id="content6_8" />
           </div>
         </>
@@ -386,10 +382,7 @@ function Footer(props) {
               <FormattedMessage id="content6_7" />
             </div>
           </div>
-          <div
-            className="index-button"
-            onClick={() => message.info(messages["content6_10"])}
-          >
+          <div className="index-button" onClick={rePay}>
             <FormattedMessage id="content6_8" />
           </div>
         </>
@@ -397,43 +390,5 @@ function Footer(props) {
     </div>
   );
 }
-
-// function Info(props) {
-//   const { expireDate, ctx } = props;
-//   return (
-//     <>
-//       {expireDate === null && (
-//         <div className="index-product-info-try">
-//           <FormattedMessage id="content6_4" />
-//         </div>
-//       )}
-//       {expireDate && expireDate.type === "atTime" && (
-//         <div style={{ color: "black", fontWeight: 600 }}>
-//           <FormattedMessage id="content6_8" />
-//           {expireDate.date}
-//           <FormattedMessage id="content6_9" />{" "}
-//           <FormattedMessage id="content6_10" />
-//         </div>
-//       )}
-//       {expireDate && expireDate.type === "overTime" && (
-//         <div style={{ color: "black", fontWeight: 600 }}>
-//           <FormattedMessage id="content6_7" />
-//           {expireDate.date}
-//           <FormattedMessage id="content6_10" />
-//         </div>
-//       )}
-//       {expireDate === null && (
-//         <Button type="primary" onClick={ctx.purchase}>
-//           <FormattedMessage id="content6_11" />
-//         </Button>
-//       )}
-//       {expireDate && (
-//         <Button type="primary">
-//           <FormattedMessage id="content6_10" />
-//         </Button>
-//       )}
-//     </>
-//   );
-// }
 
 export default root(intl(injectIntl(Index)));

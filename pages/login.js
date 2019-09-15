@@ -210,11 +210,11 @@ class Login extends React.Component {
             <Form.Item>
               {getFieldDecorator("user_name", {
                 rules: [
-                  { required: true, message: messages["info9_1"] },
-                  {
-                    type: "email",
-                    message: messages["info10_9"]
-                  }
+                  { required: true, message: messages["info9_1"] }
+                  // {
+                  //   type: "email",
+                  //   message: messages["info10_9"]
+                  // }
                 ]
               })(
                 <Input
