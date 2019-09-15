@@ -13,10 +13,10 @@ export const commonPoint = (type = "common", desc = "未添加描述", element) 
     };
     //只统计移动端数据
     // 添加uuid os
-    // var data = tytlnative.getImei();
-    params.uuid = 111;
-    const os = getNaviator();
-    if (os) {
+    // var data = tytlnative.getDeviceInfo(); return '{"uuid": "xxxx","os": "android"}'
+    const { uuid, os } = JSON.parse(tytlnative.getDeviceInfo());
+    if (uuid && os) {
+      params.uuid = uuid;
       params.os = os;
     }
     //获取ip
@@ -34,24 +34,24 @@ export const commonPoint = (type = "common", desc = "未添加描述", element) 
     }
     axios.post(baseApi + "/device/upload_action_info", params, options);
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
 };
 
-function getNaviator() {
-  const u = navigator.userAgent;
+// function getNaviator() {
+//   const u = navigator.userAgent;
 
-  const isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+//   const isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
 
-  const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+//   const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 
-  if (isAndroid) {
-    return "android";
-  }
+//   if (isAndroid) {
+//     return "android";
+//   }
 
-  if (isiOS) {
-    return "ios";
-  }
+//   if (isiOS) {
+//     return "ios";
+//   }
 
-  return false;
-}
+//   return false;
+// }
