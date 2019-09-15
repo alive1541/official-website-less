@@ -7,7 +7,7 @@ set remoteDir /home/ec2-user
 set sshkey ~/.ssh/wsws.pem
 # 项目文件夹
 set projectDir /home/sysapp/website/server-start
-set date [exec date "+%Y-%m-%d"]
+set date [exec date "+%Y-%m-%d-%H-%M-%S"]
 # set username sysapp
 # set host 123.56.11.198
 # set password 8xqS&$&BzvAcb@s9

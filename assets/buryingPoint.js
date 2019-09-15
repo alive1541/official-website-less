@@ -1,6 +1,7 @@
 import { baseApi } from "../service/config";
 import axios from "axios";
 import dayjs from "dayjs";
+import { getCookie } from "../assets/utils";
 
 export const commonPoint = (type = "common", desc = "未添加描述", element) => {
   try {
@@ -26,7 +27,12 @@ export const commonPoint = (type = "common", desc = "未添加描述", element) 
     if (element) {
       params.element = element;
     }
-    axios.post(baseApi + "/device/upload_action_info", params);
+    const options = {};
+    const cookie = getCookie();
+    if (cookie) {
+      options.headers = { token: cookie };
+    }
+    axios.post(baseApi + "/device/upload_action_info", params, options);
   } catch (e) {
     // console.log(e);
   }
