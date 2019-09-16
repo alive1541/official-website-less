@@ -5,8 +5,12 @@ import { getCookie } from "../assets/utils";
 
 export const commonPoint = (type = "common", desc = "未添加描述", element) => {
   try {
+    let page = location.pathname.slice(1);
+    if (page === "") {
+      page = "index";
+    }
     const params = {
-      page: location.pathname.slice(1),
+      page,
       bhv_type: type,
       bhv_datetime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
       desc
