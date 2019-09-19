@@ -105,6 +105,10 @@ class Sign extends React.Component {
     }
   }
 
+  gotoIndex() {
+    window.location.href = "/index";
+  }
+
   purchase() {
     if (ifLogined()) {
       activeVip()
@@ -112,7 +116,8 @@ class Sign extends React.Component {
           if (response.code === 2000) {
             message.info(this.props.intl.messages["content6_12"]);
             setTimeout(() => {
-              window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
+              // window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
+              this.gotoIndex();
             }, 2000);
           } else {
             message.error(response.msg);

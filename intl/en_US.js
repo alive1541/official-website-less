@@ -73,6 +73,9 @@ const id = {
   content6_15:
     "s to jump to your financial backstage, click here to jump quickly.",
   content6_16: "Financial Background Website",
+  title77: "Success",
+  content77_1:
+    "Customer service personnel will contact you by mail later. Please check your mailbox carefully.",
 
   //ConcatUs
   content7_1: "our email",

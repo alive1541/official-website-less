@@ -131,23 +131,18 @@ class Nav extends React.Component {
                 </Link>
               </div>
 
-              <div className="block" />
+              {/* <div className="block" /> */}
 
-              <div
+              {/* <div
                 className={this.handleItemClassName(["myBackStage"])}
                 onClick={this.handleClick}
               >
-                {/* <Link
-                  onClick={this.goXXbussiness}
-                  // href={{ pathname: "/myBackStage" }}
-                > */}
                 <a className="myBackStage" onClick={this.goXXbussiness}>
                   <FormattedMessage id="nav2" />
                 </a>
-                {/* </Link> */}
-              </div>
+              </div> */}
 
-              <div className="block" />
+              {/* <div className="block" /> */}
               <div
                 className={this.handleItemClassName(["concatUs"])}
                 onClick={this.handleClick}

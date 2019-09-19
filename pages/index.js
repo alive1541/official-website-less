@@ -125,7 +125,7 @@ class Index extends React.Component {
       activeVip()
         .then(response => {
           if (response.code === 2000) {
-            this.setState({ purchaseVisible: true });
+            this.setState({ purchaseVisible2: true });
             this.setTimer();
           } else {
             message.error(response.msg);
@@ -159,7 +159,12 @@ class Index extends React.Component {
       intl: { messages }
     } = this.props;
 
-    const { purchaseVisible, timerNum, expireDate } = this.state;
+    const {
+      purchaseVisible,
+      purchaseVisible2,
+      timerNum,
+      expireDate
+    } = this.state;
     return (
       <div>
         <Head title="体育套利" />
@@ -179,13 +184,13 @@ class Index extends React.Component {
           </h1>
           <p className="content">
             <FormattedMessage id="content2_1" />
-            <Link href={{ pathname: "/subscribe" }}>
+            {/* <Link href={{ pathname: "/subscribe" }}>
               <a>
                 <u>
                   <FormattedMessage id="content2_2" />
                 </u>
               </a>
-            </Link>
+            </Link> */}
           </p>
           <p className="content">
             <FormattedMessage id="content2_3" />
@@ -212,9 +217,9 @@ class Index extends React.Component {
                 <FormattedMessage id="content4_5" />
               </p>
             </div>
-            <div className="index-phone-img">
+            {/* <div className="index-phone-img">
               <img src="/static/img/phone.png" />
-            </div>
+            </div> */}
           </div>
 
           <h1>
@@ -308,6 +313,21 @@ class Index extends React.Component {
           <Footer ctx={this} expireDate={expireDate} messages={messages} />
         </div>
         {
+          <Modal
+            visible={purchaseVisible2}
+            footer={false}
+            onCancel={() => this.setState({ purchaseVisible2: false })}
+          >
+            <p className="index-purcharse-success-title">
+              <FormattedMessage id="title77" />
+            </p>
+            <p className="index-purcharse-success-content">
+              <FormattedMessage id="content77_1" />
+            </p>
+          </Modal>
+        }
+        {/*purchaseVisible暂时隐藏*/}
+        {
           <Modal visible={purchaseVisible} closable={false} footer={false}>
             <div className="index-modal">
               <p className="index-modal-title">
@@ -328,14 +348,13 @@ class Index extends React.Component {
 }
 
 function Footer(props) {
+  const { expireDate, ctx, messages } = props;
   function rePay() {
     setTimeout(() => {
       commonPoint("click", "点击续费按钮", "repay-button");
     }, 0);
     message.info(messages["content6_10"]);
   }
-
-  const { expireDate, ctx, messages } = props;
   return (
     <div className="index-footer">
       {expireDate === null && (

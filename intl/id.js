@@ -73,6 +73,9 @@ const id = {
   content6_15:
     "detik sebelum anda diarahkan ke dalam platform keuangan anda, klik disini untuk segera masuk. Kata sandi pada akun platform keuangan anda cocok dengan kata sandi pada situs web anda.",
   content6_16: "URL latar belakang keuangan",
+  title77: "Beli kesuksesan",
+  content77_1:
+    "Personel layanan pelanggan akan menghubungi Anda melalui email nanti, silakan periksa kotak surat.",
 
   //ConcatUs
   content7_1: "E-mail kami",
