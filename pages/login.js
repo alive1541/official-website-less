@@ -4,7 +4,7 @@ import Nav from "../components/nav";
 import Link from "next/link";
 import Router from "next/router";
 import initReactFastclick from "react-fastclick";
-import { Form, Icon, Input, Button, Row, Col, message } from "antd";
+import { Form, Icon, Input, Button, Row, Col, message, Modal } from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
 import { login, getUserInfo, activeVip, websiteBalance } from "../service";
 import {
@@ -31,7 +31,8 @@ class Login extends React.Component {
   }
 
   state = {
-    varifyCode: false
+    varifyCode: false,
+    purchaseVisible: false
     // ifFromIndexPage: false
   };
 
@@ -137,11 +138,11 @@ class Login extends React.Component {
       activeVip()
         .then(response => {
           if (response.code === 2000) {
-            message.info(this.props.intl.messages["content6_12"]);
+            this.setState({ purchaseVisible: true });
             setTimeout(() => {
               // window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
               this.gotoIndex();
-            }, 2000);
+            }, 5000);
           } else {
             message.error(response.msg);
           }
@@ -199,6 +200,8 @@ class Login extends React.Component {
       intl: { messages }
     } = this.props;
     const { getFieldDecorator } = this.props.form;
+    const { purchaseVisible } = this.state;
+
     return (
       <div>
         <Head title={messages["nav5"]} />
@@ -279,6 +282,20 @@ class Login extends React.Component {
             </Form.Item>
           </Form>
         </div>
+        {
+          <Modal
+            visible={purchaseVisible}
+            footer={false}
+            onCancel={() => this.setState({ purchaseVisible: false })}
+          >
+            <p className="index-purcharse-success-title">
+              <FormattedMessage id="title77" />
+            </p>
+            <p className="index-purcharse-success-content">
+              <FormattedMessage id="content77_1" />
+            </p>
+          </Modal>
+        }
       </div>
     );
   }
