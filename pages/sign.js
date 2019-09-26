@@ -227,7 +227,7 @@ class Sign extends React.Component {
                     type: "email",
                     message: messages["info10_9"]
                   },
-                  { max: 20, message: messages["info9_3"] },
+                  { max: 100, message: messages["info10_9"] },
                   { min: 4, message: messages["info10_13"] },
                   {
                     required: true,
