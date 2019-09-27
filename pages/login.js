@@ -140,8 +140,7 @@ class Login extends React.Component {
           if (response.code === 2000) {
             this.setState({ purchaseVisible: true });
             setTimeout(() => {
-              // window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
-              this.gotoIndex();
+              window.location.href = `http://123.56.11.198:8990/#/page/getMoney?token=${getCookie()}&language=${getLanguageFromStorage()}&isNewUser=true`;
             }, 5000);
           } else {
             message.error(response.msg);

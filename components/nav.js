@@ -133,14 +133,16 @@ class Nav extends React.Component {
 
               {/* <div className="block" /> */}
 
-              {/* <div
-                className={this.handleItemClassName(["myBackStage"])}
-                onClick={this.handleClick}
-              >
-                <a className="myBackStage" onClick={this.goXXbussiness}>
-                  <FormattedMessage id="nav2" />
-                </a>
-              </div> */}
+              {
+                <div
+                  className={this.handleItemClassName(["myBackStage"])}
+                  onClick={this.handleClick}
+                >
+                  <a className="myBackStage" onClick={this.goXXbussiness}>
+                    <FormattedMessage id="nav2" />
+                  </a>
+                </div>
+              }
 
               {/* <div className="block" /> */}
               <div
