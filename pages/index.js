@@ -3,7 +3,6 @@ import Head from "../components/head";
 import Nav from "../components/nav";
 import initReactFastclick from "react-fastclick";
 import { Carousel, Modal, message } from "antd";
-import Link from "next/link";
 import { activeVip, getUserInfo, websiteBalance } from "../service";
 import {
   getCookie,
@@ -170,6 +169,7 @@ class Index extends React.Component {
         <Head title="体育套利" />
         <Nav isMobile={isMobile} pathName="index" />
         <div className="index-wraper">
+          <Info isMobile={isMobile} />
           <h1>
             <FormattedMessage id="title1" />
           </h1>
@@ -408,6 +408,38 @@ function Footer(props) {
       )}
     </div>
   );
+}
+
+function Info(props) {
+  const { isMobile } = props;
+  if (isMobile) {
+    return (
+      <>
+        <h1>
+          <FormattedMessage id="info1_1" />
+        </h1>
+        <h1>
+          <FormattedMessage id="info1_2" />
+        </h1>
+        <h1>
+          <FormattedMessage id="info1_3" />
+        </h1>
+        <h1>
+          <FormattedMessage id="info1_4" />
+        </h1>
+        <h1>
+          <FormattedMessage id="info1_5" />
+        </h1>
+        <h1>
+          <FormattedMessage id="info1_6" />
+        </h1>
+        <br />
+        <br />
+        <br />
+      </>
+    );
+  }
+  return null;
 }
 
 export default root(intl(injectIntl(Index)));
