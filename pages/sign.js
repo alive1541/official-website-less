@@ -2,7 +2,17 @@ import React from "react";
 import Head from "../components/head";
 import Nav from "../components/nav";
 import Link from "next/link";
-import { Form, Icon, Input, Button, Row, Col, message, Modal } from "antd";
+import {
+  Form,
+  Icon,
+  Input,
+  Button,
+  Row,
+  Col,
+  message,
+  Modal,
+  Select
+} from "antd";
 import initVarifyCode from "../assets/initVarifyCode.js";
 import { sign, login, getUserInfo, activeVip } from "../service";
 import {
@@ -17,6 +27,8 @@ import root from "../components/root";
 import { FormattedMessage, injectIntl } from "react-intl";
 import intl from "../components/intl";
 import { commonPoint } from "../assets/buryingPoint";
+
+const { Option } = Select;
 
 import "../style/sign.less";
 
@@ -160,7 +172,9 @@ class Sign extends React.Component {
         sign({
           user_name: values.user_name,
           password,
-          mail: values.user_name
+          mail: values.user_name,
+          phone_prefix: "+62",
+          phone: values.phone
         })
           .then(response => {
             if (response.code === 2000) {
@@ -194,13 +208,13 @@ class Sign extends React.Component {
   //   }
   // };
 
-  validateToNextPassword = (rule, value, callback) => {
-    const form = this.props.form;
-    if (value && this.state.confirmDirty) {
-      form.validateFields(["confirm"], { force: true });
-    }
-    callback();
-  };
+  // validateToNextPassword = (rule, value, callback) => {
+  //   const form = this.props.form;
+  //   if (value && this.state.confirmDirty) {
+  //     form.validateFields(["confirm"], { force: true });
+  //   }
+  //   callback();
+  // };
 
   render() {
     const {
@@ -251,9 +265,9 @@ class Sign extends React.Component {
                     required: true,
                     message: messages["info9_2"]
                   },
-                  {
-                    validator: this.validateToNextPassword
-                  },
+                  // {
+                  //   validator: this.validateToNextPassword
+                  // },
                   { max: 20, message: messages["info9_4"] },
                   { min: 4, message: messages["info10_15"] }
                 ]
@@ -265,6 +279,30 @@ class Sign extends React.Component {
                   type="password"
                   size="large"
                   placeholder={messages["info10_7"]}
+                />
+              )}
+            </Form.Item>
+
+            <Form.Item>
+              {getFieldDecorator("phone", {
+                rules: [
+                  {
+                    required: true,
+                    message: messages["info9_12"]
+                  },
+                  {
+                    type: "number",
+                    message: messages["info9_13"]
+                  }
+                ]
+              })(
+                <Input
+                  prefix={
+                    <Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
+                  type="password"
+                  size="large"
+                  placeholder={messages["info9_12"]}
                 />
               )}
             </Form.Item>

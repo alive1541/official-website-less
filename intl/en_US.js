@@ -111,6 +111,8 @@ const id = {
   info9_5: "Please input verification code",
   info9_10: "Incorrect verificaiton code",
   info9_11: "Something went wrong, please try again later",
+  info9_12: "please enter your cell phone number",
+  info9_13: "Error in mobile number",
 
   //sign
   content10_1: "Comfirm password",

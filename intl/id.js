@@ -111,6 +111,8 @@ const id = {
   info9_5: "Silahkan masukkan kode verifikasi",
   info9_10: "Kide verifikasi salah",
   info9_11: "Server mengalami gangguan, silahkan coba lagi nanti.",
+  info9_12: "Silakan masukkan nomor ponsel Anda",
+  info9_13: "Nomor telepon salah",
 
   //sign
   content10_1: "Ulangi kata sandi",
