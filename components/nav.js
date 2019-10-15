@@ -19,8 +19,7 @@ class Nav extends React.Component {
     super(props);
     this.state = {
       menuVisible: this.props.isMobile ? false : true,
-      secondMenuVisible: false,
-      language: getLanguageFromStorage()
+      secondMenuVisible: false
     };
   }
 
@@ -77,8 +76,13 @@ class Nav extends React.Component {
     // location.reload();
     window.location.href = `${location.origin}${location.pathname}`;
   };
+  setStorage = lan => {
+    try {
+      localStorage.setItem("language", lan);
+    } catch (e) {}
+  };
   lanChange = value => {
-    this.setState({ language: value });
+    this.setStorage(value);
     this.props.dispatch({ type: "CHANGE_LANGUAGE", value });
   };
   goXXbussiness = () => {
@@ -101,7 +105,8 @@ class Nav extends React.Component {
     }
   };
   render() {
-    const { menuVisible, language } = this.state;
+    const { menuVisible } = this.state;
+    const { language } = this.props;
     const {
       isMobile,
       intl: { messages }

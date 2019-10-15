@@ -9,24 +9,20 @@ import { connect } from "react-redux";
 
 function Intl(Com) {
   class Temp extends React.Component {
-    state = { defaultLang: "" };
     componentDidMount() {
       const defaultLang = getLanguageFromStorage();
-      this.setState({ defaultLang });
+      if (defaultLang) {
+        this.props.dispatch({ type: "CHANGE_LANGUAGE", value: defaultLang });
+      }
     }
 
     render() {
-      const { children, language } = this.props;
-      const lan = getLanguageFromStorage() || this.state.defaultLang;
-      if (Intl) {
-        return (
-          <IntlProvider locale={lan} messages={chooseLocale(lan)}>
-            <Com {...this.props} />
-          </IntlProvider>
-        );
-      } else {
-        return children;
-      }
+      const { language } = this.props;
+      return (
+        <IntlProvider locale={language} messages={chooseLocale(language)}>
+          <Com {...this.props} />
+        </IntlProvider>
+      );
     }
   }
   return connect(state => state)(Temp);
