@@ -291,7 +291,7 @@ class Sign extends React.Component {
                     message: messages["info9_12"]
                   },
                   {
-                    type: "number",
+                    pattern: new RegExp(/^[1-9]\d*$/, "g"),
                     message: messages["info9_13"]
                   }
                 ]
@@ -300,7 +300,6 @@ class Sign extends React.Component {
                   prefix={
                     <Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }} />
                   }
-                  type="password"
                   size="large"
                   placeholder={messages["info9_12"]}
                 />
