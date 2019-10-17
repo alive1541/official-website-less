@@ -16,6 +16,10 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import root from "../components/root";
 import qs from "qs";
 import { commonPoint } from "../assets/buryingPoint";
+import getConfig from "next/config";
+const {
+  publicRuntimeConfig: { cdnPath }
+} = getConfig();
 
 import "../style/index.less";
 
@@ -217,9 +221,6 @@ class Index extends React.Component {
                 <FormattedMessage id="content4_5" />
               </p>
             </div>
-            {/* <div className="index-phone-img">
-              <img src="/static/img/phone.png" />
-            </div> */}
           </div>
 
           <h1>
@@ -237,7 +238,7 @@ class Index extends React.Component {
                         <FormattedMessage id="content5_2" />
                       </div>
                       <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart1.png" />
+                        <img src={`${cdnPath}/static/img/line-chart1.png`} />
                       </div>
                     </div>
                   </div>
@@ -249,7 +250,7 @@ class Index extends React.Component {
                         <FormattedMessage id="content5_4" />
                       </div>
                       <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart2.png" />
+                        <img src={`${cdnPath}/static/img/line-chart2.png`} />
                       </div>
                     </div>
                   </div>
@@ -261,7 +262,7 @@ class Index extends React.Component {
                         <FormattedMessage id="content5_6" />
                       </div>
                       <div className="index-carousel-img-wraper">
-                        <img src="/static/img/line-chart2.png" />
+                        <img src={`${cdnPath}/static/img/line-chart2.png`} />
                       </div>
                     </div>
                   </div>
@@ -278,7 +279,7 @@ class Index extends React.Component {
                       <FormattedMessage id="content5_2" />
                     </div>
                     <div className="index-carousel-img-wraper">
-                      <img src="/static/img/line-chart1.png" />
+                      <img src={`${cdnPath}/static/img/line-chart1.png`} />
                     </div>
                   </div>
                 </div>
@@ -290,7 +291,7 @@ class Index extends React.Component {
                       <FormattedMessage id="content5_4" />
                     </div>
                     <div className="index-carousel-img-wraper">
-                      <img src="/static/img/line-chart2.png" />
+                      <img src={`${cdnPath}/static/img/line-chart2.png`} />
                     </div>
                   </div>
                 </div>
@@ -302,7 +303,7 @@ class Index extends React.Component {
                       <FormattedMessage id="content5_6" />
                     </div>
                     <div className="index-carousel-img-wraper">
-                      <img src="/static/img/line-chart2.png" />
+                      <img src={`${cdnPath}/static/img/line-chart2.png`} />
                     </div>
                   </div>
                 </div>

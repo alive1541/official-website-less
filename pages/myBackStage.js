@@ -7,6 +7,10 @@ import { ifLogined, getCookie, getLanguageFromStorage } from "../assets/utils";
 import intl from "../components/intl";
 import { FormattedMessage } from "react-intl";
 import root from "../components/root";
+import getConfig from "next/config";
+const {
+  publicRuntimeConfig: { cdnPath }
+} = getConfig();
 
 import "../style/myBackStage.less";
 
@@ -72,7 +76,7 @@ class MyBackStage extends React.Component {
           {logined && (
             <div className="backstage-flex">
               <div className="backstage-img">
-                <img src="/static/img/phone.png" />
+                <img src={`${cdnPath}/static/img/phone.png`} />
               </div>
               {expireDate === null && (
                 <div className="backStage-phone-content">

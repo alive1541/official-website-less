@@ -1,4 +1,8 @@
 import KinerCode from "./varifyCode.js";
+import getConfig from "next/config";
+const {
+  publicRuntimeConfig: { cdnPath }
+} = getConfig();
 
 export default function(input, ctx) {
   const chars = [
@@ -77,7 +81,7 @@ export default function(input, ctx) {
     //是否允许复制产生的验证码
     bgColor: "",
     //背景颜色[与背景图任选其一设置]
-    bgImg: "/static/img/bg.png",
+    bgImg: `${cdnPath}/static/img/bg.png`,
     //若选择背景图片，则背景颜色失效
     randomBg: false,
     //若选true则采用随机背景颜色，此时设置的bgImg和bgColor将失效

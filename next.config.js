@@ -9,7 +9,7 @@ const themeVariables = lessToJS(
   fs.readFileSync(path.resolve(__dirname, "./assets/antd-custom.less"), "utf8")
 );
 
-module.exports = withLess({
+const webpackConfig = withLess({
   lessLoaderOptions: {
     javascriptEnabled: true,
     modifyVars: themeVariables // make your antd custom effective
@@ -35,6 +35,17 @@ module.exports = withLess({
         use: "null-loader"
       });
     }
+
     return config;
   }
 });
+
+const PATH = "http://18.136.0.180";
+const extConfig = {
+  assetPrefix: PATH,
+  publicRuntimeConfig: {
+    cdnPath: PATH
+  }
+};
+
+module.exports = Object.assign(webpackConfig, extConfig);

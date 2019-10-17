@@ -11,6 +11,10 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import "./style/nav.less";
 import { connect } from "react-redux";
 import Router from "next/router";
+import getConfig from "next/config";
+const {
+  publicRuntimeConfig: { cdnPath }
+} = getConfig();
 
 const { Option } = Select;
 
@@ -116,7 +120,7 @@ class Nav extends React.Component {
       <nav>
         <div className="nav-wraper">
           <div className="logo">
-            <img src="/static/img/logo.png" />
+            <img src={`${cdnPath}/static/img/logo.png`} />
           </div>
           {isMobile && (
             <div className="nav-icon-wrap" onClick={this.handleIconClick}>
