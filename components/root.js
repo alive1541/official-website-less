@@ -5,7 +5,7 @@ import configureStore from "../store/store";
 import { getHistoryData } from "../service";
 import { setTableKey, getClientWidth } from "../assets/utils";
 
-const store = configureStore();
+export const store = configureStore();
 
 function root(WrapedComponent) {
   return class extends React.Component {

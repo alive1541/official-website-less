@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "devs": "npm i && npm run dev",
-    "dev": "NODE_ENV=production next",
+    "dev": "NODE_ENV=development next",
     "build": "next build",
     "start": "next start",
     "send": "sh start.sh"

@@ -42,7 +42,7 @@ class Index extends React.Component {
   };
 
   componentDidMount() {
-    this.handleTokenFromXXBussiness();
+    this.handleUrlParams();
     this.setExpireDate();
     if (ifLogined()) {
       this.getUserInfo();
@@ -60,11 +60,25 @@ class Index extends React.Component {
     }
   }
 
-  handleTokenFromXXBussiness() {
-    const { token } = qs.parse(window.location.search.slice(1));
+  handleUrlParams() {
+    const { token, channelId } = qs.parse(window.location.search.slice(1));
     // console.log(11, qs.parse(window.location.search));
     if (token) {
       setCookie(token);
+    }
+    this.handleChannelId(channelId);
+  }
+
+  handleChannelId(channelId) {
+    try {
+      if (channelId) {
+        this.props.dispatch({ type: "CHANGE_CHANNEL_ID", value: channelId });
+        // localStorage.setItem("channelId", channelId);
+      } else {
+        // localStorage.removeItem("channelId");
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 

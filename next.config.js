@@ -3,6 +3,7 @@ const withLess = require("@zeit/next-less");
 const lessToJS = require("less-vars-to-js");
 const fs = require("fs");
 const path = require("path");
+const isProd = process.env.NODE_ENV === "production";
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
@@ -40,7 +41,7 @@ const webpackConfig = withLess({
   }
 });
 
-const PATH = "http://18.136.0.180";
+const PATH = isProd ? "http://18.136.0.180" : "";
 const extConfig = {
   assetPrefix: PATH,
   publicRuntimeConfig: {

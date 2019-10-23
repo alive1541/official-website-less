@@ -1,5 +1,21 @@
-import { CHANGE_LANGUAGE } from "./types";
+import { CHANGE_LANGUAGE, CHANGE_CHANNEL_ID } from "./types";
 import { combineReducers } from "redux";
+
+const defaultState = {
+  channelId: undefined
+};
+
+export function store(state = defaultState, action) {
+  switch (action.type) {
+    case CHANGE_CHANNEL_ID:
+      return {
+        ...state,
+        channelId: action.value
+      };
+    default:
+      return state;
+  }
+}
 
 export function language(state = "id", action) {
   switch (action.type) {
@@ -11,7 +27,8 @@ export function language(state = "id", action) {
 }
 
 const rootReducer = combineReducers({
-  language
+  language,
+  store
 });
 
 export default rootReducer;

@@ -2,6 +2,7 @@ import { baseApi } from "../service/config";
 import axios from "axios";
 import dayjs from "dayjs";
 import { getCookie } from "../assets/utils";
+import { store } from "../components/root";
 
 export const commonPoint = (type = "common", desc = "未添加描述", element) => {
   try {
@@ -36,11 +37,24 @@ export const commonPoint = (type = "common", desc = "未添加描述", element) 
     if (cookie) {
       options.headers = { token: cookie };
     }
+
+    const channelId = getChannelId();
+    if (channelId) {
+      params.channelId = channelId;
+    }
     axios.post(baseApi + "/device/upload_action_info", params, options);
   } catch (e) {
     console.log(e);
   }
 };
+
+function getChannelId() {
+  const channelId = store.getState().store.channelId;
+  if (channelId) {
+    return channelId;
+  }
+  return undefined;
+}
 
 // function getNaviator() {
 //   const u = navigator.userAgent;

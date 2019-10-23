@@ -160,6 +160,14 @@ class Sign extends React.Component {
     }
   };
 
+  noticeNative() {
+    try {
+      window.registerSuccessfull();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   handleSubmit = e => {
     setTimeout(() => {
       commonPoint("click", "注册按钮", "sign-button");
@@ -178,6 +186,7 @@ class Sign extends React.Component {
         })
           .then(response => {
             if (response.code === 2000) {
+              this.noticeNative();
               this.autoLogin(values.user_name, password);
               // Router.push({
               //   pathname: "/login",
