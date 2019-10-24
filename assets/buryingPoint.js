@@ -19,11 +19,14 @@ export const commonPoint = (type = "common", desc = "未添加描述", element) 
     //只统计移动端数据
     // 添加uuid os
     // var data = tytlnative.getDeviceInfo(); return '{"uuid": "xxxx","os": "android"}'
-    const { uuid, os } = JSON.parse(tytlnative.getDeviceInfo());
-    if (uuid && os) {
-      params.uuid = uuid;
-      params.os = os;
+    if (window.tytlnative) {
+      const { uuid, os } = JSON.parse(window.tytlnative.getDeviceInfo());
+      if (uuid && os) {
+        params.uuid = uuid;
+        params.os = os;
+      }
     }
+
     //获取ip
     if (returnCitySN) {
       params.ip = returnCitySN.cip;
