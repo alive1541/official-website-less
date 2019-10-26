@@ -162,7 +162,7 @@ class Sign extends React.Component {
 
   noticeNative() {
     try {
-      window.registerSuccessfull();
+      window.tytlnative.registerSuccessfull();
     } catch (e) {
       console.log(e);
     }
