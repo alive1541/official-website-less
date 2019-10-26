@@ -61,12 +61,12 @@ class Index extends React.Component {
   }
 
   handleUrlParams() {
-    const { token, channelId } = qs.parse(window.location.search.slice(1));
+    const { token, channel } = qs.parse(window.location.search.slice(1));
     // console.log(11, qs.parse(window.location.search));
     if (token) {
       setCookie(token);
     }
-    this.handleChannelId(channelId);
+    this.handleChannelId(channel);
   }
 
   handleChannelId(channelId) {

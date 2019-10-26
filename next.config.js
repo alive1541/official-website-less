@@ -41,7 +41,7 @@ const webpackConfig = withLess({
   }
 });
 
-const PATH = isProd ? "http://18.136.0.180" : "";
+const PATH = isProd ? "https://sport-wealth.com" : "";
 const extConfig = {
   assetPrefix: PATH,
   publicRuntimeConfig: {
