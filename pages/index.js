@@ -371,7 +371,7 @@ function Footer(props) {
     message.info(messages["content6_10"]);
   }
   return (
-    <div className="index-footer">
+    <div className="index-footer" onClick={rePay}>
       {expireDate === null && (
         <>
           <div className="index-info">
@@ -399,7 +399,7 @@ function Footer(props) {
               <FormattedMessage id="content6_7" />
             </div>
           </div>
-          <div className="index-button" onClick={rePay}>
+          <div className="index-button">
             <FormattedMessage id="content6_8" />
           </div>
         </>
@@ -416,7 +416,7 @@ function Footer(props) {
               <FormattedMessage id="content6_7" />
             </div>
           </div>
-          <div className="index-button" onClick={rePay}>
+          <div className="index-button">
             <FormattedMessage id="content6_8" />
           </div>
         </>
