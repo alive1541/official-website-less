@@ -3,6 +3,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { getCookie } from "../assets/utils";
 import { store } from "../components/root";
+import { assignDeviceInfo } from "./utils";
 
 export const commonPoint = (type = "common", desc = "未添加描述", element) => {
   try {
@@ -10,7 +11,7 @@ export const commonPoint = (type = "common", desc = "未添加描述", element) 
     if (page === "") {
       page = "index";
     }
-    const params = {
+    let params = {
       page,
       bhv_type: type,
       bhv_datetime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
@@ -26,6 +27,8 @@ export const commonPoint = (type = "common", desc = "未添加描述", element) 
         params.os = os;
       }
     }
+    //拼接设备信息
+    params = assignDeviceInfo(params);
 
     //获取ip
     if (returnCitySN) {

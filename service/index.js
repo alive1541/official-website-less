@@ -3,6 +3,7 @@ import { baseApi, xxBussinessApi } from "./config.js";
 import { getCookie } from "../assets/utils";
 import configureStore from "../store/store";
 import { getLanguage } from "../assets/utils";
+import { assignDeviceInfo } from "../assets/utils";
 
 const store = configureStore();
 
@@ -17,6 +18,9 @@ function getLan() {
 }
 
 export async function login(params) {
+  //拼接设备信息
+  params = assignDeviceInfo(params);
+
   return axios.get(baseApi + "/login", {
     params,
     headers: {
@@ -26,6 +30,8 @@ export async function login(params) {
 }
 
 export async function sign(params) {
+  //拼接设备信息
+  params = assignDeviceInfo(params);
   return axios.post(baseApi + "/official/register", params, {
     headers: {
       language: getLan()

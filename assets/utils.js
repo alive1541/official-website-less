@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import enUs from "../intl/en_US.js";
 import zhCn from "../intl/zh_CN.js";
 import id from "../intl/id.js";
+import objectAssign from "object-assign";
 
 export function ifLogined() {
   return Cookies.get("token") !== undefined;
@@ -100,4 +101,26 @@ export function getClientWidth() {
     document.documentElement.clientWidth ||
     document.body.clientWidth
   );
+}
+
+export function getDeviceInfo() {
+  //只统计移动端数据
+  // 添加uuid os
+  // var data = tytlnative.getDeviceInfo(); return '{"uuid": "xxxx","os": "android"}'
+  if (window.tytlnative) {
+    const { uuid, os } = JSON.parse(window.tytlnative.getDeviceInfo());
+    if (uuid && os) {
+      return {
+        uuid,
+        os
+      };
+    }
+  }
+}
+export function assignDeviceInfo(params) {
+  const deviceInfo = getDeviceInfo();
+  if (deviceInfo) {
+    return objectAssign(params, deviceInfo);
+  }
+  return params;
 }
