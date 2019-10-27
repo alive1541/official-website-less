@@ -17,6 +17,7 @@ import root from "../components/root";
 import qs from "qs";
 import { commonPoint } from "../assets/buryingPoint";
 import getConfig from "next/config";
+import SignCom from "../components/inner-component/signCom";
 const {
   publicRuntimeConfig: { cdnPath }
 } = getConfig();
@@ -38,7 +39,9 @@ class Index extends React.Component {
   state = {
     purchaseVisible: false,
     timerNum: 5,
-    expireDate: null
+    expireDate: null,
+    //未登陆用户弹出注册modal
+    signModalVisible: true
   };
 
   componentDidMount() {
@@ -170,16 +173,21 @@ class Index extends React.Component {
     }, 1000);
   };
 
+  closeSignModal = () => {
+    this.setState({ signModalVisible: false });
+  };
+
   render() {
     const {
       isMobile,
+      intl,
       intl: { messages }
     } = this.props;
 
     const {
       purchaseVisible,
       purchaseVisible2,
-      timerNum,
+      signModalVisible,
       expireDate
     } = this.state;
     return (
@@ -357,8 +365,49 @@ class Index extends React.Component {
             </div>
           </Modal>
         }
+        {/*未登录用户注册*/}
+        {!ifLogined() && (
+          <Modal
+            visible={signModalVisible}
+            footer={false}
+            onCancel={this.closeSignModal}
+          >
+            <SignCom title={<SignTitle intl={intl} />} />
+          </Modal>
+        )}
       </div>
     );
+  }
+}
+
+function SignTitle(props) {
+  const {
+    intl: { locale }
+  } = props;
+  switch (locale) {
+    case "en":
+      return (
+        <>
+          <div className="sign-title-base">100 yuan cash upon registration</div>
+        </>
+      );
+    case "zh":
+      return (
+        <>
+          <span className="sign-title-base">注册即得现金</span>
+          <span className="sign-title-big">100元</span>
+        </>
+      );
+    case "id":
+      return (
+        <>
+          <div className="sign-title-base">Dapatkan hadiah uang sebesar</div>
+          <div className="sign-title-big">Rp. 200.000,00</div>
+          <div className="sign-title-base">setelah registrasi</div>
+        </>
+      );
+    default:
+      return "title";
   }
 }
 
