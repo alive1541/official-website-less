@@ -420,9 +420,9 @@ function Footer(props) {
     message.info(messages["content6_10"]);
   }
   return (
-    <div className="index-footer" onClick={rePay}>
+    <>
       {expireDate === null && (
-        <>
+        <div className="index-footer" onClick={ctx.purchase}>
           <div className="index-info">
             <div className="index-top">
               <FormattedMessage id="content6_2" />
@@ -431,13 +431,13 @@ function Footer(props) {
               <FormattedMessage id="content6_3" />
             </div>
           </div>
-          <div className="index-button" onClick={ctx.purchase}>
+          <div className="index-button">
             <FormattedMessage id="content6_4" />
           </div>
-        </>
+        </div>
       )}
       {expireDate && expireDate.type === "atTime" && (
-        <>
+        <div className="index-footer" onClick={rePay}>
           <div className="index-info">
             <div className="index-top">
               <FormattedMessage id="content6_5" />
@@ -451,10 +451,10 @@ function Footer(props) {
           <div className="index-button">
             <FormattedMessage id="content6_8" />
           </div>
-        </>
+        </div>
       )}
       {expireDate && expireDate.type === "overTime" && (
-        <>
+        <div className="index-footer" onClick={rePay}>
           <div className="index-info">
             <div className="index-top">
               <FormattedMessage id="content6_5" />
@@ -468,9 +468,9 @@ function Footer(props) {
           <div className="index-button">
             <FormattedMessage id="content6_8" />
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
