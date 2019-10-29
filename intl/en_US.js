@@ -11,12 +11,12 @@ const id = {
   nav9: "Confirm",
   nav10: "Cancel",
   //index页面
-  info1_1: "Automatic betting arbitrage service",
-  info1_2: "Low risk and high return",
-  info1_3: "Annualized income 36%+",
-  info1_4: "Fully automatic ordering, full hosting",
-  info1_5: "Free trial for the first month",
-  info1_6: "Click the button below to get it!",
+  info1_1: "We are an annual",
+  info1_2: "100% +",
+  info1_3: "financial product",
+  info1_4: "Cash $10 upon completion of registration",
+  info1_5: "Click the button below to register!",
+  info1_6: "The quota is limited. It's up to the end of delivery.",
   title1: "What is your product?",
   content1_1:
     "Our products are information based products that provide opportunity predictions for sports events. By subscribing to our products, you can get professional analysis and recommended strategy, and if you need further assistance, the system can also help you in execution.",

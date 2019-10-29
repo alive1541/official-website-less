@@ -11,12 +11,12 @@ const id = {
   nav9: "Lanjutkan",
   nav10: "Batalkan",
   //index页面
-  info1_1: "Layanan Taruhan secara otomatis! 100% untung!",
-  info1_2: "Resiko rendah dengan keuntungan yang tinggi",
-  info1_3: "Keuntungan pertahun lebih dari 36%",
-  info1_4: "Pemesanan sepenuhnya otomatis, 100% Terpercaya",
-  info1_5: "Gratis untuk bulan pertama",
-  info1_6: "Cepat klik tombol dibawah untuk mendapatkannya!",
+  info1_1: "Keuntungan pertahun lebih dari 100%",
+  info1_2: "Produk Finansial",
+  info1_3: "Cashback sebesar",
+  info1_4: "setelah registrasi",
+  info1_5: "Klik tombol di bawah untuk registrasi!",
+  info1_6: "Cepat bergabung! Kuota terbatas!",
   title1: "Apa aplikasi kalian?",
   content1_1:
     "Aplikasi kami adalah aplikasi yang menyediakan informasi tentang prediksi peluang dalam acara olahraga. Dengan ikut berlangganan dalam aplikasi kami, Anda bisa mendapatkan analisa strategi yang profesional. Jika Anda ingin berpartisipasi lebih, maka sistem juga dapat membantu Anda untuk mengimplementasikannya.",

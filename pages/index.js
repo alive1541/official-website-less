@@ -195,7 +195,7 @@ class Index extends React.Component {
         <Head title="体育套利" />
         <Nav isMobile={isMobile} pathName="index" />
         <div className="index-wraper">
-          <Info isMobile={isMobile} />
+          <Info isMobile={isMobile} intl={intl} />
           <h1>
             <FormattedMessage id="title1" />
           </h1>
@@ -475,35 +475,65 @@ function Footer(props) {
 }
 
 function Info(props) {
-  const { isMobile } = props;
-  if (isMobile) {
-    return (
-      <>
-        <h1>
-          <FormattedMessage id="info1_1" />
-        </h1>
+  const {
+    isMobile,
+    intl: { locale }
+  } = props;
+  console.log(1111, props);
+  function isId() {
+    return locale === "id";
+  }
+  function isZh() {
+    return locale === "zh";
+  }
+  const bigSize = { fontSize: 30 };
+
+  return (
+    <>
+      {!isMobile && (
+        <>
+          <br />
+          <br />
+          <br />
+        </>
+      )}
+      <h1>
+        <FormattedMessage id="info1_1" />
+      </h1>
+
+      {isId() ? (
         <h1>
           <FormattedMessage id="info1_2" />
+          <span style={bigSize}>Rp.200.000</span>
         </h1>
-        <h1>
-          <FormattedMessage id="info1_3" />
+      ) : (
+        <h1 style={bigSize}>
+          <FormattedMessage id="info1_2" />
         </h1>
-        <h1>
-          <FormattedMessage id="info1_4" />
-        </h1>
-        <h1>
-          <FormattedMessage id="info1_5" />
-        </h1>
-        <h1>
-          <FormattedMessage id="info1_6" />
-        </h1>
-        <br />
-        <br />
-        <br />
-      </>
-    );
-  }
-  return null;
+      )}
+      <h1>
+        <FormattedMessage id="info1_3" />
+      </h1>
+      <h1>
+        <FormattedMessage id="info1_4" />
+        {isZh() && (
+          <>
+            <span style={bigSize}>100</span>
+            <span>元</span>
+          </>
+        )}
+      </h1>
+      <h1>
+        <FormattedMessage id="info1_5" />
+      </h1>
+      <h1>
+        <FormattedMessage id="info1_6" />
+      </h1>
+      <br />
+      <br />
+      <br />
+    </>
+  );
 }
 
 export default root(intl(injectIntl(Index)));
